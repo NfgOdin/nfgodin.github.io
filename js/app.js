@@ -103,50 +103,90 @@ class App {
   }
 
   initHomeLayers() {
+    this.homeLayerHistory = ['root'];
     const cardApps = document.getElementById('card-open-apps');
     const cardModding = document.getElementById('card-open-modding');
+    const cardPython = document.getElementById('card-open-python');
     const backBtn = document.getElementById('home-back-btn');
 
     if (cardApps) {
-      cardApps.addEventListener('click', () => this.showHomeLayer('applications', 'Applications'));
+      cardApps.addEventListener('click', () => this.navigateToHomeLayer('applications', 'Applications'));
     }
 
     if (cardModding) {
-      cardModding.addEventListener('click', () => this.showHomeLayer('modding', 'Modding'));
+      cardModding.addEventListener('click', () => this.navigateToHomeLayer('modding', 'Modding'));
+    }
+
+    if (cardPython) {
+      cardPython.addEventListener('click', () => this.navigateToHomeLayer('python', 'Applications > Python'));
     }
 
     if (backBtn) {
-      backBtn.addEventListener('click', () => this.showHomeLayer('root'));
+      backBtn.addEventListener('click', () => this.navigateBackHomeLayer());
     }
   }
 
-  showHomeLayer(layerId, title = '') {
+  navigateToHomeLayer(layerId, title = '') {
+    if (!this.homeLayerHistory) this.homeLayerHistory = ['root'];
+    this.homeLayerHistory.push({ layerId, title });
+    this.renderHomeLayer(layerId, title);
+  }
+
+  navigateBackHomeLayer() {
+    if (!this.homeLayerHistory || this.homeLayerHistory.length <= 1) {
+      this.homeLayerHistory = ['root'];
+      this.renderHomeLayer('root');
+      return;
+    }
+
+    this.homeLayerHistory.pop();
+    const prev = this.homeLayerHistory[this.homeLayerHistory.length - 1];
+    if (prev === 'root' || !prev) {
+      this.renderHomeLayer('root');
+    } else {
+      this.renderHomeLayer(prev.layerId, prev.title);
+    }
+  }
+
+  renderHomeLayer(layerId, title = '') {
     const rootLayer = document.getElementById('home-layer-root');
     const appsLayer = document.getElementById('layer-applications');
     const moddingLayer = document.getElementById('layer-modding');
+    const pythonLayer = document.getElementById('layer-python');
     const layerNav = document.getElementById('home-layer-nav');
     const layerTitle = document.getElementById('home-layer-title');
 
     if (!rootLayer) return;
 
+    // Hide all layers initially
+    rootLayer.style.display = 'none';
+    if (appsLayer) appsLayer.style.display = 'none';
+    if (moddingLayer) moddingLayer.style.display = 'none';
+    if (pythonLayer) pythonLayer.style.display = 'none';
+
     if (layerId === 'root') {
       rootLayer.style.display = 'grid';
-      if (appsLayer) appsLayer.style.display = 'none';
-      if (moddingLayer) moddingLayer.style.display = 'none';
       if (layerNav) layerNav.style.display = 'none';
-    } else if (layerId === 'applications') {
-      rootLayer.style.display = 'none';
-      if (appsLayer) appsLayer.style.display = 'grid';
-      if (moddingLayer) moddingLayer.style.display = 'none';
+    } else {
       if (layerNav) layerNav.style.display = 'flex';
       if (layerTitle) layerTitle.textContent = title;
-    } else if (layerId === 'modding') {
-      rootLayer.style.display = 'none';
-      if (appsLayer) appsLayer.style.display = 'none';
-      if (moddingLayer) moddingLayer.style.display = 'grid';
-      if (layerNav) layerNav.style.display = 'flex';
-      if (layerTitle) layerTitle.textContent = title;
+
+      if (layerId === 'applications' && appsLayer) {
+        appsLayer.style.display = 'grid';
+      } else if (layerId === 'modding' && moddingLayer) {
+        moddingLayer.style.display = 'grid';
+      } else if (layerId === 'python' && pythonLayer) {
+        pythonLayer.style.display = 'grid';
+      }
     }
+  }
+
+  showHomeLayer(layerId, title = '') {
+    this.homeLayerHistory = ['root'];
+    if (layerId !== 'root') {
+      this.homeLayerHistory.push({ layerId, title });
+    }
+    this.renderHomeLayer(layerId, title);
   }
 
   initDonationModal() {

@@ -114,17 +114,17 @@
 
           <!-- Layer 2A: Inside Applications (Python & Pi 5) -->
           <div id="layer-applications" class="portal-cards-grid" style="display: none; margin-top: 1rem;">
-            <!-- Python Card -->
-            <a href="#/projects/software/desktop" class="portal-card">
+            <!-- Python Card (Click opens Python cards layer) -->
+            <div class="portal-card" id="card-open-python" style="cursor: pointer;">
               <div class="portal-icon" style="color: var(--accent-cyan); background: rgba(56, 189, 248, 0.1); border-color: rgba(56, 189, 248, 0.25);">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
               </div>
               <h2 class="portal-title">Python</h2>
               <p class="portal-desc">
-                Cross-platform Python applications, 3D vector CAD systems (RuneBox), and acoustics engineering software.
+                Cross-platform Python applications, mod managers, 3D CAD engines, and reverse-engineering utilities.
               </p>
-              <span class="portal-action">View Python Projects &rarr;</span>
-            </a>
+              <span class="portal-action">Explore Python Apps &rarr;</span>
+            </div>
 
             <!-- Pi 5 Card -->
             <a href="#/projects/software/raspberry-pi" class="portal-card">
@@ -136,6 +136,23 @@
                 Hardware interfaces, embedded Linux controllers, and daemon management suites for the Raspberry Pi 5.
               </p>
               <span class="portal-action">View Pi 5 Projects &rarr;</span>
+            </a>
+          </div>
+
+          <!-- Layer 3: Inside Python (Apps with preview image cards) -->
+          <div id="layer-python" class="portal-cards-grid" style="display: none; margin-top: 1rem;">
+            <!-- Spira Mod Manager Image Card -->
+            <a href="https://www.nexusmods.com/finalfantasyxx2hdremaster/mods/327" target="_blank" rel="noopener noreferrer" class="portal-card portal-media-card">
+              <div class="portal-card-media">
+                <img src="assets/images/spira-mod-manager.png" alt="Spira Mod Manager Preview" loading="lazy">
+              </div>
+              <div class="portal-card-body">
+                <h2 class="portal-title">Spira Mod Manager</h2>
+                <p class="portal-desc">
+                  Final Fantasy X and X-2 HD Remastered Mod Manager featuring profile control, priority sorting, conflict detection, and VFS loading.
+                </p>
+                <span class="portal-action">View on Nexus Mods &rarr;</span>
+              </div>
             </a>
           </div>
 
@@ -368,6 +385,6 @@
   </div>
 
   <!-- Core JavaScript Module -->
-  <script type="module" src="js/app.js?v=21"></script>
+  <script type="module" src="js/app.js?v=22"></script>
 </body>
 </html>
