@@ -187,8 +187,8 @@
 
           <!-- Layer 2B: Inside Modding (Tools & Mods) -->
           <div id="layer-modding" class="portal-cards-grid" style="display: none; margin-top: 1rem;">
-            <!-- Tools Card -->
-            <a href="#/projects/modding/tools" class="portal-card">
+            <!-- Tools Card (Click opens Tools Categories Layer) -->
+            <div class="portal-card" id="card-open-tools" style="cursor: pointer;">
               <div class="portal-icon" style="color: var(--accent-orange, #f97316); background: rgba(249, 115, 22, 0.1); border-color: rgba(249, 115, 22, 0.25);">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
               </div>
@@ -196,8 +196,8 @@
               <p class="portal-desc">
                 Custom unpackers, 3D glTF Phyre extractors, Sphere Grid editors, archive converters, and modding utilities.
               </p>
-              <span class="portal-action">View Modding Tools &rarr;</span>
-            </a>
+              <span class="portal-action">Browse Modding Tools &rarr;</span>
+            </div>
 
             <!-- Mods Card (Click opens Game selection layer) -->
             <div class="portal-card" id="card-open-mods" style="cursor: pointer;">
@@ -844,6 +844,255 @@
               </div>
             </div>
           </div>
+
+          <!-- Layer 3D: Inside Modding Tools (Game Categories: FFX / X-2 and FFVII) -->
+          <div id="layer-tools-categories" class="portal-cards-grid" style="display: none; margin-top: 1rem;">
+            <!-- Final Fantasy X / X-2 Tools Card -->
+            <div class="portal-card" id="card-open-tools-ffx" style="cursor: pointer;">
+              <div class="portal-icon" style="color: #34d399; background: rgba(52, 211, 153, 0.1); border-color: rgba(52, 211, 153, 0.25);">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+              </div>
+              <h2 class="portal-title">Final Fantasy X / X-2 HD Remaster</h2>
+              <p class="portal-desc">
+                Mod managers, Sphere Grid visual editors, PhyreEngine 3D glTF extractors, audio converters, and AI inspectors.
+              </p>
+              <span class="portal-action">View FFX Tools &rarr;</span>
+            </div>
+
+            <!-- Final Fantasy VII Tools Card -->
+            <div class="portal-card" id="card-open-tools-ff7" style="cursor: pointer;">
+              <div class="portal-icon" style="color: #60a5fa; background: rgba(96, 165, 250, 0.1); border-color: rgba(96, 165, 250, 0.25);">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m9.17 14.83-4.24 4.24"/></svg>
+              </div>
+              <h2 class="portal-title">Final Fantasy VII</h2>
+              <p class="portal-desc">
+                Native C++ mod loaders, 7th Heaven archive converters, asset packers, and Steam edition authoring tools.
+              </p>
+              <span class="portal-action">View FFVII Tools &rarr;</span>
+            </div>
+          </div>
+
+          <!-- Layer 4G: Inside Final Fantasy X / X-2 Tools -->
+          <div id="layer-tools-ffx" class="portal-cards-grid media-grid" style="display: none; margin-top: 1rem;">
+            <!-- Spira Mod Manager -->
+            <div class="portal-card portal-media-card" style="cursor: pointer;" onclick="if (!event.target.closest('.portal-download-btn')) window.open('https://www.nexusmods.com/finalfantasyxx2hdremaster/mods/327', '_blank', 'noopener,noreferrer')">
+              <div class="portal-card-media">
+                <img src="pictures/spira-mod-manager-preview.png" alt="Spira Mod Manager Preview" loading="lazy">
+              </div>
+              <div class="portal-card-body">
+                <div style="display: flex; gap: 0.4rem; margin-bottom: 0.6rem; flex-wrap: wrap;">
+                  <span class="filter-game-badge" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border-color: rgba(56, 189, 248, 0.3);">Mod Manager</span>
+                  <span class="filter-game-badge" style="background: rgba(52, 211, 153, 0.15); color: #34d399; border-color: rgba(52, 211, 153, 0.3);">Python</span>
+                </div>
+                <h2 class="portal-title">Spira Mod Manager</h2>
+                <p class="portal-desc">
+                  Final Fantasy X and X-2 HD Remastered Mod Manager featuring profile control, priority sorting, conflict detection, and VFS loading.
+                </p>
+                <div class="portal-card-footer">
+                  <span class="portal-action">Nexus Page &rarr;</span>
+                  <a href="https://github.com/odinj2010/FFX-Mod-Manager/releases/latest/download/SpiraMM.rar" target="_blank" rel="noopener noreferrer" class="portal-download-btn" title="Download Latest Release (SpiraMM.rar)">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <span>Download</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- FFX Sphere Grid Tool -->
+            <div class="portal-card portal-media-card" style="cursor: pointer;" onclick="if (!event.target.closest('.portal-download-btn')) window.open('https://github.com/odinj2010/FFX_Sphere_Grid_Tool', '_blank', 'noopener,noreferrer')">
+              <div class="portal-card-media" style="background: linear-gradient(135deg, #134e4a, #042f2e);">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#2dd4bf" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="4.93" y1="4.93" x2="9.17" y2="9.17"/><line x1="14.83" y1="14.83" x2="19.07" y2="19.07"/><line x1="14.83" y1="9.17" x2="19.07" y2="4.93"/><line x1="4.93" y1="19.07" x2="9.17" y2="14.83"/></svg>
+              </div>
+              <div class="portal-card-body">
+                <div style="display: flex; gap: 0.4rem; margin-bottom: 0.6rem; flex-wrap: wrap;">
+                  <span class="filter-game-badge" style="background: rgba(45, 212, 191, 0.15); color: #2dd4bf; border-color: rgba(45, 212, 191, 0.3);">Sphere Grid</span>
+                  <span class="filter-game-badge" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border-color: rgba(56, 189, 248, 0.3);">Python</span>
+                </div>
+                <h2 class="portal-title">FFX Sphere Grid Tool</h2>
+                <p class="portal-desc">
+                  Specialized visual editor and binary parser for the iconic Final Fantasy X Sphere Grid layout, character paths, and stat nodes.
+                </p>
+                <div class="portal-card-footer">
+                  <span class="portal-action">GitHub Repo &rarr;</span>
+                  <a href="https://github.com/odinj2010/FFX_Sphere_Grid_Tool/archive/refs/heads/main.zip" target="_blank" rel="noopener noreferrer" class="portal-download-btn" title="Download Source ZIP">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <span>Download</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- FFX Phyre Tool -->
+            <div class="portal-card portal-media-card" style="cursor: pointer;" onclick="if (!event.target.closest('.portal-download-btn')) window.open('https://www.nexusmods.com/finalfantasyxx2hdremaster/mods/315', '_blank', 'noopener,noreferrer')">
+              <div class="portal-card-media" style="background: linear-gradient(135deg, #1e3a8a, #0f172a);">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="1.8"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+              </div>
+              <div class="portal-card-body">
+                <div style="display: flex; gap: 0.4rem; margin-bottom: 0.6rem; flex-wrap: wrap;">
+                  <span class="filter-game-badge" style="background: rgba(96, 165, 250, 0.15); color: #60a5fa; border-color: rgba(96, 165, 250, 0.3);">3D glTF 2.0</span>
+                  <span class="filter-game-badge" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border-color: rgba(245, 158, 11, 0.3);">PhyreEngine</span>
+                </div>
+                <h2 class="portal-title">FFX Phyre Tool</h2>
+                <p class="portal-desc">
+                  High-performance extractor and compiler for PhyreEngine binary model archives and textures directly into modern glTF 2.0 format.
+                </p>
+                <div class="portal-card-footer">
+                  <span class="portal-action">Nexus Page &rarr;</span>
+                  <a href="https://www.nexusmods.com/finalfantasyxx2hdremaster/mods/315?tab=files" target="_blank" rel="noopener noreferrer" class="portal-download-btn" title="Download on Nexus Mods">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <span>Download</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- FFX Audio Tool -->
+            <div class="portal-card portal-media-card" style="cursor: pointer;" onclick="if (!event.target.closest('.portal-download-btn')) window.open('https://github.com/odinj2010/FFX_Audio_Tool', '_blank', 'noopener,noreferrer')">
+              <div class="portal-card-media" style="background: linear-gradient(135deg, #312e81, #1e1b4b);">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#a5b4fc" stroke-width="1.8"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+              </div>
+              <div class="portal-card-body">
+                <div style="display: flex; gap: 0.4rem; margin-bottom: 0.6rem; flex-wrap: wrap;">
+                  <span class="filter-game-badge" style="background: rgba(165, 180, 252, 0.15); color: #a5b4fc; border-color: rgba(165, 180, 252, 0.3);">Audio Banks</span>
+                  <span class="filter-game-badge" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border-color: rgba(56, 189, 248, 0.3);">Python</span>
+                </div>
+                <h2 class="portal-title">FFX Audio Tool</h2>
+                <p class="portal-desc">
+                  Stream extraction and conversion tool for proprietary audio banks inside Final Fantasy X / X-2 HD Remaster.
+                </p>
+                <div class="portal-card-footer">
+                  <span class="portal-action">GitHub Repo &rarr;</span>
+                  <a href="https://github.com/odinj2010/FFX_Audio_Tool/archive/refs/heads/main.zip" target="_blank" rel="noopener noreferrer" class="portal-download-btn" title="Download Source ZIP">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <span>Download</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- FFX Shop Tool -->
+            <div class="portal-card portal-media-card" style="cursor: pointer;" onclick="if (!event.target.closest('.portal-download-btn')) window.open('https://github.com/odinj2010/FFX_Shop_Tool', '_blank', 'noopener,noreferrer')">
+              <div class="portal-card-media" style="background: linear-gradient(135deg, #713f12, #451a03);">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#fde047" stroke-width="1.8"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+              </div>
+              <div class="portal-card-body">
+                <div style="display: flex; gap: 0.4rem; margin-bottom: 0.6rem; flex-wrap: wrap;">
+                  <span class="filter-game-badge" style="background: rgba(253, 224, 71, 0.15); color: #fde047; border-color: rgba(253, 224, 71, 0.3);">Shop Tables</span>
+                  <span class="filter-game-badge" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border-color: rgba(56, 189, 248, 0.3);">Python</span>
+                </div>
+                <h2 class="portal-title">FFX Shop Tool</h2>
+                <p class="portal-desc">
+                  Binary data parser and inventory editor for shop tables, prices, and merchants in Final Fantasy X.
+                </p>
+                <div class="portal-card-footer">
+                  <span class="portal-action">GitHub Repo &rarr;</span>
+                  <a href="https://github.com/odinj2010/FFX_Shop_Tool/archive/refs/heads/main.zip" target="_blank" rel="noopener noreferrer" class="portal-download-btn" title="Download Source ZIP">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <span>Download</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- FFX AI Tool -->
+            <div class="portal-card portal-media-card" style="cursor: pointer;" onclick="if (!event.target.closest('.portal-download-btn')) window.open('https://github.com/odinj2010/FFX_AI_Tool', '_blank', 'noopener,noreferrer')">
+              <div class="portal-card-media" style="background: linear-gradient(135deg, #701a75, #4a044e);">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#f472b6" stroke-width="1.8"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 9h6v6H9z"/></svg>
+              </div>
+              <div class="portal-card-body">
+                <div style="display: flex; gap: 0.4rem; margin-bottom: 0.6rem; flex-wrap: wrap;">
+                  <span class="filter-game-badge" style="background: rgba(244, 114, 182, 0.15); color: #f472b6; border-color: rgba(244, 114, 182, 0.3);">Enemy AI</span>
+                  <span class="filter-game-badge" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border-color: rgba(56, 189, 248, 0.3);">Decompiler</span>
+                </div>
+                <h2 class="portal-title">FFX AI Tool</h2>
+                <p class="portal-desc">
+                  Bytecode decompiler and behavior script inspector for battle enemy AI routines in Final Fantasy X.
+                </p>
+                <div class="portal-card-footer">
+                  <span class="portal-action">GitHub Repo &rarr;</span>
+                  <a href="https://github.com/odinj2010/FFX_AI_Tool/archive/refs/heads/main.zip" target="_blank" rel="noopener noreferrer" class="portal-download-btn" title="Download Source ZIP">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <span>Download</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Layer 4H: Inside Final Fantasy VII Tools -->
+          <div id="layer-tools-ff7" class="portal-cards-grid media-grid" style="display: none; margin-top: 1rem;">
+            <!-- Final Fantasy VII Mod Loader (Native) -->
+            <div class="portal-card portal-media-card" style="cursor: pointer;" onclick="if (!event.target.closest('.portal-download-btn')) window.open('https://www.nexusmods.com/finalfantasy7/mods/157', '_blank', 'noopener,noreferrer')">
+              <div class="portal-card-media" style="background: linear-gradient(135deg, #1e3a8a, #0f172a);">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="1.8"><polygon points="6 2 18 2 18 6 6 6 6 2"/><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="6" x2="6.01" y1="13" y2="13"/><line x1="10" x2="10.01" y1="13" y2="13"/><line x1="15" x2="19" y1="12" y2="12"/><line x1="17" x2="17" y1="10" y2="14"/></svg>
+              </div>
+              <div class="portal-card-body">
+                <div style="display: flex; gap: 0.4rem; margin-bottom: 0.6rem; flex-wrap: wrap;">
+                  <span class="filter-game-badge" style="background: rgba(96, 165, 250, 0.15); color: #60a5fa; border-color: rgba(96, 165, 250, 0.3);">Mod Loader</span>
+                  <span class="filter-game-badge" style="background: rgba(52, 211, 153, 0.15); color: #34d399; border-color: rgba(52, 211, 153, 0.3);">C++ / Win32</span>
+                </div>
+                <h2 class="portal-title">FFVIISE Mod Loader</h2>
+                <p class="portal-desc">
+                  Lightweight, high-performance native mod loader for the Final Fantasy VII Steam Edition re-release, bypassing third-party overhead.
+                </p>
+                <div class="portal-card-footer">
+                  <span class="portal-action">Nexus Page &rarr;</span>
+                  <a href="https://www.nexusmods.com/finalfantasy7/mods/157?tab=files" target="_blank" rel="noopener noreferrer" class="portal-download-btn" title="Download on Nexus Mods">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <span>Download</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- 7th Heaven to FFVIISE Mod Loader Converter -->
+            <div class="portal-card portal-media-card" style="cursor: pointer;" onclick="if (!event.target.closest('.portal-download-btn')) window.open('https://www.nexusmods.com/finalfantasy7/mods/161', '_blank', 'noopener,noreferrer')">
+              <div class="portal-card-media" style="background: linear-gradient(135deg, #1e1b4b, #0f172a);">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="1.8"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg>
+              </div>
+              <div class="portal-card-body">
+                <div style="display: flex; gap: 0.4rem; margin-bottom: 0.6rem; flex-wrap: wrap;">
+                  <span class="filter-game-badge" style="background: rgba(168, 85, 247, 0.15); color: #c084fc; border-color: rgba(168, 85, 247, 0.3);">Converter</span>
+                  <span class="filter-game-badge" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border-color: rgba(56, 189, 248, 0.3);">Python</span>
+                </div>
+                <h2 class="portal-title">7th Heaven to FFVIISE Converter</h2>
+                <p class="portal-desc">
+                  Automated archive extraction and conversion utility translating legacy 7th Heaven .iro files into native unpacked folder structures.
+                </p>
+                <div class="portal-card-footer">
+                  <span class="portal-action">Nexus Page &rarr;</span>
+                  <a href="https://www.nexusmods.com/finalfantasy7/mods/161?tab=files" target="_blank" rel="noopener noreferrer" class="portal-download-btn" title="Download on Nexus Mods">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <span>Download</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- FFVIISE Modding Tool -->
+            <div class="portal-card portal-media-card" style="cursor: pointer;" onclick="if (!event.target.closest('.portal-download-btn')) window.open('https://github.com/odinj2010/FFVIISE_Modding_Tool', '_blank', 'noopener,noreferrer')">
+              <div class="portal-card-media" style="background: linear-gradient(135deg, #1f2937, #111827);">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.8"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+              </div>
+              <div class="portal-card-body">
+                <div style="display: flex; gap: 0.4rem; margin-bottom: 0.6rem; flex-wrap: wrap;">
+                  <span class="filter-game-badge" style="background: rgba(156, 163, 175, 0.15); color: #d1d5db; border-color: rgba(156, 163, 175, 0.3);">Asset Packing</span>
+                  <span class="filter-game-badge" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border-color: rgba(56, 189, 248, 0.3);">Python</span>
+                </div>
+                <h2 class="portal-title">FFVIISE Modding Tool</h2>
+                <p class="portal-desc">
+                  Dedicated authoring and packing tool for configuring mods targeting the 2026 Steam edition of Final Fantasy VII.
+                </p>
+                <div class="portal-card-footer">
+                  <span class="portal-action">GitHub Repo &rarr;</span>
+                  <a href="https://github.com/odinj2010/FFVIISE_Modding_Tool/archive/refs/heads/main.zip" target="_blank" rel="noopener noreferrer" class="portal-download-btn" title="Download Source ZIP">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <span>Download</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
         </section>
       </div>
     </div>
@@ -1047,6 +1296,6 @@
   </div>
 
   <!-- Core JavaScript Module -->
-  <script type="module" src="js/app.js?v=26"></script>
+  <script type="module" src="js/app.js?v=27"></script>
 </body>
 </html>

@@ -120,6 +120,21 @@ class App {
       cardModding.addEventListener('click', () => this.navigateToHomeLayer('modding', 'Modding'));
     }
 
+    const cardTools = document.getElementById('card-open-tools');
+    if (cardTools) {
+      cardTools.addEventListener('click', () => this.navigateToHomeLayer('tools-categories', 'Modding > Tools'));
+    }
+
+    const cardToolsFfx = document.getElementById('card-open-tools-ffx');
+    if (cardToolsFfx) {
+      cardToolsFfx.addEventListener('click', () => this.navigateToHomeLayer('tools-ffx', 'Modding > Tools > Final Fantasy X / X-2'));
+    }
+
+    const cardToolsFf7 = document.getElementById('card-open-tools-ff7');
+    if (cardToolsFf7) {
+      cardToolsFf7.addEventListener('click', () => this.navigateToHomeLayer('tools-ff7', 'Modding > Tools > Final Fantasy VII'));
+    }
+
     if (cardMods) {
       cardMods.addEventListener('click', () => this.navigateToHomeLayer('mods-games', 'Modding > Games'));
     }
@@ -249,6 +264,9 @@ class App {
     const ff8Layer = document.getElementById('layer-game-ff8');
     const ffxLayer = document.getElementById('layer-game-ffx');
     const skyrimLayer = document.getElementById('layer-game-skyrim');
+    const toolsCategoriesLayer = document.getElementById('layer-tools-categories');
+    const toolsFfxLayer = document.getElementById('layer-tools-ffx');
+    const toolsFf7Layer = document.getElementById('layer-tools-ff7');
     const pythonLayer = document.getElementById('layer-python');
     const pi5Layer = document.getElementById('layer-pi5');
     const layerNav = document.getElementById('home-layer-nav');
@@ -267,6 +285,9 @@ class App {
     if (ff8Layer) ff8Layer.style.display = 'none';
     if (ffxLayer) ffxLayer.style.display = 'none';
     if (skyrimLayer) skyrimLayer.style.display = 'none';
+    if (toolsCategoriesLayer) toolsCategoriesLayer.style.display = 'none';
+    if (toolsFfxLayer) toolsFfxLayer.style.display = 'none';
+    if (toolsFf7Layer) toolsFf7Layer.style.display = 'none';
     if (pythonLayer) pythonLayer.style.display = 'none';
     if (pi5Layer) pi5Layer.style.display = 'none';
 
@@ -283,6 +304,12 @@ class App {
         moddingLayer.style.display = 'grid';
       } else if (layerId === 'mods-games' && modsGamesLayer) {
         modsGamesLayer.style.display = 'grid';
+      } else if (layerId === 'tools-categories' && toolsCategoriesLayer) {
+        toolsCategoriesLayer.style.display = 'grid';
+      } else if (layerId === 'tools-ffx' && toolsFfxLayer) {
+        toolsFfxLayer.style.display = 'grid';
+      } else if (layerId === 'tools-ff7' && toolsFf7Layer) {
+        toolsFf7Layer.style.display = 'grid';
       } else if (layerId === 'minecraft' && minecraftLayer) {
         minecraftLayer.style.display = 'block';
         // Reset minecraft filters to All on enter
