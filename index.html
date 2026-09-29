@@ -126,8 +126,8 @@
               <span class="portal-action">Explore Python Apps &rarr;</span>
             </div>
 
-            <!-- Pi 5 Card -->
-            <a href="#/projects/software/raspberry-pi" class="portal-card">
+            <!-- Pi 5 Card (Click opens Pi 5 cards layer) -->
+            <div class="portal-card" id="card-open-pi5" style="cursor: pointer;">
               <div class="portal-icon" style="color: var(--accent-purple); background: rgba(168, 85, 247, 0.1); border-color: rgba(168, 85, 247, 0.25);">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
               </div>
@@ -135,11 +135,11 @@
               <p class="portal-desc">
                 Hardware interfaces, embedded Linux controllers, and daemon management suites for the Raspberry Pi 5.
               </p>
-              <span class="portal-action">View Pi 5 Projects &rarr;</span>
-            </a>
+              <span class="portal-action">Explore Pi 5 Software &rarr;</span>
+            </div>
           </div>
 
-          <!-- Layer 3: Inside Python (Apps with preview image cards) -->
+          <!-- Layer 3A: Inside Python (Apps with preview image cards) -->
           <div id="layer-python" class="portal-cards-grid media-grid" style="display: none; margin-top: 1rem;">
             <!-- Spira Mod Manager Image Card -->
             <a href="https://www.nexusmods.com/finalfantasyxx2hdremaster/mods/327" target="_blank" rel="noopener noreferrer" class="portal-card portal-media-card">
@@ -152,6 +152,23 @@
                   Final Fantasy X and X-2 HD Remastered Mod Manager featuring profile control, priority sorting, conflict detection, and VFS loading.
                 </p>
                 <span class="portal-action">View on Nexus Mods &rarr;</span>
+              </div>
+            </a>
+          </div>
+
+          <!-- Layer 3B: Inside Pi 5 (Software with preview image cards) -->
+          <div id="layer-pi5" class="portal-cards-grid media-grid" style="display: none; margin-top: 1rem;">
+            <!-- SBC-Core Image Card -->
+            <a href="https://github.com/odinj2010/SBC-Core" target="_blank" rel="noopener noreferrer" class="portal-card portal-media-card">
+              <div class="portal-card-media">
+                <img src="assets/images/sbc-core.svg" alt="SBC-Core Raspberry Pi 5 Preview" loading="lazy">
+              </div>
+              <div class="portal-card-body">
+                <h2 class="portal-title">SBC-Core</h2>
+                <p class="portal-desc">
+                  Core utility suite, daemon controller, and low-level hardware interface system built specifically for Raspberry Pi 5 single-board environments.
+                </p>
+                <span class="portal-action">View on GitHub &rarr;</span>
               </div>
             </a>
           </div>
@@ -385,6 +402,6 @@
   </div>
 
   <!-- Core JavaScript Module -->
-  <script type="module" src="js/app.js?v=22"></script>
+  <script type="module" src="js/app.js?v=23"></script>
 </body>
 </html>

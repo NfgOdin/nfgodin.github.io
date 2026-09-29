@@ -107,6 +107,7 @@ class App {
     const cardApps = document.getElementById('card-open-apps');
     const cardModding = document.getElementById('card-open-modding');
     const cardPython = document.getElementById('card-open-python');
+    const cardPi5 = document.getElementById('card-open-pi5');
     const backBtn = document.getElementById('home-back-btn');
 
     if (cardApps) {
@@ -119,6 +120,10 @@ class App {
 
     if (cardPython) {
       cardPython.addEventListener('click', () => this.navigateToHomeLayer('python', 'Applications > Python'));
+    }
+
+    if (cardPi5) {
+      cardPi5.addEventListener('click', () => this.navigateToHomeLayer('pi5', 'Applications > Pi 5'));
     }
 
     if (backBtn) {
@@ -153,6 +158,7 @@ class App {
     const appsLayer = document.getElementById('layer-applications');
     const moddingLayer = document.getElementById('layer-modding');
     const pythonLayer = document.getElementById('layer-python');
+    const pi5Layer = document.getElementById('layer-pi5');
     const layerNav = document.getElementById('home-layer-nav');
     const layerTitle = document.getElementById('home-layer-title');
 
@@ -163,6 +169,7 @@ class App {
     if (appsLayer) appsLayer.style.display = 'none';
     if (moddingLayer) moddingLayer.style.display = 'none';
     if (pythonLayer) pythonLayer.style.display = 'none';
+    if (pi5Layer) pi5Layer.style.display = 'none';
 
     if (layerId === 'root') {
       rootLayer.style.display = 'grid';
@@ -177,6 +184,8 @@ class App {
         moddingLayer.style.display = 'grid';
       } else if (layerId === 'python' && pythonLayer) {
         pythonLayer.style.display = 'grid';
+      } else if (layerId === 'pi5' && pi5Layer) {
+        pi5Layer.style.display = 'grid';
       }
     }
   }
