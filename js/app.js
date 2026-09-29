@@ -128,6 +128,31 @@ class App {
       cardMinecraft.addEventListener('click', () => this.navigateToHomeLayer('minecraft', 'Modding > Games > Minecraft'));
     }
 
+    const cardFf7 = document.getElementById('card-open-game-ff7');
+    if (cardFf7) {
+      cardFf7.addEventListener('click', () => this.navigateToHomeLayer('game-ff7', 'Modding > Games > Final Fantasy VII'));
+    }
+
+    const cardFf7r = document.getElementById('card-open-game-ff7r');
+    if (cardFf7r) {
+      cardFf7r.addEventListener('click', () => this.navigateToHomeLayer('game-ff7r', 'Modding > Games > Final Fantasy VII Remake'));
+    }
+
+    const cardFf8 = document.getElementById('card-open-game-ff8');
+    if (cardFf8) {
+      cardFf8.addEventListener('click', () => this.navigateToHomeLayer('game-ff8', 'Modding > Games > Final Fantasy VIII'));
+    }
+
+    const cardFfx = document.getElementById('card-open-game-ffx');
+    if (cardFfx) {
+      cardFfx.addEventListener('click', () => this.navigateToHomeLayer('game-ffx', 'Modding > Games > Final Fantasy X'));
+    }
+
+    const cardSkyrim = document.getElementById('card-open-game-skyrim');
+    if (cardSkyrim) {
+      cardSkyrim.addEventListener('click', () => this.navigateToHomeLayer('game-skyrim', 'Modding > Games > Skyrim SE'));
+    }
+
     if (cardPython) {
       cardPython.addEventListener('click', () => this.navigateToHomeLayer('python', 'Applications > Python'));
     }
@@ -219,6 +244,11 @@ class App {
     const moddingLayer = document.getElementById('layer-modding');
     const modsGamesLayer = document.getElementById('layer-mods-games');
     const minecraftLayer = document.getElementById('layer-minecraft');
+    const ff7Layer = document.getElementById('layer-game-ff7');
+    const ff7rLayer = document.getElementById('layer-game-ff7r');
+    const ff8Layer = document.getElementById('layer-game-ff8');
+    const ffxLayer = document.getElementById('layer-game-ffx');
+    const skyrimLayer = document.getElementById('layer-game-skyrim');
     const pythonLayer = document.getElementById('layer-python');
     const pi5Layer = document.getElementById('layer-pi5');
     const layerNav = document.getElementById('home-layer-nav');
@@ -232,6 +262,11 @@ class App {
     if (moddingLayer) moddingLayer.style.display = 'none';
     if (modsGamesLayer) modsGamesLayer.style.display = 'none';
     if (minecraftLayer) minecraftLayer.style.display = 'none';
+    if (ff7Layer) ff7Layer.style.display = 'none';
+    if (ff7rLayer) ff7rLayer.style.display = 'none';
+    if (ff8Layer) ff8Layer.style.display = 'none';
+    if (ffxLayer) ffxLayer.style.display = 'none';
+    if (skyrimLayer) skyrimLayer.style.display = 'none';
     if (pythonLayer) pythonLayer.style.display = 'none';
     if (pi5Layer) pi5Layer.style.display = 'none';
 
@@ -258,6 +293,16 @@ class App {
           document.querySelectorAll('.mc-filter-loader').forEach(b => b.classList.toggle('active', b.getAttribute('data-loader') === 'All'));
           this.applyMinecraftFilters();
         }
+      } else if (layerId === 'game-ff7' && ff7Layer) {
+        ff7Layer.style.display = 'grid';
+      } else if (layerId === 'game-ff7r' && ff7rLayer) {
+        ff7rLayer.style.display = 'grid';
+      } else if (layerId === 'game-ff8' && ff8Layer) {
+        ff8Layer.style.display = 'grid';
+      } else if (layerId === 'game-ffx' && ffxLayer) {
+        ffxLayer.style.display = 'grid';
+      } else if (layerId === 'game-skyrim' && skyrimLayer) {
+        skyrimLayer.style.display = 'grid';
       } else if (layerId === 'python' && pythonLayer) {
         pythonLayer.style.display = 'grid';
       } else if (layerId === 'pi5' && pi5Layer) {

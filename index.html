@@ -215,7 +215,7 @@
           <!-- Layer 3C: Inside Mods (Game Cards Selection with Logos) -->
           <div id="layer-mods-games" class="portal-cards-grid" style="display: none; margin-top: 1rem;">
             <!-- Final Fantasy VII -->
-            <a href="#/projects/modding/mods?game=Final%20Fantasy%20VII" class="portal-card">
+            <div class="portal-card" id="card-open-game-ff7" style="cursor: pointer;">
               <div class="portal-icon" style="color: #60a5fa; background: rgba(96, 165, 250, 0.1); border-color: rgba(96, 165, 250, 0.25);">
                 <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m9.17 14.83-4.24 4.24"/></svg>
               </div>
@@ -224,10 +224,10 @@
                 Difficulty rebalances, battle overlays, and native engine modifications for the 2026 Steam re-release.
               </p>
               <span class="portal-action">View FFVII Mods &rarr;</span>
-            </a>
+            </div>
 
             <!-- Final Fantasy VII Remake Intergrade -->
-            <a href="#/projects/modding/mods?game=Final%20Fantasy%20VII%20Remake" class="portal-card">
+            <div class="portal-card" id="card-open-game-ff7r" style="cursor: pointer;">
               <div class="portal-icon" style="color: #38bdf8; background: rgba(56, 189, 248, 0.1); border-color: rgba(56, 189, 248, 0.25);">
                 <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
               </div>
@@ -236,10 +236,10 @@
                 Iconic anime weapon models (Tensa Zangetsu, Nozarashi, Rhitta), summon retextures, and materials.
               </p>
               <span class="portal-action">View FF7R Mods &rarr;</span>
-            </a>
+            </div>
 
             <!-- Final Fantasy VIII - Remastered -->
-            <a href="#/projects/modding/mods?game=Final%20Fantasy%20VIII" class="portal-card">
+            <div class="portal-card" id="card-open-game-ff8" style="cursor: pointer;">
               <div class="portal-icon" style="color: #e879f9; background: rgba(232, 121, 249, 0.1); border-color: rgba(232, 121, 249, 0.25);">
                 <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
               </div>
@@ -248,10 +248,10 @@
                 High-definition title screens, realistic character portraits, Guardian Force textures, and Triple Triad card sets.
               </p>
               <span class="portal-action">View FFVIII Mods &rarr;</span>
-            </a>
+            </div>
 
             <!-- Final Fantasy X -->
-            <a href="#/projects/modding/mods?game=Final%20Fantasy%20X%20%2F%20X-2" class="portal-card">
+            <div class="portal-card" id="card-open-game-ffx" style="cursor: pointer;">
               <div class="portal-icon" style="color: #34d399; background: rgba(52, 211, 153, 0.1); border-color: rgba(52, 211, 153, 0.25);">
                 <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
               </div>
@@ -260,7 +260,7 @@
                 Spiras Trials custom difficulty overhauls, rewards rebalances, and classic spell nomenclature.
               </p>
               <span class="portal-action">View FFX Mods &rarr;</span>
-            </a>
+            </div>
 
             <!-- Minecraft (Opens Minecraft Layer with Version/Loader Filters) -->
             <div class="portal-card" id="card-open-minecraft" style="cursor: pointer;">
@@ -275,7 +275,7 @@
             </div>
 
             <!-- Skyrim SE -->
-            <a href="#/projects/modding/mods?game=Skyrim%20SE" class="portal-card">
+            <div class="portal-card" id="card-open-game-skyrim" style="cursor: pointer;">
               <div class="portal-icon" style="color: #cbd5e1; background: rgba(203, 213, 225, 0.1); border-color: rgba(203, 213, 225, 0.25);">
                 <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
               </div>
@@ -284,7 +284,7 @@
                 Custom companion followers, mythological wolf summons, and custom combat AI for Skyrim Special Edition.
               </p>
               <span class="portal-action">View Skyrim Mods &rarr;</span>
-            </a>
+            </div>
           </div>
 
           <!-- Layer 4: Inside Minecraft (Interactive Version & Modloader Filter + Cards) -->
@@ -356,6 +356,489 @@
                       <span>Download</span>
                     </a>
                   </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Layer 4B: Inside Final Fantasy VII Mods -->
+          <div id="layer-game-ff7" class="portal-cards-grid media-grid" style="display: none; margin-top: 1rem;">
+            <!-- FFVII Difficulty Mod -->
+            <div class="portal-card portal-media-card" style="cursor: pointer;" onclick="if (!event.target.closest('.portal-download-btn')) window.open('https://www.nexusmods.com/finalfantasy7/mods/159', '_blank', 'noopener,noreferrer')">
+              <div class="portal-card-media" style="background: linear-gradient(135deg, #1e3a8a, #0f172a);">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m9.17 14.83-4.24 4.24"/></svg>
+              </div>
+              <div class="portal-card-body">
+                <div style="display: flex; gap: 0.4rem; margin-bottom: 0.6rem; flex-wrap: wrap;">
+                  <span class="filter-game-badge" style="background: rgba(96, 165, 250, 0.15); color: #60a5fa; border-color: rgba(96, 165, 250, 0.3);">Steam 2026 Edition</span>
+                  <span class="filter-game-badge" style="background: rgba(239, 68, 68, 0.15); color: #f87171; border-color: rgba(239, 68, 68, 0.3);">Difficulty Overhaul</span>
+                </div>
+                <h2 class="portal-title">Final Fantasy VII Difficulty Mod</h2>
+                <p class="portal-desc">
+                  Custom balance overhaul retuning encounter dynamics, enemy AI behaviors, and stats for the 2026 Steam re-release.
+                </p>
+                <div class="portal-card-footer">
+                  <span class="portal-action">Nexus Page &rarr;</span>
+                  <a href="https://www.nexusmods.com/finalfantasy7/mods/159?tab=files" target="_blank" rel="noopener noreferrer" class="portal-download-btn" title="Download on Nexus Mods">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <span>Download</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- FFVII Battle Overlay Plugin -->
+            <div class="portal-card portal-media-card" style="cursor: pointer;" onclick="if (!event.target.closest('.portal-download-btn')) window.open('https://www.nexusmods.com/finalfantasy7/mods/158', '_blank', 'noopener,noreferrer')">
+              <div class="portal-card-media" style="background: linear-gradient(135deg, #1e1b4b, #0f172a);">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="1.8"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+              </div>
+              <div class="portal-card-body">
+                <div style="display: flex; gap: 0.4rem; margin-bottom: 0.6rem; flex-wrap: wrap;">
+                  <span class="filter-game-badge" style="background: rgba(96, 165, 250, 0.15); color: #60a5fa; border-color: rgba(96, 165, 250, 0.3);">Steam 2026 Edition</span>
+                  <span class="filter-game-badge" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border-color: rgba(56, 189, 248, 0.3);">DirectX Overlay</span>
+                </div>
+                <h2 class="portal-title">Battle Overlay Plugin</h2>
+                <p class="portal-desc">
+                  Real-time in-game battle telemetry and tactical statistics overlay rendered directly over active combat scenes.
+                </p>
+                <div class="portal-card-footer">
+                  <span class="portal-action">Nexus Page &rarr;</span>
+                  <a href="https://www.nexusmods.com/finalfantasy7/mods/158?tab=files" target="_blank" rel="noopener noreferrer" class="portal-download-btn" title="Download on Nexus Mods">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <span>Download</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Layer 4C: Inside Final Fantasy VII Remake Intergrade Mods -->
+          <div id="layer-game-ff7r" class="portal-cards-grid media-grid" style="display: none; margin-top: 1rem;">
+            <!-- Tensa Zangetsu -->
+            <div class="portal-card portal-media-card" style="cursor: pointer;" onclick="if (!event.target.closest('.portal-download-btn')) window.open('https://www.nexusmods.com/finalfantasy7remake/mods/1429', '_blank', 'noopener,noreferrer')">
+              <div class="portal-card-media" style="background: linear-gradient(135deg, #18181b, #09090b);">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#f43f5e" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </div>
+              <div class="portal-card-body">
+                <div style="display: flex; gap: 0.4rem; margin-bottom: 0.6rem; flex-wrap: wrap;">
+                  <span class="filter-game-badge" style="background: rgba(244, 63, 94, 0.15); color: #fb7185; border-color: rgba(244, 63, 94, 0.3);">Weapon Model</span>
+                </div>
+                <h2 class="portal-title">Ichigos Bankai Tensa Zangetsu</h2>
+                <p class="portal-desc">Custom weapon model replacement bringing Ichigo Kurosaki's iconic Bankai blade into Final Fantasy VII Remake.</p>
+                <div class="portal-card-footer">
+                  <span class="portal-action">Nexus Page &rarr;</span>
+                  <a href="https://www.nexusmods.com/finalfantasy7remake/mods/1429?tab=files" target="_blank" rel="noopener noreferrer" class="portal-download-btn" title="Download on Nexus Mods">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <span>Download</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Metal Cactuar -->
+            <div class="portal-card portal-media-card" style="cursor: pointer;" onclick="if (!event.target.closest('.portal-download-btn')) window.open('https://www.nexusmods.com/finalfantasy7remake/mods/1426', '_blank', 'noopener,noreferrer')">
+              <div class="portal-card-media" style="background: linear-gradient(135deg, #334155, #1e293b);">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="1.8"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 7h.01"/><path d="M17 7h.01"/><path d="M7 17h.01"/><path d="M17 17h.01"/></svg>
+              </div>
+              <div class="portal-card-body">
+                <div style="display: flex; gap: 0.4rem; margin-bottom: 0.6rem; flex-wrap: wrap;">
+                  <span class="filter-game-badge" style="background: rgba(148, 163, 184, 0.15); color: #cbd5e1; border-color: rgba(148, 163, 184, 0.3);">Enemy Retexture</span>
+                </div>
+                <h2 class="portal-title">Metal Cactuar Mod</h2>
+                <p class="portal-desc">Custom texture and material overhaul giving Cactuar a sleek, polished metallic chrome finish.</p>
+                <div class="portal-card-footer">
+                  <span class="portal-action">Nexus Page &rarr;</span>
+                  <a href="https://www.nexusmods.com/finalfantasy7remake/mods/1426?tab=files" target="_blank" rel="noopener noreferrer" class="portal-download-btn" title="Download on Nexus Mods">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <span>Download</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Ichigos Shikai Zangetsu -->
+            <div class="portal-card portal-media-card" style="cursor: pointer;" onclick="if (!event.target.closest('.portal-download-btn')) window.open('https://www.nexusmods.com/finalfantasy7remake/mods/1425', '_blank', 'noopener,noreferrer')">
+              <div class="portal-card-media" style="background: linear-gradient(135deg, #1c1917, #0c0a09);">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </div>
+              <div class="portal-card-body">
+                <div style="display: flex; gap: 0.4rem; margin-bottom: 0.6rem; flex-wrap: wrap;">
+                  <span class="filter-game-badge" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border-color: rgba(245, 158, 11, 0.3);">Weapon Model</span>
+                </div>
+                <h2 class="portal-title">Ichigos Shikai Zangetsu</h2>
+                <p class="portal-desc">Custom weapon model replacement introducing Ichigo's oversized Shikai cleaver for Cloud Strife.</p>
+                <div class="portal-card-footer">
+                  <span class="portal-action">Nexus Page &rarr;</span>
+                  <a href="https://www.nexusmods.com/finalfantasy7remake/mods/1425?tab=files" target="_blank" rel="noopener noreferrer" class="portal-download-btn" title="Download on Nexus Mods">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <span>Download</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Divine Axe Rhitta -->
+            <div class="portal-card portal-media-card" style="cursor: pointer;" onclick="if (!event.target.closest('.portal-download-btn')) window.open('https://www.nexusmods.com/finalfantasy7remake/mods/1424', '_blank', 'noopener,noreferrer')">
+              <div class="portal-card-media" style="background: linear-gradient(135deg, #78350f, #451a03);">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="1.8"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+              </div>
+              <div class="portal-card-body">
+                <div style="display: flex; gap: 0.4rem; margin-bottom: 0.6rem; flex-wrap: wrap;">
+                  <span class="filter-game-badge" style="background: rgba(251, 191, 36, 0.15); color: #fde047; border-color: rgba(251, 191, 36, 0.3);">Weapon Model</span>
+                </div>
+                <h2 class="portal-title">Divine Axe Rhitta</h2>
+                <p class="portal-desc">Custom weapon model importing Escanor's sacred treasure, Divine Axe Rhitta, into Final Fantasy VII Remake.</p>
+                <div class="portal-card-footer">
+                  <span class="portal-action">Nexus Page &rarr;</span>
+                  <a href="https://www.nexusmods.com/finalfantasy7remake/mods/1424?tab=files" target="_blank" rel="noopener noreferrer" class="portal-download-btn" title="Download on Nexus Mods">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <span>Download</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Reptilian Leviathan -->
+            <div class="portal-card portal-media-card" style="cursor: pointer;" onclick="if (!event.target.closest('.portal-download-btn')) window.open('https://www.nexusmods.com/finalfantasy7remake/mods/1423', '_blank', 'noopener,noreferrer')">
+              <div class="portal-card-media" style="background: linear-gradient(135deg, #064e3b, #022c22);">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="1.8"><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+              </div>
+              <div class="portal-card-body">
+                <div style="display: flex; gap: 0.4rem; margin-bottom: 0.6rem; flex-wrap: wrap;">
+                  <span class="filter-game-badge" style="background: rgba(52, 211, 153, 0.15); color: #34d399; border-color: rgba(52, 211, 153, 0.3);">Summon Retexture</span>
+                </div>
+                <h2 class="portal-title">Reptilian Leviathan Mod</h2>
+                <p class="portal-desc">Custom texture overhaul transforming the summon Leviathan with distinct reptilian scales and coloration.</p>
+                <div class="portal-card-footer">
+                  <span class="portal-action">Nexus Page &rarr;</span>
+                  <a href="https://www.nexusmods.com/finalfantasy7remake/mods/1423?tab=files" target="_blank" rel="noopener noreferrer" class="portal-download-btn" title="Download on Nexus Mods">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <span>Download</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Kenpachi's Shikai Nozarashi -->
+            <div class="portal-card portal-media-card" style="cursor: pointer;" onclick="if (!event.target.closest('.portal-download-btn')) window.open('https://www.nexusmods.com/finalfantasy7remake/mods/1421', '_blank', 'noopener,noreferrer')">
+              <div class="portal-card-media" style="background: linear-gradient(135deg, #3f3f46, #18181b);">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#e4e4e7" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </div>
+              <div class="portal-card-body">
+                <div style="display: flex; gap: 0.4rem; margin-bottom: 0.6rem; flex-wrap: wrap;">
+                  <span class="filter-game-badge" style="background: rgba(228, 228, 231, 0.15); color: #f4f4f5; border-color: rgba(228, 228, 231, 0.3);">Weapon Model</span>
+                </div>
+                <h2 class="portal-title">Kenpachi's Shikai Nozarashi</h2>
+                <p class="portal-desc">Custom weapon model importing Kenpachi Zaraki's devastating battle cleaver Shikai, Nozarashi.</p>
+                <div class="portal-card-footer">
+                  <span class="portal-action">Nexus Page &rarr;</span>
+                  <a href="https://www.nexusmods.com/finalfantasy7remake/mods/1421?tab=files" target="_blank" rel="noopener noreferrer" class="portal-download-btn" title="Download on Nexus Mods">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <span>Download</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Elder Wand -->
+            <div class="portal-card portal-media-card" style="cursor: pointer;" onclick="if (!event.target.closest('.portal-download-btn')) window.open('https://www.nexusmods.com/finalfantasy7remake/mods/1420', '_blank', 'noopener,noreferrer')">
+              <div class="portal-card-media" style="background: linear-gradient(135deg, #4c1d95, #2e1065);">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#c084fc" stroke-width="1.8"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+              </div>
+              <div class="portal-card-body">
+                <div style="display: flex; gap: 0.4rem; margin-bottom: 0.6rem; flex-wrap: wrap;">
+                  <span class="filter-game-badge" style="background: rgba(192, 132, 252, 0.15); color: #d8b4fe; border-color: rgba(192, 132, 252, 0.3);">Magic Weapon</span>
+                </div>
+                <h2 class="portal-title">Elder Wand Mod</h2>
+                <p class="portal-desc">Custom magic weapon replacement model bringing the legendary Elder Wand into Final Fantasy VII Remake.</p>
+                <div class="portal-card-footer">
+                  <span class="portal-action">Nexus Page &rarr;</span>
+                  <a href="https://www.nexusmods.com/finalfantasy7remake/mods/1420?tab=files" target="_blank" rel="noopener noreferrer" class="portal-download-btn" title="Download on Nexus Mods">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <span>Download</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Viking Axe -->
+            <div class="portal-card portal-media-card" style="cursor: pointer;" onclick="if (!event.target.closest('.portal-download-btn')) window.open('https://www.nexusmods.com/finalfantasy7remake/mods/1419', '_blank', 'noopener,noreferrer')">
+              <div class="portal-card-media" style="background: linear-gradient(135deg, #292524, #1c1917);">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#a8a29e" stroke-width="1.8"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+              </div>
+              <div class="portal-card-body">
+                <div style="display: flex; gap: 0.4rem; margin-bottom: 0.6rem; flex-wrap: wrap;">
+                  <span class="filter-game-badge" style="background: rgba(168, 162, 158, 0.15); color: #d6d3d1; border-color: rgba(168, 162, 158, 0.3);">Weapon Model</span>
+                </div>
+                <h2 class="portal-title">Viking Axe Mod</h2>
+                <p class="portal-desc">Custom rugged Norse Viking battle axe replacement model with detailed forged steel and wood textures.</p>
+                <div class="portal-card-footer">
+                  <span class="portal-action">Nexus Page &rarr;</span>
+                  <a href="https://www.nexusmods.com/finalfantasy7remake/mods/1419?tab=files" target="_blank" rel="noopener noreferrer" class="portal-download-btn" title="Download on Nexus Mods">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <span>Download</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bahamut Retexture -->
+            <div class="portal-card portal-media-card" style="cursor: pointer;" onclick="if (!event.target.closest('.portal-download-btn')) window.open('https://www.nexusmods.com/finalfantasy7remake/mods/1417', '_blank', 'noopener,noreferrer')">
+              <div class="portal-card-media" style="background: linear-gradient(135deg, #1e1b4b, #312e81);">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </div>
+              <div class="portal-card-body">
+                <div style="display: flex; gap: 0.4rem; margin-bottom: 0.6rem; flex-wrap: wrap;">
+                  <span class="filter-game-badge" style="background: rgba(129, 140, 248, 0.15); color: #a5b4fc; border-color: rgba(129, 140, 248, 0.3);">Summon Retexture</span>
+                </div>
+                <h2 class="portal-title">Bahamut Retexture Mod</h2>
+                <p class="portal-desc">Custom high-detail retexture and shading overhaul for the dragon king summon, Bahamut.</p>
+                <div class="portal-card-footer">
+                  <span class="portal-action">Nexus Page &rarr;</span>
+                  <a href="https://www.nexusmods.com/finalfantasy7remake/mods/1417?tab=files" target="_blank" rel="noopener noreferrer" class="portal-download-btn" title="Download on Nexus Mods">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <span>Download</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Chocobo and Moogle -->
+            <div class="portal-card portal-media-card" style="cursor: pointer;" onclick="if (!event.target.closest('.portal-download-btn')) window.open('https://www.nexusmods.com/finalfantasy7remake/mods/1415', '_blank', 'noopener,noreferrer')">
+              <div class="portal-card-media" style="background: linear-gradient(135deg, #713f12, #ca8a04);">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#fef08a" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/></svg>
+              </div>
+              <div class="portal-card-body">
+                <div style="display: flex; gap: 0.4rem; margin-bottom: 0.6rem; flex-wrap: wrap;">
+                  <span class="filter-game-badge" style="background: rgba(254, 240, 138, 0.15); color: #fef08a; border-color: rgba(254, 240, 138, 0.3);">Summon Retexture</span>
+                </div>
+                <h2 class="portal-title">Chocobo and Moogle Summon Texture</h2>
+                <p class="portal-desc">Custom vibrant aesthetic texture modification for the beloved Chocobo & Moogle summon pair.</p>
+                <div class="portal-card-footer">
+                  <span class="portal-action">Nexus Page &rarr;</span>
+                  <a href="https://www.nexusmods.com/finalfantasy7remake/mods/1415?tab=files" target="_blank" rel="noopener noreferrer" class="portal-download-btn" title="Download on Nexus Mods">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <span>Download</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Layer 4D: Inside Final Fantasy VIII - Remastered Mods -->
+          <div id="layer-game-ff8" class="portal-cards-grid media-grid" style="display: none; margin-top: 1rem;">
+            <!-- Title Screen Overhaul -->
+            <div class="portal-card portal-media-card" style="cursor: pointer;" onclick="if (!event.target.closest('.portal-download-btn')) window.open('https://www.nexusmods.com/finalfantasy8remastered/mods/101', '_blank', 'noopener,noreferrer')">
+              <div class="portal-card-media" style="background: linear-gradient(135deg, #701a75, #4a044e);">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#f472b6" stroke-width="1.8"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/></svg>
+              </div>
+              <div class="portal-card-body">
+                <div style="display: flex; gap: 0.4rem; margin-bottom: 0.6rem; flex-wrap: wrap;">
+                  <span class="filter-game-badge" style="background: rgba(244, 114, 182, 0.15); color: #f472b6; border-color: rgba(244, 114, 182, 0.3);">UI Overhaul</span>
+                </div>
+                <h2 class="portal-title">Title Screen Overhaul</h2>
+                <p class="portal-desc">High-definition overhaul and custom aesthetic revamp for the Final Fantasy VIII Remastered main title screen.</p>
+                <div class="portal-card-footer">
+                  <span class="portal-action">Nexus Page &rarr;</span>
+                  <a href="https://www.nexusmods.com/finalfantasy8remastered/mods/101?tab=files" target="_blank" rel="noopener noreferrer" class="portal-download-btn" title="Download on Nexus Mods">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <span>Download</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Moomba Enhanced Textures -->
+            <div class="portal-card portal-media-card" style="cursor: pointer;" onclick="if (!event.target.closest('.portal-download-btn')) window.open('https://www.nexusmods.com/finalfantasy8remastered/mods/100', '_blank', 'noopener,noreferrer')">
+              <div class="portal-card-media" style="background: linear-gradient(135deg, #c2410c, #7c2d12);">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#fdba74" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+              </div>
+              <div class="portal-card-body">
+                <div style="display: flex; gap: 0.4rem; margin-bottom: 0.6rem; flex-wrap: wrap;">
+                  <span class="filter-game-badge" style="background: rgba(253, 186, 116, 0.15); color: #fdba74; border-color: rgba(253, 186, 116, 0.3);">Texture Pack</span>
+                </div>
+                <h2 class="portal-title">Moomba Enhanced Textures</h2>
+                <p class="portal-desc">Faithfully upscaled and re-authored texture pack enhancing the iconic Moomba creature model.</p>
+                <div class="portal-card-footer">
+                  <span class="portal-action">Nexus Page &rarr;</span>
+                  <a href="https://www.nexusmods.com/finalfantasy8remastered/mods/100?tab=files" target="_blank" rel="noopener noreferrer" class="portal-download-btn" title="Download on Nexus Mods">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <span>Download</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Intro Logos - Cheat Icons - Start Screen Overhaul -->
+            <div class="portal-card portal-media-card" style="cursor: pointer;" onclick="if (!event.target.closest('.portal-download-btn')) window.open('https://www.nexusmods.com/finalfantasy8remastered/mods/99', '_blank', 'noopener,noreferrer')">
+              <div class="portal-card-media" style="background: linear-gradient(135deg, #1e293b, #0f172a);">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="1.8"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              </div>
+              <div class="portal-card-body">
+                <div style="display: flex; gap: 0.4rem; margin-bottom: 0.6rem; flex-wrap: wrap;">
+                  <span class="filter-game-badge" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border-color: rgba(56, 189, 248, 0.3);">UI / HUD</span>
+                </div>
+                <h2 class="portal-title">Intro Logos & Start Screen</h2>
+                <p class="portal-desc">Clean aesthetic replacement for opening publisher logos, booster/cheat UI icons, and the start sequence.</p>
+                <div class="portal-card-footer">
+                  <span class="portal-action">Nexus Page &rarr;</span>
+                  <a href="https://www.nexusmods.com/finalfantasy8remastered/mods/99?tab=files" target="_blank" rel="noopener noreferrer" class="portal-download-btn" title="Download on Nexus Mods">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <span>Download</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Triple Triad Re-texture -->
+            <div class="portal-card portal-media-card" style="cursor: pointer;" onclick="if (!event.target.closest('.portal-download-btn')) window.open('https://www.nexusmods.com/finalfantasy8remastered/mods/98', '_blank', 'noopener,noreferrer')">
+              <div class="portal-card-media" style="background: linear-gradient(135deg, #1e3a8a, #172554);">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#93c5fd" stroke-width="1.8"><rect width="14" height="20" x="5" y="2" rx="2"/><line x1="9" y1="6" x2="15" y2="6"/><line x1="9" y1="10" x2="15" y2="10"/></svg>
+              </div>
+              <div class="portal-card-body">
+                <div style="display: flex; gap: 0.4rem; margin-bottom: 0.6rem; flex-wrap: wrap;">
+                  <span class="filter-game-badge" style="background: rgba(147, 197, 253, 0.15); color: #93c5fd; border-color: rgba(147, 197, 253, 0.3);">Mini-game Overhaul</span>
+                </div>
+                <h2 class="portal-title">Triple Triad Re-texture</h2>
+                <p class="portal-desc">Complete visual redesign of the Triple Triad mini-game card faces, borders, and battle mat surfaces.</p>
+                <div class="portal-card-footer">
+                  <span class="portal-action">Nexus Page &rarr;</span>
+                  <a href="https://www.nexusmods.com/finalfantasy8remastered/mods/98?tab=files" target="_blank" rel="noopener noreferrer" class="portal-download-btn" title="Download on Nexus Mods">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <span>Download</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Realistic Character Portrait Textures -->
+            <div class="portal-card portal-media-card" style="cursor: pointer;" onclick="if (!event.target.closest('.portal-download-btn')) window.open('https://www.nexusmods.com/finalfantasy8remastered/mods/97', '_blank', 'noopener,noreferrer')">
+              <div class="portal-card-media" style="background: linear-gradient(135deg, #3730a3, #1e1b4b);">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#a5b4fc" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </div>
+              <div class="portal-card-body">
+                <div style="display: flex; gap: 0.4rem; margin-bottom: 0.6rem; flex-wrap: wrap;">
+                  <span class="filter-game-badge" style="background: rgba(165, 180, 252, 0.15); color: #a5b4fc; border-color: rgba(165, 180, 252, 0.3);">Portraits</span>
+                </div>
+                <h2 class="portal-title">Realistic Character Portraits</h2>
+                <p class="portal-desc">High-definition realistic texture overhaul for party member menu portraits and dialogue avatars.</p>
+                <div class="portal-card-footer">
+                  <span class="portal-action">Nexus Page &rarr;</span>
+                  <a href="https://www.nexusmods.com/finalfantasy8remastered/mods/97?tab=files" target="_blank" rel="noopener noreferrer" class="portal-download-btn" title="Download on Nexus Mods">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <span>Download</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Realistic GF Portrait Textures -->
+            <div class="portal-card portal-media-card" style="cursor: pointer;" onclick="if (!event.target.closest('.portal-download-btn')) window.open('https://www.nexusmods.com/finalfantasy8remastered/mods/96', '_blank', 'noopener,noreferrer')">
+              <div class="portal-card-media" style="background: linear-gradient(135deg, #4c0519, #881337);">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#f43f5e" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </div>
+              <div class="portal-card-body">
+                <div style="display: flex; gap: 0.4rem; margin-bottom: 0.6rem; flex-wrap: wrap;">
+                  <span class="filter-game-badge" style="background: rgba(244, 63, 94, 0.15); color: #fb7185; border-color: rgba(244, 63, 94, 0.3);">GF Art</span>
+                </div>
+                <h2 class="portal-title">Realistic GF Portrait Textures</h2>
+                <p class="portal-desc">Detailed, realistic high-resolution portrait textures for Guardian Forces in the junction and battle menus.</p>
+                <div class="portal-card-footer">
+                  <span class="portal-action">Nexus Page &rarr;</span>
+                  <a href="https://www.nexusmods.com/finalfantasy8remastered/mods/96?tab=files" target="_blank" rel="noopener noreferrer" class="portal-download-btn" title="Download on Nexus Mods">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <span>Download</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Shiva Nude Shaved -->
+            <div class="portal-card portal-media-card" style="cursor: pointer;" onclick="if (!event.target.closest('.portal-download-btn')) window.open('https://www.nexusmods.com/finalfantasy8remastered/mods/95', '_blank', 'noopener,noreferrer')">
+              <div class="portal-card-media" style="background: linear-gradient(135deg, #0e7490, #164e63);">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#67e8f9" stroke-width="1.8"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+              </div>
+              <div class="portal-card-body">
+                <div style="display: flex; gap: 0.4rem; margin-bottom: 0.6rem; flex-wrap: wrap;">
+                  <span class="filter-game-badge" style="background: rgba(103, 232, 249, 0.15); color: #67e8f9; border-color: rgba(103, 232, 249, 0.3);">Summon Model</span>
+                </div>
+                <h2 class="portal-title">Shiva Nude Shaved</h2>
+                <p class="portal-desc">Custom summon texture modification for Guardian Force Shiva in Final Fantasy VIII Remastered.</p>
+                <div class="portal-card-footer">
+                  <span class="portal-action">Nexus Page &rarr;</span>
+                  <a href="https://www.nexusmods.com/finalfantasy8remastered/mods/95?tab=files" target="_blank" rel="noopener noreferrer" class="portal-download-btn" title="Download on Nexus Mods">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <span>Download</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Layer 4E: Inside Final Fantasy X Mods -->
+          <div id="layer-game-ffx" class="portal-cards-grid media-grid" style="display: none; margin-top: 1rem;">
+            <!-- Spiras Trials -->
+            <div class="portal-card portal-media-card" style="cursor: pointer;" onclick="if (!event.target.closest('.portal-download-btn')) window.open('https://www.nexusmods.com/finalfantasyxx2hdremaster/mods/321', '_blank', 'noopener,noreferrer')">
+              <div class="portal-card-media" style="background: linear-gradient(135deg, #065f46, #047857);">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </div>
+              <div class="portal-card-body">
+                <div style="display: flex; gap: 0.4rem; margin-bottom: 0.6rem; flex-wrap: wrap;">
+                  <span class="filter-game-badge" style="background: rgba(52, 211, 153, 0.15); color: #34d399; border-color: rgba(52, 211, 153, 0.3);">Difficulty Overhaul</span>
+                </div>
+                <h2 class="portal-title">Spiras Trials - Custom Difficulty</h2>
+                <p class="portal-desc">Custom difficulty rebalance overhaul re-tuning monster AI scripts, boss statistics, and progression across Spira.</p>
+                <div class="portal-card-footer">
+                  <span class="portal-action">Nexus Page &rarr;</span>
+                  <a href="https://www.nexusmods.com/finalfantasyxx2hdremaster/mods/321?tab=files" target="_blank" rel="noopener noreferrer" class="portal-download-btn" title="Download on Nexus Mods">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <span>Download</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Classic Magic Nomenclature -->
+            <div class="portal-card portal-media-card" style="cursor: pointer;" onclick="if (!event.target.closest('.portal-download-btn')) window.open('https://www.nexusmods.com/finalfantasyxx2hdremaster/mods/320', '_blank', 'noopener,noreferrer')">
+              <div class="portal-card-media" style="background: linear-gradient(135deg, #1e3a8a, #0f172a);">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+              </div>
+              <div class="portal-card-body">
+                <div style="display: flex; gap: 0.4rem; margin-bottom: 0.6rem; flex-wrap: wrap;">
+                  <span class="filter-game-badge" style="background: rgba(96, 165, 250, 0.15); color: #60a5fa; border-color: rgba(96, 165, 250, 0.3);">Text & Localization</span>
+                </div>
+                <h2 class="portal-title">Classic Magic & Command Nomenclature</h2>
+                <p class="portal-desc">Aesthetic localization rework adjusting spell tiers and battle abilities back to classic vintage naming (Bolt/Bolt2/Bolt3).</p>
+                <div class="portal-card-footer">
+                  <span class="portal-action">Nexus Page &rarr;</span>
+                  <a href="https://www.nexusmods.com/finalfantasyxx2hdremaster/mods/320?tab=files" target="_blank" rel="noopener noreferrer" class="portal-download-btn" title="Download on Nexus Mods">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <span>Download</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Layer 4F: Inside Skyrim SE Mods -->
+          <div id="layer-game-skyrim" class="portal-cards-grid media-grid" style="display: none; margin-top: 1rem;">
+            <!-- Fenrir Companion Follower -->
+            <div class="portal-card portal-media-card" style="cursor: pointer;" onclick="if (!event.target.closest('.portal-download-btn')) window.open('https://www.nexusmods.com/skyrimspecialedition/mods/158649', '_blank', 'noopener,noreferrer')">
+              <div class="portal-card-media" style="background: linear-gradient(135deg, #334155, #0f172a);">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+              </div>
+              <div class="portal-card-body">
+                <div style="display: flex; gap: 0.4rem; margin-bottom: 0.6rem; flex-wrap: wrap;">
+                  <span class="filter-game-badge" style="background: rgba(226, 232, 240, 0.15); color: #f1f5f9; border-color: rgba(226, 232, 240, 0.3);">Follower Mod</span>
+                  <span class="filter-game-badge" style="background: rgba(148, 163, 184, 0.15); color: #cbd5e1; border-color: rgba(148, 163, 184, 0.3);">Skyrim SE</span>
+                </div>
+                <h2 class="portal-title">Fenrir Companion Follower</h2>
+                <p class="portal-desc">Custom wolf companion follower inspired by Fenrir, featuring custom combat AI behaviors and commands.</p>
+                <div class="portal-card-footer">
+                  <span class="portal-action">Nexus Page &rarr;</span>
+                  <a href="https://www.nexusmods.com/skyrimspecialedition/mods/158649?tab=files" target="_blank" rel="noopener noreferrer" class="portal-download-btn" title="Download on Nexus Mods">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <span>Download</span>
+                  </a>
                 </div>
               </div>
             </div>
@@ -563,6 +1046,6 @@
   </div>
 
   <!-- Core JavaScript Module -->
-  <script type="module" src="js/app.js?v=24"></script>
+  <script type="module" src="js/app.js?v=25"></script>
 </body>
 </html>
