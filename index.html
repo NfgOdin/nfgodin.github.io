@@ -199,8 +199,8 @@
               <span class="portal-action">View Modding Tools &rarr;</span>
             </a>
 
-            <!-- Mods Card -->
-            <a href="#/projects/modding/mods" class="portal-card">
+            <!-- Mods Card (Click opens Game selection layer) -->
+            <div class="portal-card" id="card-open-mods" style="cursor: pointer;">
               <div class="portal-icon" style="color: var(--accent-green); background: rgba(34, 197, 94, 0.1); border-color: rgba(34, 197, 94, 0.25);">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="6 2 18 2 18 6 6 6 6 2"/><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="6" x2="6.01" y1="13" y2="13"/><line x1="10" x2="10.01" y1="13" y2="13"/><line x1="15" x2="19" y1="12" y2="12"/><line x1="17" x2="17" y1="10" y2="14"/></svg>
               </div>
@@ -208,8 +208,157 @@
               <p class="portal-desc">
                 Gameplay enhancements, texture packs, weapon overhauls, and followers for Minecraft, FFVII, FFVIII, FFX, and Skyrim.
               </p>
-              <span class="portal-action">View Game Mods &rarr;</span>
+              <span class="portal-action">Browse Games &rarr;</span>
+            </div>
+          </div>
+
+          <!-- Layer 3C: Inside Mods (Game Cards Selection with Logos) -->
+          <div id="layer-mods-games" class="portal-cards-grid" style="display: none; margin-top: 1rem;">
+            <!-- Final Fantasy VII -->
+            <a href="#/projects/modding/mods?game=Final%20Fantasy%20VII" class="portal-card">
+              <div class="portal-icon" style="color: #60a5fa; background: rgba(96, 165, 250, 0.1); border-color: rgba(96, 165, 250, 0.25);">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m9.17 14.83-4.24 4.24"/></svg>
+              </div>
+              <h2 class="portal-title">Final Fantasy VII</h2>
+              <p class="portal-desc">
+                Difficulty rebalances, battle overlays, and native engine modifications for the 2026 Steam re-release.
+              </p>
+              <span class="portal-action">View FFVII Mods &rarr;</span>
             </a>
+
+            <!-- Final Fantasy VII Remake Intergrade -->
+            <a href="#/projects/modding/mods?game=Final%20Fantasy%20VII%20Remake" class="portal-card">
+              <div class="portal-icon" style="color: #38bdf8; background: rgba(56, 189, 248, 0.1); border-color: rgba(56, 189, 248, 0.25);">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </div>
+              <h2 class="portal-title">Final Fantasy VII Remake Intergrade</h2>
+              <p class="portal-desc">
+                Iconic anime weapon models (Tensa Zangetsu, Nozarashi, Rhitta), summon retextures, and materials.
+              </p>
+              <span class="portal-action">View FF7R Mods &rarr;</span>
+            </a>
+
+            <!-- Final Fantasy VIII - Remastered -->
+            <a href="#/projects/modding/mods?game=Final%20Fantasy%20VIII" class="portal-card">
+              <div class="portal-icon" style="color: #e879f9; background: rgba(232, 121, 249, 0.1); border-color: rgba(232, 121, 249, 0.25);">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+              </div>
+              <h2 class="portal-title">Final Fantasy VIII - Remastered</h2>
+              <p class="portal-desc">
+                High-definition title screens, realistic character portraits, Guardian Force textures, and Triple Triad card sets.
+              </p>
+              <span class="portal-action">View FFVIII Mods &rarr;</span>
+            </a>
+
+            <!-- Final Fantasy X -->
+            <a href="#/projects/modding/mods?game=Final%20Fantasy%20X%20%2F%20X-2" class="portal-card">
+              <div class="portal-icon" style="color: #34d399; background: rgba(52, 211, 153, 0.1); border-color: rgba(52, 211, 153, 0.25);">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+              </div>
+              <h2 class="portal-title">Final Fantasy X</h2>
+              <p class="portal-desc">
+                Spiras Trials custom difficulty overhauls, rewards rebalances, and classic spell nomenclature.
+              </p>
+              <span class="portal-action">View FFX Mods &rarr;</span>
+            </a>
+
+            <!-- Minecraft (Opens Minecraft Layer with Version/Loader Filters) -->
+            <div class="portal-card" id="card-open-minecraft" style="cursor: pointer;">
+              <div class="portal-icon" style="color: #4ade80; background: rgba(74, 222, 128, 0.1); border-color: rgba(74, 222, 128, 0.25);">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+              </div>
+              <h2 class="portal-title">Minecraft</h2>
+              <p class="portal-desc">
+                Modern dimension mechanics, resource automation, and gameplay mods with custom version and loader filters.
+              </p>
+              <span class="portal-action">Explore Minecraft Mods &rarr;</span>
+            </div>
+
+            <!-- Skyrim SE -->
+            <a href="#/projects/modding/mods?game=Skyrim%20SE" class="portal-card">
+              <div class="portal-icon" style="color: #cbd5e1; background: rgba(203, 213, 225, 0.1); border-color: rgba(203, 213, 225, 0.25);">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+              </div>
+              <h2 class="portal-title">Skyrim SE</h2>
+              <p class="portal-desc">
+                Custom companion followers, mythological wolf summons, and custom combat AI for Skyrim Special Edition.
+              </p>
+              <span class="portal-action">View Skyrim Mods &rarr;</span>
+            </a>
+          </div>
+
+          <!-- Layer 4: Inside Minecraft (Interactive Version & Modloader Filter + Cards) -->
+          <div id="layer-minecraft" style="display: none; margin-top: 1rem;">
+            <!-- Filter Bar -->
+            <div style="background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 1.25rem; margin-bottom: 1.5rem;">
+              <div style="display: flex; flex-direction: column; gap: 1rem;">
+                <!-- Version Row -->
+                <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 0.6rem;">
+                  <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-secondary); width: 85px;">Version:</span>
+                  <button type="button" class="filter-pill active mc-filter-version" data-version="All">All</button>
+                  <button type="button" class="filter-pill mc-filter-version" data-version="1.20.1">1.20.1</button>
+                  <button type="button" class="filter-pill mc-filter-version" data-version="1.21.1">1.21.1</button>
+                </div>
+                <!-- Loader Row -->
+                <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 0.6rem;">
+                  <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-secondary); width: 85px;">Loader:</span>
+                  <button type="button" class="filter-pill active mc-filter-loader" data-loader="All">All</button>
+                  <button type="button" class="filter-pill mc-filter-loader" data-loader="Forge">Forge</button>
+                  <button type="button" class="filter-pill mc-filter-loader" data-loader="NeoForge">NeoForge</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Minecraft Cards Grid -->
+            <div id="minecraft-cards-grid" class="portal-cards-grid media-grid" style="margin-top: 0;">
+              <!-- StickyResources Card (1.20.1 / Forge) -->
+              <div class="portal-card portal-media-card mc-mod-card" data-version="1.20.1" data-loader="Forge" style="cursor: pointer;" onclick="if (!event.target.closest('.portal-download-btn')) window.open('https://www.curseforge.com/minecraft/mc-mods/sticky-resources', '_blank', 'noopener,noreferrer')">
+                <div class="portal-card-media" style="background: linear-gradient(135deg, #1e293b, #0f172a);">
+                  <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#eab308" stroke-width="1.8"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                </div>
+                <div class="portal-card-body">
+                  <div style="display: flex; gap: 0.4rem; margin-bottom: 0.6rem; flex-wrap: wrap;">
+                    <span class="filter-game-badge" style="background: rgba(234, 179, 8, 0.15); color: #facc15; border-color: rgba(234, 179, 8, 0.3);">1.20.1</span>
+                    <span class="filter-game-badge" style="background: rgba(59, 130, 246, 0.15); color: #60a5fa; border-color: rgba(59, 130, 246, 0.3);">Forge</span>
+                  </div>
+                  <h2 class="portal-title">StickyResources</h2>
+                  <p class="portal-desc">
+                    Java gameplay enhancement and resource automation mod for Minecraft 1.20.1 on the Forge mod loader.
+                  </p>
+                  <div class="portal-card-footer">
+                    <span class="portal-action">CurseForge Page &rarr;</span>
+                    <a href="https://github.com/odinj2010/StickyResources/archive/refs/heads/main.zip" target="_blank" rel="noopener noreferrer" class="portal-download-btn" title="Download Source ZIP">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                      <span>Download</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- RiftLink Card (1.21.1 / NeoForge) -->
+              <div class="portal-card portal-media-card mc-mod-card" data-version="1.21.1" data-loader="NeoForge" style="cursor: pointer;" onclick="if (!event.target.closest('.portal-download-btn')) window.open('https://github.com/odinj2010/RiftLink', '_blank', 'noopener,noreferrer')">
+                <div class="portal-card-media" style="background: linear-gradient(135deg, #064e3b, #022c22);">
+                  <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polygon points="12 6 16 14 8 14 12 6"/></svg>
+                </div>
+                <div class="portal-card-body">
+                  <div style="display: flex; gap: 0.4rem; margin-bottom: 0.6rem; flex-wrap: wrap;">
+                    <span class="filter-game-badge" style="background: rgba(52, 211, 153, 0.15); color: #34d399; border-color: rgba(52, 211, 153, 0.3);">1.21.1</span>
+                    <span class="filter-game-badge" style="background: rgba(168, 85, 247, 0.15); color: #c084fc; border-color: rgba(168, 85, 247, 0.3);">NeoForge</span>
+                  </div>
+                  <h2 class="portal-title">RiftLink</h2>
+                  <p class="portal-desc">
+                    Modern dimensional mechanics, rift traversal, and custom utilities for Minecraft 1.21.1 on NeoForge.
+                  </p>
+                  <div class="portal-card-footer">
+                    <span class="portal-action">GitHub Repo &rarr;</span>
+                    <a href="https://github.com/odinj2010/RiftLink/archive/refs/heads/main.zip" target="_blank" rel="noopener noreferrer" class="portal-download-btn" title="Download Source ZIP">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                      <span>Download</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
       </div>
@@ -414,6 +563,6 @@
   </div>
 
   <!-- Core JavaScript Module -->
-  <script type="module" src="js/app.js?v=23"></script>
+  <script type="module" src="js/app.js?v=24"></script>
 </body>
 </html>

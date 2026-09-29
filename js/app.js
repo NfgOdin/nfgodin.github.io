@@ -106,6 +106,8 @@ class App {
     this.homeLayerHistory = ['root'];
     const cardApps = document.getElementById('card-open-apps');
     const cardModding = document.getElementById('card-open-modding');
+    const cardMods = document.getElementById('card-open-mods');
+    const cardMinecraft = document.getElementById('card-open-minecraft');
     const cardPython = document.getElementById('card-open-python');
     const cardPi5 = document.getElementById('card-open-pi5');
     const backBtn = document.getElementById('home-back-btn');
@@ -116,6 +118,14 @@ class App {
 
     if (cardModding) {
       cardModding.addEventListener('click', () => this.navigateToHomeLayer('modding', 'Modding'));
+    }
+
+    if (cardMods) {
+      cardMods.addEventListener('click', () => this.navigateToHomeLayer('mods-games', 'Modding > Games'));
+    }
+
+    if (cardMinecraft) {
+      cardMinecraft.addEventListener('click', () => this.navigateToHomeLayer('minecraft', 'Modding > Games > Minecraft'));
     }
 
     if (cardPython) {
@@ -129,6 +139,56 @@ class App {
     if (backBtn) {
       backBtn.addEventListener('click', () => this.navigateBackHomeLayer());
     }
+
+    // Minecraft Dual Filter Logic (Version + Loader)
+    this.initMinecraftFilters();
+  }
+
+  initMinecraftFilters() {
+    this.mcFilterState = {
+      version: 'All',
+      loader: 'All'
+    };
+
+    const versionBtns = document.querySelectorAll('.mc-filter-version');
+    const loaderBtns = document.querySelectorAll('.mc-filter-loader');
+
+    versionBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        versionBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        this.mcFilterState.version = btn.getAttribute('data-version');
+        this.applyMinecraftFilters();
+      });
+    });
+
+    loaderBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        loaderBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        this.mcFilterState.loader = btn.getAttribute('data-loader');
+        this.applyMinecraftFilters();
+      });
+    });
+  }
+
+  applyMinecraftFilters() {
+    const cards = document.querySelectorAll('.mc-mod-card');
+    const { version, loader } = this.mcFilterState;
+
+    cards.forEach(card => {
+      const cardVer = card.getAttribute('data-version');
+      const cardLoader = card.getAttribute('data-loader');
+
+      const matchesVer = (version === 'All' || cardVer === version);
+      const matchesLoader = (loader === 'All' || cardLoader === loader);
+
+      if (matchesVer && matchesLoader) {
+        card.style.display = 'flex';
+      } else {
+        card.style.display = 'none';
+      }
+    });
   }
 
   navigateToHomeLayer(layerId, title = '') {
@@ -157,6 +217,8 @@ class App {
     const rootLayer = document.getElementById('home-layer-root');
     const appsLayer = document.getElementById('layer-applications');
     const moddingLayer = document.getElementById('layer-modding');
+    const modsGamesLayer = document.getElementById('layer-mods-games');
+    const minecraftLayer = document.getElementById('layer-minecraft');
     const pythonLayer = document.getElementById('layer-python');
     const pi5Layer = document.getElementById('layer-pi5');
     const layerNav = document.getElementById('home-layer-nav');
@@ -168,6 +230,8 @@ class App {
     rootLayer.style.display = 'none';
     if (appsLayer) appsLayer.style.display = 'none';
     if (moddingLayer) moddingLayer.style.display = 'none';
+    if (modsGamesLayer) modsGamesLayer.style.display = 'none';
+    if (minecraftLayer) minecraftLayer.style.display = 'none';
     if (pythonLayer) pythonLayer.style.display = 'none';
     if (pi5Layer) pi5Layer.style.display = 'none';
 
@@ -182,6 +246,18 @@ class App {
         appsLayer.style.display = 'grid';
       } else if (layerId === 'modding' && moddingLayer) {
         moddingLayer.style.display = 'grid';
+      } else if (layerId === 'mods-games' && modsGamesLayer) {
+        modsGamesLayer.style.display = 'grid';
+      } else if (layerId === 'minecraft' && minecraftLayer) {
+        minecraftLayer.style.display = 'block';
+        // Reset minecraft filters to All on enter
+        if (this.mcFilterState) {
+          this.mcFilterState.version = 'All';
+          this.mcFilterState.loader = 'All';
+          document.querySelectorAll('.mc-filter-version').forEach(b => b.classList.toggle('active', b.getAttribute('data-version') === 'All'));
+          document.querySelectorAll('.mc-filter-loader').forEach(b => b.classList.toggle('active', b.getAttribute('data-loader') === 'All'));
+          this.applyMinecraftFilters();
+        }
       } else if (layerId === 'python' && pythonLayer) {
         pythonLayer.style.display = 'grid';
       } else if (layerId === 'pi5' && pi5Layer) {
