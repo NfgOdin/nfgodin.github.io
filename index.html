@@ -8,7 +8,7 @@
   
   <!-- Modern Preconnects & Stylesheet -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="stylesheet" href="styles.css?v=4">
+  <link rel="stylesheet" href="styles.css?v=5">
 </head>
 <body>
   <!-- Ambient Atmospheric Background Glow -->
@@ -142,7 +142,7 @@
           <!-- Layer 3A: Inside Python (Apps with preview image cards) -->
           <div id="layer-python" class="portal-cards-grid media-grid" style="display: none; margin-top: 1rem;">
             <!-- Spira Mod Manager Image Card -->
-            <a href="https://www.nexusmods.com/finalfantasyxx2hdremaster/mods/327" target="_blank" rel="noopener noreferrer" class="portal-card portal-media-card">
+            <div class="portal-card portal-media-card" style="cursor: pointer;" onclick="if (!event.target.closest('.portal-download-btn')) window.open('https://www.nexusmods.com/finalfantasyxx2hdremaster/mods/327', '_blank', 'noopener,noreferrer')">
               <div class="portal-card-media">
                 <img src="assets/images/spira-mod-manager.png" alt="Spira Mod Manager Preview" loading="lazy">
               </div>
@@ -151,15 +151,21 @@
                 <p class="portal-desc">
                   Final Fantasy X and X-2 HD Remastered Mod Manager featuring profile control, priority sorting, conflict detection, and VFS loading.
                 </p>
-                <span class="portal-action">View on Nexus Mods &rarr;</span>
+                <div class="portal-card-footer">
+                  <span class="portal-action">Nexus Page &rarr;</span>
+                  <a href="https://www.nexusmods.com/finalfantasyxx2hdremaster/mods/327?tab=files" target="_blank" rel="noopener noreferrer" class="portal-download-btn" title="Direct Download Files">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <span>Download</span>
+                  </a>
+                </div>
               </div>
-            </a>
+            </div>
           </div>
 
           <!-- Layer 3B: Inside Pi 5 (Software with preview image cards) -->
           <div id="layer-pi5" class="portal-cards-grid media-grid" style="display: none; margin-top: 1rem;">
             <!-- SBC-Core Image Card -->
-            <a href="https://github.com/odinj2010/SBC-Core" target="_blank" rel="noopener noreferrer" class="portal-card portal-media-card">
+            <div class="portal-card portal-media-card" style="cursor: pointer;" onclick="if (!event.target.closest('.portal-download-btn')) window.open('https://github.com/odinj2010/SBC-Core', '_blank', 'noopener,noreferrer')">
               <div class="portal-card-media">
                 <img src="assets/images/sbc-core.svg" alt="SBC-Core Raspberry Pi 5 Preview" loading="lazy">
               </div>
@@ -168,9 +174,15 @@
                 <p class="portal-desc">
                   Core utility suite, daemon controller, and low-level hardware interface system built specifically for Raspberry Pi 5 single-board environments.
                 </p>
-                <span class="portal-action">View on GitHub &rarr;</span>
+                <div class="portal-card-footer">
+                  <span class="portal-action">GitHub Repo &rarr;</span>
+                  <a href="https://github.com/odinj2010/SBC-Core/archive/refs/heads/main.zip" target="_blank" rel="noopener noreferrer" class="portal-download-btn" title="Download Source ZIP">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <span>Download</span>
+                  </a>
+                </div>
               </div>
-            </a>
+            </div>
           </div>
 
           <!-- Layer 2B: Inside Modding (Tools & Mods) -->
