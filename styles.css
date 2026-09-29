@@ -493,30 +493,41 @@ body {
 }
 
 /* Home Section Portal Media Card (with Image Preview) */
+.portal-cards-grid.media-grid {
+  grid-template-columns: repeat(auto-fill, minmax(320px, 420px));
+  justify-content: start;
+}
+
 .portal-card.portal-media-card {
   padding: 0;
   overflow: hidden;
+  max-width: 440px;
 }
 
 .portal-card-media {
   width: 100%;
-  height: 190px;
-  background: var(--bg-tertiary);
+  aspect-ratio: 16 / 9;
+  height: auto;
+  background: #0d1117;
   overflow: hidden;
   position: relative;
   border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .portal-card-media img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   object-position: center;
   transition: transform var(--transition-normal);
+  display: block;
 }
 
 .portal-media-card:hover .portal-card-media img {
-  transform: scale(1.04);
+  transform: scale(1.02);
 }
 
 .portal-card-body {
