@@ -1218,78 +1218,194 @@
     <!-- ====================================================================
          4. DEDICATED SCREEN: ABOUT ME (#/about)
          ==================================================================== -->
+    <!-- ====================================================================
+         3. DEDICATED SCREEN: ABOUT (#/about)
+         ==================================================================== -->
     <div id="view-about" class="page-view">
       <div class="container">
-        <header class="page-screen-header">
-          <span class="section-tag" style="font-size: 0.8rem; font-weight: 700; color: var(--accent-green); text-transform: uppercase; letter-spacing: 0.08em; display: block; margin-bottom: 0.4rem;">
-            Biography &amp; Background
-          </span>
-          <h1 class="hero-title" style="font-size: 2.4rem; margin-bottom: 0.5rem;">About NfgOdin</h1>
-          <p class="section-subtitle" style="color: var(--text-secondary); font-size: 1.05rem;">
-            Tinkerer, software developer, and lifelong gamer.
-          </p>
-        </header>
-
-        <div style="display: flex; flex-direction: column; gap: 2rem; max-width: 900px; margin: 0 auto;">
-          <!-- Story Card 1 -->
-          <article class="project-card" style="padding: 2.25rem;">
-            <div style="color: var(--accent-blue); margin-bottom: 1rem;">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
-            </div>
-            <h2 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--text-primary);">The Wilderness Computer Salvage (Age 13)</h2>
-            <p style="color: var(--text-secondary); line-height: 1.8; font-size: 1.05rem; margin-bottom: 1rem;">
-              My lifelong fascination with computers didn't start in a computer science academy or from an off-the-shelf retail purchase. When I was 13 years old, I stumbled across an abandoned, discarded computer tower left out in the desert wilderness.
+        
+        <!-- About Layer 1: NFG Brand Overview & Developer Cards Root -->
+        <div id="about-layer-root">
+          <header class="page-screen-header">
+            <span class="section-tag" style="font-size: 0.8rem; font-weight: 700; color: var(--accent-green); text-transform: uppercase; letter-spacing: 0.08em; display: block; margin-bottom: 0.4rem;">
+              Collective &amp; Team
+            </span>
+            <h1 class="hero-title" style="font-size: 2.4rem; margin-bottom: 0.5rem;">About NFG</h1>
+            <p class="section-subtitle" style="color: var(--text-secondary); font-size: 1.05rem;">
+              Modding creators, software engineers, and gamers building tools, AI systems, and experiences together.
             </p>
-            <p style="color: var(--text-secondary); line-height: 1.8; font-size: 1.05rem;">
-              Instead of passing it by, I dragged it home. Without formal training, I opened the case, studied the ribbon cables, cleaned the components, and troubleshot the motherboard and drives until I successfully brought the system to life running Windows 98. Rescuing that machine gave me a deep appreciation for understanding what happens underneath the hood of computing hardware.
+          </header>
+
+          <!-- NFG Brand Overview Card -->
+          <article class="project-card" style="padding: 2.25rem; margin-bottom: 2.5rem; max-width: 900px; margin-left: auto; margin-right: auto;">
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem;">
+              <img src="assets/images/logo.png" alt="NFG Crest" style="width: 48px; height: 48px; border-radius: var(--radius-md); box-shadow: 0 0 16px rgba(88, 166, 255, 0.4);">
+              <div>
+                <h2 style="font-size: 1.6rem; color: var(--text-primary); margin: 0;">The NFG Collective</h2>
+                <p style="color: var(--text-muted); font-size: 0.88rem; margin: 0.2rem 0 0;">Gaming • Modding • Software Engineering</p>
+              </div>
+            </div>
+            <p style="color: var(--text-secondary); line-height: 1.8; font-size: 1.05rem; margin-bottom: 1rem;">
+              NFG is a family-rooted collective of developers, modders, and creators passionate about low-level gaming architecture, reverse engineering, audio engineering, and artificial intelligence. What started as individual tinkering has grown into a collaborative hub dedicated to breathing new life into legendary games, engineering standalone desktop utilities, and pushing modern technology forward.
+            </p>
+            <p style="color: var(--text-secondary); line-height: 1.8; font-size: 1.05rem; margin: 0;">
+              From native mod loaders and binary asset extractors for the Final Fantasy series to Minecraft modifications, acoustics simulation software, and autonomous reinforcement learning frameworks, NFG builds with precision and an open-source ethos.
             </p>
           </article>
 
-          <!-- Story Card 2 -->
-          <article class="project-card" style="padding: 2.25rem;">
-            <div style="color: var(--accent-purple); margin-bottom: 1rem;">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="6 2 18 2 18 6 6 6 6 2"/><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="6" x2="6.01" y1="13" y2="13"/><line x1="10" x2="10.01" y1="13" y2="13"/><line x1="15" x2="19" y1="12" y2="12"/><line x1="17" x2="17" y1="10" y2="14"/></svg>
-            </div>
-            <h2 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--text-primary);">Gaming Roots: Final Fantasy VII &amp; MMORPGs</h2>
-            <p style="color: var(--text-secondary); line-height: 1.8; font-size: 1.05rem; margin-bottom: 1rem;">
-              I have always had a deep love for RPGs. The very first RPG I ever completed was Final Fantasy VII on the original PlayStation back in 1998 or 1999. It left an indelible mark on my imagination, storytelling sensibilities, and love for technical gaming mechanics.
+          <!-- Team / Developers Heading -->
+          <div style="max-width: 900px; margin: 0 auto 1.5rem;">
+            <h3 style="font-size: 1.35rem; color: var(--text-primary); font-weight: 700; display: flex; align-items: center; gap: 0.6rem;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              Team &amp; Creators
+            </h3>
+            <p style="color: var(--text-secondary); font-size: 0.95rem; margin-top: 0.25rem;">
+              Select a member below to learn more about their background, specialties, and role in NFG.
             </p>
-            <p style="color: var(--text-secondary); line-height: 1.8; font-size: 1.05rem;">
-              In 2007, I took my hardware knowledge to the next level by buying individual parts on eBay and assembling my own custom gaming PC from scratch. That machine unlocked a brand new world for me: MMORPGs, online gaming communities, and eventually the desire to mod, hook, and modernize classic titles like Final Fantasy VII and X.
-            </p>
-          </article>
+          </div>
 
-          <!-- Story Card 3 -->
-          <article class="project-card" style="padding: 2.25rem;">
-            <div style="color: var(--accent-cyan); margin-bottom: 1rem;">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
-            </div>
-            <h2 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--text-primary);">AI as a Tool: The Power of Leverage</h2>
-            <p style="color: var(--text-secondary); line-height: 1.8; font-size: 1.05rem; margin-bottom: 1rem;">
-              I love artificial intelligence. My deep dive into AI really kicked into high gear when local Stable Diffusion models became accessible and easy to run on consumer hardware—specifically on the RTX 3060 GPU I had at the time. Setting up local checkpoints, prompting, optimizing inference, and seeing generative models run right on my own machine blew the doors wide open.
-            </p>
-            <p style="color: var(--text-secondary); line-height: 1.8; font-size: 1.05rem;">
-              My philosophy on AI is simple: <em>Why eat cold cereal with your bare hands when you have a tool called a spoon that helps you eat it?</em> The exact same principle applies to technology. Why struggle through every repetitive, manual task by hand when you can leverage intelligent tools to accelerate your workflow, solve problems faster, and focus your energy on what truly matters?
-            </p>
-          </article>
+          <!-- Developer Selection Cards Grid -->
+          <div class="portal-cards-grid" style="max-width: 900px; margin: 0 auto;">
+            <!-- NfgOdin Card -->
+            <a href="#/about/nfgodin" class="portal-card" id="card-open-about-nfgodin" style="cursor: pointer; text-decoration: none;">
+              <div class="portal-icon" style="color: var(--accent-cyan); background: rgba(56, 189, 248, 0.1); border-color: rgba(56, 189, 248, 0.25);">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </div>
+              <h2 class="portal-title">NfgOdin</h2>
+              <p class="portal-desc">
+                Core developer, mod author, software engineer, and low-level tech enthusiast. Full bio, journey, and technical credentials.
+              </p>
+              <span class="portal-action">Read Biography &rarr;</span>
+            </a>
 
-          <!-- Story Card 4 -->
-          <article class="project-card" style="padding: 2.25rem;">
-            <div style="color: var(--accent-green); margin-bottom: 1rem;">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-            </div>
-            <h2 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--text-primary);">Technical Skills &amp; Credentials</h2>
-            <p style="color: var(--text-secondary); line-height: 1.8; font-size: 1.05rem; margin-bottom: 1rem;">
-              Over the years I have balanced self-taught low-level engineering with focused coursework:
-            </p>
-            <ul style="list-style: disc; padding-left: 1.5rem; color: var(--text-secondary); line-height: 1.8; font-size: 1.05rem;">
-              <li><strong>Programming Courses</strong>: College-level coursework in Java Programming and C# Programming.</li>
-              <li><strong>Networking</strong>: Cisco Networking Certificate from taking the college course in high school.</li>
-              <li><strong>Cybersecurity</strong>: Google Cybersecurity online coursework and certifications.</li>
-              <li><strong>Languages &amp; Toolchains</strong>: C++20, Python 3, Java, Win32 API, glTF 2.0 3D Pipelines, Linux / Raspberry Pi 5.</li>
-            </ul>
-          </article>
+            <!-- NfgAnarchy Card -->
+            <a href="#/about/nfganarchy" class="portal-card" id="card-open-about-nfganarchy" style="cursor: pointer; text-decoration: none;">
+              <div class="portal-icon" style="color: var(--accent-purple); background: rgba(168, 85, 247, 0.1); border-color: rgba(168, 85, 247, 0.25);">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              </div>
+              <div style="display: flex; align-items: center; gap: 0.6rem;">
+                <h2 class="portal-title" style="margin: 0;">NfgAnarchy</h2>
+                <span class="filter-game-badge" style="background: rgba(234, 179, 8, 0.15); color: #eab308; border-color: rgba(234, 179, 8, 0.3); font-size: 0.72rem;">WIP</span>
+              </div>
+              <p class="portal-desc">
+                Developer &amp; creator profile currently under construction.
+              </p>
+              <span class="portal-action">View Profile &rarr;</span>
+            </a>
+          </div>
         </div>
+
+        <!-- About Layer 2A: NfgOdin Detail View -->
+        <div id="about-layer-nfgodin" style="display: none;">
+          <div style="margin-bottom: 2rem; display: flex; align-items: center; gap: 0.75rem; max-width: 900px; margin-left: auto; margin-right: auto;">
+            <a href="#/about" class="btn btn-secondary" style="padding: 0.4rem 0.9rem; font-size: 0.85rem; text-decoration: none;">
+              &larr; Back to About
+            </a>
+            <span style="font-size: 1rem; font-weight: 600; color: var(--text-secondary);">About &gt; NfgOdin</span>
+          </div>
+
+          <header class="page-screen-header" style="max-width: 900px; margin: 0 auto 2.5rem;">
+            <span class="section-tag" style="font-size: 0.8rem; font-weight: 700; color: var(--accent-green); text-transform: uppercase; letter-spacing: 0.08em; display: block; margin-bottom: 0.4rem;">
+              Biography &amp; Background
+            </span>
+            <h1 class="hero-title" style="font-size: 2.4rem; margin-bottom: 0.5rem;">About NfgOdin</h1>
+            <p class="section-subtitle" style="color: var(--text-secondary); font-size: 1.05rem;">
+              Tinkerer, software developer, mod author, and lifelong gamer.
+            </p>
+          </header>
+
+          <div style="display: flex; flex-direction: column; gap: 2rem; max-width: 900px; margin: 0 auto;">
+            <!-- Story Card 1 -->
+            <article class="project-card" style="padding: 2.25rem;">
+              <div style="color: var(--accent-blue); margin-bottom: 1rem;">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
+              </div>
+              <h2 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--text-primary);">The Wilderness Computer Salvage (Age 13)</h2>
+              <p style="color: var(--text-secondary); line-height: 1.8; font-size: 1.05rem; margin-bottom: 1rem;">
+                My lifelong fascination with computers didn't start in a computer science academy or from an off-the-shelf retail purchase. When I was 13 years old, I stumbled across an abandoned, discarded computer tower left out in the desert wilderness.
+              </p>
+              <p style="color: var(--text-secondary); line-height: 1.8; font-size: 1.05rem;">
+                Instead of passing it by, I dragged it home. Without formal training, I opened the case, studied the ribbon cables, cleaned the components, and troubleshot the motherboard and drives until I successfully brought the system to life running Windows 98. Rescuing that machine gave me a deep appreciation for understanding what happens underneath the hood of computing hardware.
+              </p>
+            </article>
+
+            <!-- Story Card 2 -->
+            <article class="project-card" style="padding: 2.25rem;">
+              <div style="color: var(--accent-purple); margin-bottom: 1rem;">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="6 2 18 2 18 6 6 6 2"/><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="6" x2="6.01" y1="13" y2="13"/><line x1="10" x2="10.01" y1="13" y2="13"/><line x1="15" x2="19" y1="12" y2="12"/><line x1="17" x2="17" y1="10" y2="14"/></svg>
+              </div>
+              <h2 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--text-primary);">Gaming Roots: Final Fantasy VII &amp; MMORPGs</h2>
+              <p style="color: var(--text-secondary); line-height: 1.8; font-size: 1.05rem; margin-bottom: 1rem;">
+                I have always had a deep love for RPGs. The very first RPG I ever completed was Final Fantasy VII on the original PlayStation back in 1998 or 1999. It left an indelible mark on my imagination, storytelling sensibilities, and love for technical gaming mechanics.
+              </p>
+              <p style="color: var(--text-secondary); line-height: 1.8; font-size: 1.05rem;">
+                In 2007, I took my hardware knowledge to the next level by buying individual parts on eBay and assembling my own custom gaming PC from scratch. That machine unlocked a brand new world for me: MMORPGs, online gaming communities, and eventually the desire to mod, hook, and modernize classic titles like Final Fantasy VII and X.
+              </p>
+            </article>
+
+            <!-- Story Card 3 -->
+            <article class="project-card" style="padding: 2.25rem;">
+              <div style="color: var(--accent-cyan); margin-bottom: 1rem;">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+              </div>
+              <h2 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--text-primary);">AI as a Tool: The Power of Leverage</h2>
+              <p style="color: var(--text-secondary); line-height: 1.8; font-size: 1.05rem; margin-bottom: 1rem;">
+                I love artificial intelligence. My deep dive into AI really kicked into high gear when local Stable Diffusion models became accessible and easy to run on consumer hardware—specifically on the RTX 3060 GPU I had at the time. Setting up local checkpoints, prompting, optimizing inference, and seeing generative models run right on my own machine blew the doors wide open.
+              </p>
+              <p style="color: var(--text-secondary); line-height: 1.8; font-size: 1.05rem;">
+                My philosophy on AI is simple: <em>Why eat cold cereal with your bare hands when you have a tool called a spoon that helps you eat it?</em> The exact same principle applies to technology. Why struggle through every repetitive, manual task by hand when you can leverage intelligent tools to accelerate your workflow, solve problems faster, and focus your energy on what truly matters?
+              </p>
+            </article>
+
+            <!-- Story Card 4 -->
+            <article class="project-card" style="padding: 2.25rem;">
+              <div style="color: var(--accent-green); margin-bottom: 1rem;">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+              </div>
+              <h2 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--text-primary);">Technical Skills &amp; Credentials</h2>
+              <p style="color: var(--text-secondary); line-height: 1.8; font-size: 1.05rem; margin-bottom: 1rem;">
+                Over the years I have balanced self-taught low-level engineering with focused coursework:
+              </p>
+              <ul style="list-style: disc; padding-left: 1.5rem; color: var(--text-secondary); line-height: 1.8; font-size: 1.05rem;">
+                <li><strong>Programming Courses</strong>: College-level coursework in Java Programming and C# Programming.</li>
+                <li><strong>Networking</strong>: Cisco Networking Certificate from taking the college course in high school.</li>
+                <li><strong>Cybersecurity</strong>: Google Cybersecurity online coursework and certifications.</li>
+                <li><strong>Languages &amp; Toolchains</strong>: C++20, Python 3, Java, Win32 API, glTF 2.0 3D Pipelines, Linux / Raspberry Pi 5.</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+
+        <!-- About Layer 2B: NfgAnarchy Work-in-Progress View -->
+        <div id="about-layer-nfganarchy" style="display: none;">
+          <div style="margin-bottom: 2rem; display: flex; align-items: center; gap: 0.75rem; max-width: 900px; margin-left: auto; margin-right: auto;">
+            <a href="#/about" class="btn btn-secondary" style="padding: 0.4rem 0.9rem; font-size: 0.85rem; text-decoration: none;">
+              &larr; Back to About
+            </a>
+            <span style="font-size: 1rem; font-weight: 600; color: var(--text-secondary);">About &gt; NfgAnarchy</span>
+          </div>
+
+          <div style="max-width: 900px; margin: 0 auto;">
+            <article class="project-card" style="padding: 3rem 2.25rem; text-align: center;">
+              <div style="display: inline-flex; align-items: center; justify-content: center; width: 64px; height: 64px; border-radius: 50%; background: rgba(234, 179, 8, 0.12); color: #eab308; margin-bottom: 1.5rem; border: 1px solid rgba(234, 179, 8, 0.3);">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              </div>
+              <h2 style="font-size: 2rem; color: var(--text-primary); margin-bottom: 0.75rem;">NfgAnarchy</h2>
+              <div style="margin-bottom: 1.25rem;">
+                <span class="filter-game-badge" style="background: rgba(234, 179, 8, 0.15); color: #eab308; border-color: rgba(234, 179, 8, 0.3); font-size: 0.82rem; padding: 0.25rem 0.75rem;">
+                  Work in Progress
+                </span>
+              </div>
+              <p style="color: var(--text-secondary); line-height: 1.8; font-size: 1.1rem; max-width: 600px; margin: 0 auto 1.5rem;">
+                This page is currently being worked on. Check back soon for NfgAnarchy's full profile, projects, and contributions to NFG!
+              </p>
+              <a href="#/about" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; padding: 0.6rem 1.2rem; text-decoration: none;">
+                &larr; Return to About Collective
+              </a>
+            </article>
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -1355,6 +1471,6 @@
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
   <!-- Core JavaScript Module -->
-  <script type="module" src="js/app.js?v=34"></script>
+  <script type="module" src="js/app.js?v=35"></script>
 </body>
 </html>

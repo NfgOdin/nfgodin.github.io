@@ -505,13 +505,38 @@ class App {
       this.renderTutorialContent();
     } else if (mainSection === 'about') {
       this.switchView('about');
-      this.setPageTitle("About");
+      const aboutTarget = parts[1] || 'root';
+      this.showAboutLayer(aboutTarget);
     } else {
       this.switchView('home');
       this.showHomeLayer('root');
     }
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  showAboutLayer(layerId) {
+    const rootLayer = document.getElementById('about-layer-root');
+    const odinLayer = document.getElementById('about-layer-nfgodin');
+    const anarchyLayer = document.getElementById('about-layer-nfganarchy');
+
+    if (!rootLayer) return;
+
+    // Reset visibility
+    rootLayer.style.display = 'none';
+    if (odinLayer) odinLayer.style.display = 'none';
+    if (anarchyLayer) anarchyLayer.style.display = 'none';
+
+    if (layerId === 'nfgodin') {
+      if (odinLayer) odinLayer.style.display = 'block';
+      this.setPageTitle("NfgOdin | About");
+    } else if (layerId === 'nfganarchy') {
+      if (anarchyLayer) anarchyLayer.style.display = 'block';
+      this.setPageTitle("NfgAnarchy | About");
+    } else {
+      rootLayer.style.display = 'block';
+      this.setPageTitle("About");
+    }
   }
 
   switchView(viewName) {
