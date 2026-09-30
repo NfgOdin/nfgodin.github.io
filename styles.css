@@ -211,6 +211,21 @@ body {
   box-shadow: 0 2px 10px rgba(88, 166, 255, 0.3);
 }
 
+.brand-icon-img {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  object-fit: contain;
+  box-shadow: 0 0 14px rgba(88, 166, 255, 0.35);
+  border: 1px solid rgba(88, 166, 255, 0.25);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.brand-link:hover .brand-icon-img {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(188, 140, 255, 0.5);
+}
+
 .nav-menu {
   display: flex;
   align-items: center;
