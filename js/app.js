@@ -1261,7 +1261,7 @@ class App {
   }
 
   setPageTitle(pageTitle) {
-    const baseTitle = "NfgOdin // NFG";
+    const baseTitle = "NFG";
     if (!pageTitle || pageTitle === "Home") {
       document.title = baseTitle;
     } else {
