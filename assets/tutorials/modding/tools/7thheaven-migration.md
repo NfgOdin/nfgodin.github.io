@@ -20,7 +20,7 @@ The converter is written in Python 3 and requires standard library dependencies:
 - Clone or download the repository from GitHub:
 
 ```bash
-git clone https://github.com/odinj2010/7thHeavenToFFVIIModLoader.git
+git clone https://github.com/nfgodin/7thHeavenToFFVIIModLoader.git
 cd 7thHeavenToFFVIIModLoader
 ```
 

@@ -30,7 +30,7 @@ export const projectTree = [
             status: "Active",
             description: "Hierarchical Reinforcement Learning (HRL) framework training an intelligent autonomous agent to navigate, battle, and beat Pokémon Yellow via Game Boy emulation hooks.",
             tech: ["Python", "Reinforcement Learning", "Gym / Emulation API"],
-            githubUrl: "https://github.com/odinj2010/PokemonYellow-HRL-AI",
+            githubUrl: "https://github.com/nfgodin/PokemonYellow-HRL-AI",
             guideUrl: "#/tutorials/ai/rl/hrl-environment-setup"
           }
         ]
@@ -47,7 +47,7 @@ export const projectTree = [
             status: "Active",
             description: "Desktop companion application and local assistant interface built for desktop productivity.",
             tech: ["Python", "AI Desktop Companion"],
-            githubUrl: "https://github.com/odinj2010/digit.ai"
+            githubUrl: "https://github.com/nfgodin/digit.ai"
           }
         ]
       }
@@ -71,7 +71,7 @@ export const projectTree = [
             status: "Active",
             description: "Commercial-grade car audio subwoofer enclosure CAD & acoustics laboratory featuring pure Python 3D vector visualization, wiring schematics, and precision cut sheets.",
             tech: ["Python", "3D Vector Graphics", "Acoustics CAD"],
-            githubUrl: "https://github.com/odinj2010/RuneBox",
+            githubUrl: "https://github.com/nfgodin/RuneBox",
             guideUrl: "#/tutorials/software/desktop/enclosure-tuning"
           }
         ]
@@ -88,7 +88,7 @@ export const projectTree = [
             status: "Active",
             description: "Core utility suite, daemon controller, and hardware interface system built specifically for Raspberry Pi 5 single-board computer environments.",
             tech: ["Python", "Raspberry Pi 5", "Linux / Hardware"],
-            githubUrl: "https://github.com/odinj2010/SBC-Core"
+            githubUrl: "https://github.com/nfgodin/SBC-Core"
           }
         ]
       }
@@ -112,7 +112,7 @@ export const projectTree = [
             status: "Active",
             description: "A lightweight, portable, and high-performance native mod loader for the Final Fantasy VII Steam Edition re-release, bypassing third-party overhead.",
             tech: ["C++", "Win32 API", "Game Hooks", "Memory Injection"],
-            githubUrl: "https://github.com/odinj2010/FFVIISE_Mod_Loader",
+            githubUrl: "https://github.com/nfgodin/FFVIISE_Mod_Loader",
             nexusUrl: "https://www.nexusmods.com/finalfantasy7/mods/157",
             guideUrl: "#/tutorials/modding/loaders/ffviise-loader"
           }
@@ -131,7 +131,7 @@ export const projectTree = [
             status: "Active",
             description: "A modern gameplay, dimensional mechanics, and custom utility mod currently in active development for Minecraft 1.21.1 on the NeoForge mod loader platform.",
             tech: ["Java", "NeoForge", "Minecraft", "1.21.1"],
-            githubUrl: "https://github.com/odinj2010/RiftLink",
+            githubUrl: "https://github.com/nfgodin/RiftLink",
             guideUrl: "#/tutorials/modding/mods/installing-riftlink"
           },
           {
@@ -142,7 +142,7 @@ export const projectTree = [
             status: "Active",
             description: "Custom Java-based gameplay enhancement and resource automation mod for Minecraft 1.20.1 on the Forge mod loader platform.",
             tech: ["Java", "Forge", "Minecraft", "1.20.1"],
-            githubUrl: "https://github.com/odinj2010/StickyResources",
+            githubUrl: "https://github.com/nfgodin/StickyResources",
             curseforgeUrl: "https://www.curseforge.com/minecraft/mc-mods/sticky-resources"
           },
           {
@@ -379,7 +379,7 @@ export const projectTree = [
             status: "Active",
             description: "Dedicated mod management tool enabling easy installation, conflict detection, profile switching, and order control for FFX and X-2 HD Remastered.",
             tech: ["Python", "Mod Manager", "VFS Injection", "FFX/X-2"],
-            githubUrl: "https://github.com/odinj2010/FFX-Mod-Manager",
+            githubUrl: "https://github.com/nfgodin/FFX-Mod-Manager",
             nexusUrl: "https://www.nexusmods.com/finalfantasyxx2hdremaster/mods/327"
           },
           {
@@ -389,7 +389,7 @@ export const projectTree = [
             status: "Active",
             description: "Specialized visual editor and binary parser for the iconic Final Fantasy X Sphere Grid layout, character paths, and stat nodes.",
             tech: ["Python", "Binary Editor", "FFX Modding"],
-            githubUrl: "https://github.com/odinj2010/FFX_Sphere_Grid_Tool"
+            githubUrl: "https://github.com/nfgodin/FFX_Sphere_Grid_Tool"
           },
           {
             id: "ffx-phyre-tool",
@@ -398,7 +398,7 @@ export const projectTree = [
             status: "Active",
             description: "High-performance extractor and compiler for PhyreEngine binary model archives and textures directly into modern open glTF 2.0 standard for Blender workflows.",
             tech: ["Python", "glTF 2.0", "PhyreEngine 3D"],
-            githubUrl: "https://github.com/odinj2010/FFX-Phyre-Tool",
+            githubUrl: "https://github.com/nfgodin/FFX-Phyre-Tool",
             nexusUrl: "https://www.nexusmods.com/finalfantasyxx2hdremaster/mods/315",
             guideUrl: "#/tutorials/modding/tools/phyre-gltf-export"
           },
@@ -409,7 +409,7 @@ export const projectTree = [
             status: "Active",
             description: "Automated archive extraction and conversion utility translating legacy 7th Heaven .iro files into native unpacked folder structures for the FFVIISE Mod Loader.",
             tech: ["Python", "IRO Archives", "Conversion Tool"],
-            githubUrl: "https://github.com/odinj2010/7thHeavenToFFVIIModLoader",
+            githubUrl: "https://github.com/nfgodin/7thHeavenToFFVIIModLoader",
             nexusUrl: "https://www.nexusmods.com/finalfantasy7/mods/161",
             guideUrl: "#/tutorials/modding/tools/7thheaven-migration"
           },
@@ -420,7 +420,7 @@ export const projectTree = [
             status: "Active",
             description: "Dedicated authoring and packing tool for configuring mods targeting the 2026 Steam edition of Final Fantasy VII.",
             tech: ["Python", "Asset Packing", "Steam Edition"],
-            githubUrl: "https://github.com/odinj2010/FFVIISE_Modding_Tool"
+            githubUrl: "https://github.com/nfgodin/FFVIISE_Modding_Tool"
           },
           {
             id: "ffx-audio-tool",
@@ -429,7 +429,7 @@ export const projectTree = [
             status: "Active",
             description: "Stream extraction and conversion tool for proprietary audio banks inside Final Fantasy X / X-2 HD Remaster.",
             tech: ["Python", "Audio Extraction", "Binary Parsing"],
-            githubUrl: "https://github.com/odinj2010/FFX_Audio_Tool"
+            githubUrl: "https://github.com/nfgodin/FFX_Audio_Tool"
           },
           {
             id: "ffx-shop-tool",
@@ -438,7 +438,7 @@ export const projectTree = [
             status: "Active",
             description: "Binary data parser and inventory editor for shop tables and merchants in Final Fantasy X.",
             tech: ["Python", "Game Data Tables"],
-            githubUrl: "https://github.com/odinj2010/FFX_Shop_Tool"
+            githubUrl: "https://github.com/nfgodin/FFX_Shop_Tool"
           },
           {
             id: "ffx-ai-tool",
@@ -447,7 +447,7 @@ export const projectTree = [
             status: "Active",
             description: "Bytecode decompiler and behavior script inspector for battle enemy AI routines in Final Fantasy X.",
             tech: ["Python", "Bytecode Decompilation"],
-            githubUrl: "https://github.com/odinj2010/FFX_AI_Tool"
+            githubUrl: "https://github.com/nfgodin/FFX_AI_Tool"
           }
         ]
       }

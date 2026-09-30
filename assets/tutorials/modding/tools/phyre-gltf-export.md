@@ -17,7 +17,7 @@ Final Fantasy X / X-2 HD Remaster utilizes Sony's proprietary **PhyreEngine** ar
 Clone the repository and install required dependencies:
 
 ```bash
-git clone https://github.com/odinj2010/FFX-Phyre-Tool.git
+git clone https://github.com/nfgodin/FFX-Phyre-Tool.git
 cd FFX-Phyre-Tool
 pip install -r requirements.txt
 ```
