@@ -474,7 +474,7 @@ export const tutorialTree = [
             platform: "Pokemon Yellow",
             readingTime: "7 min read",
             difficulty: "Intermediate",
-            markdownFile: "tutorials/ai/rl/hrl-environment-setup.md",
+            markdownFile: "assets/tutorials/ai/rl/hrl-environment-setup.md",
             summary: "Configuring emulator interfaces and reward functions for hierarchical RL training."
           }
         ]
@@ -496,7 +496,7 @@ export const tutorialTree = [
             platform: "Audio CAD",
             readingTime: "8 min read",
             difficulty: "Intermediate",
-            markdownFile: "tutorials/software/desktop/enclosure-tuning.md",
+            markdownFile: "assets/tutorials/software/desktop/enclosure-tuning.md",
             summary: "Learn how RuneBox calculates acoustic compliance, port resonant frequencies, and generates fabrication cut sheets."
           }
         ]
@@ -518,7 +518,7 @@ export const tutorialTree = [
             platform: "Final Fantasy VII",
             readingTime: "5 min read",
             difficulty: "Beginner",
-            markdownFile: "tutorials/modding/loaders/FFVIISE_Mod_Loader_Tutorial.md",
+            markdownFile: "assets/tutorials/modding/loaders/FFVIISE_Mod_Loader_Tutorial.md",
             summary: "How to install the native FFVIISE mod loader directly into your Steam Final Fantasy VII installation."
           }
         ]
@@ -533,7 +533,7 @@ export const tutorialTree = [
             platform: "Minecraft",
             readingTime: "4 min read",
             difficulty: "Beginner",
-            markdownFile: "tutorials/modding/mods/installing-riftlink.md",
+            markdownFile: "assets/tutorials/modding/mods/installing-riftlink.md",
             summary: "Quick guide to adding RiftLink to your NeoForge Minecraft profile."
           }
         ]
@@ -548,7 +548,7 @@ export const tutorialTree = [
             platform: "Final Fantasy VII",
             readingTime: "6 min read",
             difficulty: "Intermediate",
-            markdownFile: "tutorials/modding/tools/7thheaven-migration.md",
+            markdownFile: "assets/tutorials/modding/tools/7thheaven-migration.md",
             summary: "Convert classic 7th Heaven .iro packages into folder structures ready for the native mod loader."
           },
           {
@@ -557,7 +557,7 @@ export const tutorialTree = [
             platform: "Final Fantasy X",
             readingTime: "7 min read",
             difficulty: "Intermediate",
-            markdownFile: "tutorials/modding/tools/phyre-gltf-export.md",
+            markdownFile: "assets/tutorials/modding/tools/phyre-gltf-export.md",
             summary: "Extract 3D models and textures from Final Fantasy X/X-2 HD Remaster for use in Blender or modern engines."
           }
         ]
