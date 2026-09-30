@@ -1100,82 +1100,124 @@ class App {
     `;
   }
 
-  renderFullGuide(guide) {
-    let stepsHtml = guide.steps.map(step => {
-      let calloutHtml = '';
-      if (step.callout) {
-        calloutHtml = `
-          <div class="callout callout-${step.callout.type}">
-            <div class="callout-title">${step.callout.title}</div>
-            <div class="callout-content">${step.callout.content}</div>
-          </div>
-        `;
-      }
-
-      let codeHtml = '';
-      if (step.codeBlock) {
-        const escapedCode = this.escapeHtml(step.codeBlock.code);
-        codeHtml = `
-          <div class="code-block-container">
-            <div class="code-block-header">
-              <span>${step.codeBlock.filename || 'Snippet'}</span>
-              <div style="display: flex; align-items: center; gap: 0.75rem;">
-                <span class="code-language-tag">${step.codeBlock.language}</span>
-                <button class="copy-code-btn" data-code="${encodeURIComponent(step.codeBlock.code)}">
-                  Copy
-                </button>
-              </div>
-            </div>
-            <pre><code>${escapedCode}</code></pre>
-          </div>
-        `;
-      }
-
-      return `
-        <section class="step-card">
-          <h3 class="step-title">${step.title}</h3>
-          <p class="step-description">${step.description}</p>
-          ${codeHtml}
-          ${calloutHtml}
-        </section>
-      `;
-    }).join('');
-
+  async renderFullGuide(guide) {
     const platformTag = guide.platform || guide.game;
 
+    // Initial loading skeleton state
     this.tutorialViewport.innerHTML = `
       <article class="tutorial-reader">
         <header class="reader-header">
           <div class="reader-meta-bar" style="margin-bottom: 0.75rem; color: var(--text-muted); font-size: 0.85rem;">
             ${platformTag ? `<span class="filter-game-badge" style="margin-right: 0.5rem;">${platformTag}</span>` : ''}
-            <span class="difficulty-badge">${guide.difficulty}</span>
+            <span class="difficulty-badge">${guide.difficulty || 'Documentation'}</span>
             <span>•</span>
-            <span>${guide.readingTime}</span>
+            <span>${guide.readingTime || '5 min read'}</span>
           </div>
           <h2 class="reader-title">${guide.title}</h2>
-          <p class="reader-summary">${guide.summary}</p>
+          <p class="reader-summary">${guide.summary || ''}</p>
         </header>
 
-        <div class="tutorial-steps-flow">
-          ${stepsHtml}
+        <div class="markdown-body" id="tutorial-markdown-container">
+          <div class="tutorial-loading-indicator" style="padding: 2rem 0; color: var(--text-muted); display: flex; align-items: center; gap: 0.75rem;">
+            <svg class="spin-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg>
+            <span>Loading tutorial from disk...</span>
+          </div>
         </div>
       </article>
     `;
 
-    // Attach copy button handlers
-    const copyButtons = this.tutorialViewport.querySelectorAll('.copy-code-btn');
-    copyButtons.forEach(btn => {
-      btn.addEventListener('click', async () => {
-        const rawCode = decodeURIComponent(btn.getAttribute('data-code'));
-        try {
-          await navigator.clipboard.writeText(rawCode);
-          btn.textContent = 'Copied!';
-          setTimeout(() => { btn.textContent = 'Copy'; }, 2000);
-        } catch (err) {
-          console.error(err);
+    const container = document.getElementById('tutorial-markdown-container');
+    if (!container) return;
+
+    try {
+      if (!guide.markdownFile) {
+        throw new Error('No physical Markdown file defined for this tutorial.');
+      }
+
+      // Fetch the physical markdown file
+      const response = await fetch(`${guide.markdownFile}?t=${Date.now()}`);
+      if (!response.ok) {
+        throw new Error(`Failed to load tutorial file (${response.status} ${response.statusText})`);
+      }
+
+      const rawMarkdown = await response.text();
+
+      // Check if marked is available
+      let htmlContent = '';
+      if (typeof marked !== 'undefined' && marked.parse) {
+        htmlContent = marked.parse(rawMarkdown);
+      } else {
+        // Fallback simple preformatted display
+        htmlContent = `<pre style="white-space: pre-wrap; font-family: inherit;">${this.escapeHtml(rawMarkdown)}</pre>`;
+      }
+
+      container.innerHTML = htmlContent;
+
+      // Enhance callout blockquotes (e.g. > [!NOTE], > [!TIP], > [!WARNING])
+      container.querySelectorAll('blockquote').forEach(bq => {
+        const text = bq.innerHTML;
+        const alertMatch = text.match(/\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]/i);
+        if (alertMatch) {
+          const type = alertMatch[1].toLowerCase();
+          const cleanHtml = text.replace(/\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]/i, '').trim();
+          bq.className = `callout callout-${type === 'warning' || type === 'caution' ? 'warning' : type === 'tip' ? 'tip' : 'note'}`;
+          bq.innerHTML = `
+            <div class="callout-title" style="text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.05em; font-weight: 700;">
+              ${alertMatch[1]}
+            </div>
+            <div class="callout-content">${cleanHtml}</div>
+          `;
         }
       });
-    });
+
+      // Enhance code blocks with header and copy button
+      container.querySelectorAll('pre > code').forEach(codeEl => {
+        const pre = codeEl.parentElement;
+        const rawCode = codeEl.innerText;
+        const className = codeEl.className || '';
+        const langMatch = className.match(/language-(\w+)/);
+        const language = langMatch ? langMatch[1] : 'code';
+
+        const wrapper = document.createElement('div');
+        wrapper.className = 'code-block-container';
+        wrapper.innerHTML = `
+          <div class="code-block-header">
+            <span>${language.toUpperCase()}</span>
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <span class="code-language-tag">${language}</span>
+              <button class="copy-code-btn" type="button">Copy</button>
+            </div>
+          </div>
+        `;
+        pre.parentNode.insertBefore(wrapper, pre);
+        wrapper.appendChild(pre);
+
+        const copyBtn = wrapper.querySelector('.copy-code-btn');
+        if (copyBtn) {
+          copyBtn.addEventListener('click', async () => {
+            try {
+              await navigator.clipboard.writeText(rawCode);
+              copyBtn.textContent = 'Copied!';
+              setTimeout(() => { copyBtn.textContent = 'Copy'; }, 2000);
+            } catch (err) {
+              console.error(err);
+            }
+          });
+        }
+      });
+
+    } catch (err) {
+      console.error('Error rendering markdown tutorial:', err);
+      container.innerHTML = `
+        <div class="empty-state" style="padding: 2rem 0; text-align: left;">
+          <h3 style="color: var(--accent-red); margin-bottom: 0.5rem;">Unable to load tutorial</h3>
+          <p style="color: var(--text-secondary);">${err.message}</p>
+          <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 0.5rem;">
+            File target: <code>${guide.markdownFile || 'unknown'}</code>
+          </p>
+        </div>
+      `;
+    }
   }
 
   escapeHtml(str) {

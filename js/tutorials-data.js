@@ -474,13 +474,8 @@ export const tutorialTree = [
             platform: "Pokemon Yellow",
             readingTime: "7 min read",
             difficulty: "Intermediate",
-            summary: "Configuring emulator interfaces and reward functions for hierarchical RL training.",
-            steps: [
-              {
-                title: "1. Memory Bus Bridge",
-                description: "The agent hooks directly into the emulator memory bus to monitor player coordinates, health, and combat events in real time."
-              }
-            ]
+            markdownFile: "tutorials/ai/rl/hrl-environment-setup.md",
+            summary: "Configuring emulator interfaces and reward functions for hierarchical RL training."
           }
         ]
       }
@@ -501,18 +496,8 @@ export const tutorialTree = [
             platform: "Audio CAD",
             readingTime: "8 min read",
             difficulty: "Intermediate",
-            summary: "Learn how RuneBox calculates acoustic compliance, port resonant frequencies, and generates fabrication cut sheets.",
-            steps: [
-              {
-                title: "1. Acoustic Compliance & Tuning",
-                description: "Balance net volume and port area to prevent turbulence while maximizing sub-bass efficiency.",
-                callout: {
-                  type: "tip",
-                  title: "CAD Visualization",
-                  content: "RuneBox computes pure 3D vector graphics to preview internal box partitions and port bends."
-                }
-              }
-            ]
+            markdownFile: "tutorials/software/desktop/enclosure-tuning.md",
+            summary: "Learn how RuneBox calculates acoustic compliance, port resonant frequencies, and generates fabrication cut sheets."
           }
         ]
       }
@@ -533,34 +518,8 @@ export const tutorialTree = [
             platform: "Final Fantasy VII",
             readingTime: "5 min read",
             difficulty: "Beginner",
-            summary: "How to install the native FFVIISE mod loader directly into your Steam Final Fantasy VII installation.",
-            steps: [
-              {
-                title: "1. Overview & Clean Install",
-                description: "FFVIISE Mod Loader is a lightweight native loader for the Final Fantasy VII Steam edition, designed for fast load times without third-party bloat. Start with a clean, verified Steam installation.",
-                callout: {
-                  type: "note",
-                  title: "Steam Clean Install",
-                  content: "It is recommended to verify file integrity via Steam before dropping loader binaries into your directory."
-                }
-              },
-              {
-                title: "2. Installation",
-                description: "Place the mod loader binaries directly into your game folder alongside <code>ff7_en.exe</code>.",
-                codeBlock: {
-                  language: "bash",
-                  filename: "Target Directory Layout",
-                  code: `FINAL FANTASY VII/
-├── ff7_en.exe
-├── [FFVIISE Mod Loader Files]
-└── mods/           <-- Place your active mods here`
-                }
-              },
-              {
-                title: "3. Adding Mods",
-                description: "Drop your extracted mod folders into the newly created <code>mods</code> directory."
-              }
-            ]
+            markdownFile: "tutorials/modding/loaders/FFVIISE_Mod_Loader_Tutorial.md",
+            summary: "How to install the native FFVIISE mod loader directly into your Steam Final Fantasy VII installation."
           }
         ]
       },
@@ -574,17 +533,8 @@ export const tutorialTree = [
             platform: "Minecraft",
             readingTime: "4 min read",
             difficulty: "Beginner",
-            summary: "Quick guide to adding RiftLink to your NeoForge Minecraft profile.",
-            steps: [
-              {
-                title: "1. Prerequisites",
-                description: "Ensure you have Minecraft 1.21.1 and the compatible NeoForge loader installed."
-              },
-              {
-                title: "2. Mod Placement",
-                description: "Drop the downloaded RiftLink <code>.jar</code> directly into your <code>.minecraft/mods</code> folder."
-              }
-            ]
+            markdownFile: "tutorials/modding/mods/installing-riftlink.md",
+            summary: "Quick guide to adding RiftLink to your NeoForge Minecraft profile."
           }
         ]
       },
@@ -598,21 +548,8 @@ export const tutorialTree = [
             platform: "Final Fantasy VII",
             readingTime: "6 min read",
             difficulty: "Intermediate",
-            summary: "Convert classic 7th Heaven .iro packages into folder structures ready for the native mod loader.",
-            steps: [
-              {
-                title: "1. Extracting .IRO Archives",
-                description: "Legacy mods for FFVII are distributed in proprietary .iro archives. The Python converter extracts and organizes them for native loading.",
-                codeBlock: {
-                  language: "bash",
-                  filename: "Usage",
-                  code: `# Clone and run the converter
-git clone https://github.com/odinj2010/7thHeavenToFFVIIModLoader.git
-cd 7thHeavenToFFVIIModLoader
-python convert.py --input "path/to/mod.iro" --output "path/to/mods/ExtractedMod"`
-                }
-              }
-            ]
+            markdownFile: "tutorials/modding/tools/7thheaven-migration.md",
+            summary: "Convert classic 7th Heaven .iro packages into folder structures ready for the native mod loader."
           },
           {
             id: "phyre-gltf-export",
@@ -620,18 +557,8 @@ python convert.py --input "path/to/mod.iro" --output "path/to/mods/ExtractedMod"
             platform: "Final Fantasy X",
             readingTime: "7 min read",
             difficulty: "Intermediate",
-            summary: "Extract 3D models and textures from Final Fantasy X/X-2 HD Remaster for use in Blender or modern engines.",
-            steps: [
-              {
-                title: "1. Model Extraction",
-                description: "FFX-Phyre-Tool translates proprietary mesh and texture blocks directly into glTF 2.0 open standard files.",
-                codeBlock: {
-                  language: "bash",
-                  filename: "Run Extraction",
-                  code: `python phyre_tool.py --extract "model.phyre" --out "exported_model.gltf"`
-                }
-              }
-            ]
+            markdownFile: "tutorials/modding/tools/phyre-gltf-export.md",
+            summary: "Extract 3D models and textures from Final Fantasy X/X-2 HD Remaster for use in Blender or modern engines."
           }
         ]
       }
