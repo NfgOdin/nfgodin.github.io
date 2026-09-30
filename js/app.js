@@ -169,7 +169,7 @@ class App {
     }
 
     if (cardPython) {
-      cardPython.addEventListener('click', () => this.navigateToHomeLayer('python', 'Applications > Python'));
+      cardPython.addEventListener('click', () => this.navigateToHomeLayer('python', 'Applications > Python / Desktop'));
     }
 
     if (cardPi5) {
