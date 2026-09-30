@@ -294,9 +294,11 @@ class App {
     if (layerId === 'root') {
       rootLayer.style.display = 'grid';
       if (layerNav) layerNav.style.display = 'none';
+      this.setPageTitle("Home");
     } else {
       if (layerNav) layerNav.style.display = 'flex';
       if (layerTitle) layerTitle.textContent = title;
+      this.setPageTitle(title ? `${title.replace(/>/g, '•')} | Home` : "Home");
 
       if (layerId === 'applications' && appsLayer) {
         appsLayer.style.display = 'grid';
@@ -450,6 +452,21 @@ class App {
         this.projectState.activeGame = 'All';
       }
 
+      // Dynamic Title for Projects
+      if (catId) {
+        const cat = projectTree.find(c => c.id === catId);
+        const sub = cat?.subcategories?.find(s => s.id === subId);
+        if (sub) {
+          this.setPageTitle(`${sub.title} | Projects`);
+        } else if (cat) {
+          this.setPageTitle(`${cat.title} | Projects`);
+        } else {
+          this.setPageTitle("Projects");
+        }
+      } else {
+        this.setPageTitle("Projects & Repositories");
+      }
+
       this.renderProjectBreadcrumbs();
       this.renderProjectSidebar();
       this.renderProjectsContent();
@@ -461,11 +478,34 @@ class App {
       this.tutorialState.categoryId = catId;
       this.tutorialState.subcategoryId = subId;
       this.tutorialState.guideId = guideId;
+
+      // Dynamic Title for Tutorials
+      if (guideId && catId && subId) {
+        const cat = tutorialTree.find(c => c.id === catId);
+        const sub = cat?.subcategories?.find(s => s.id === subId);
+        const guide = sub?.guides?.find(g => g.id === guideId);
+        if (guide) {
+          this.setPageTitle(`${guide.title} | Tutorials`);
+        } else {
+          this.setPageTitle("Tutorial Reader");
+        }
+      } else if (subId && catId) {
+        const cat = tutorialTree.find(c => c.id === catId);
+        const sub = cat?.subcategories?.find(s => s.id === subId);
+        this.setPageTitle(sub ? `${sub.title} | Tutorials` : "Tutorials");
+      } else if (catId) {
+        const cat = tutorialTree.find(c => c.id === catId);
+        this.setPageTitle(cat ? `${cat.title} | Tutorials` : "Tutorials");
+      } else {
+        this.setPageTitle("Technical Guides & Tutorials");
+      }
+
       this.renderTutorialBreadcrumbs();
       this.renderTutorialSidebar();
       this.renderTutorialContent();
     } else if (mainSection === 'about') {
       this.switchView('about');
+      this.setPageTitle("About");
     } else {
       this.switchView('home');
       this.showHomeLayer('root');
@@ -1217,6 +1257,15 @@ class App {
           </p>
         </div>
       `;
+    }
+  }
+
+  setPageTitle(pageTitle) {
+    const baseTitle = "NfgOdin // NFG";
+    if (!pageTitle || pageTitle === "Home") {
+      document.title = baseTitle;
+    } else {
+      document.title = `${pageTitle} • ${baseTitle}`;
     }
   }
 
