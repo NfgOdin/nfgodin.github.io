@@ -25,12 +25,19 @@ npm run preview  # Preview production dist/ locally
 
 ---
 
-## Deployment (GitHub Pages)
+## Deployment (GitHub Pages via `gh-pages` branch)
 
-1. Push changes to `main`:
-   ```bash
-   git add .
-   git commit -m "feat: site update"
-   git push origin main
-   ```
-2. In your GitHub repository settings (**Settings → Pages → Build and deployment → Source**), ensure **GitHub Actions** is selected. The workflow at [.github/workflows/deploy.yml](file:///c:/Users/jonat/Documents/Antigravity%20Projects/Nfg_Website/.github/workflows/deploy.yml) automatically builds and publishes the site on every push.
+This site builds locally in ~2 seconds and publishes the static output directly to the `gh-pages` branch (no GitHub Actions required):
+
+```bash
+npm run deploy
+```
+
+Also commit & push your source updates on `main`:
+```bash
+git add .
+git commit -m "feat: site update"
+git push origin main
+```
+
+In your GitHub repository settings (**Settings → Pages → Build and deployment → Source**), select **Deploy from a branch** → **`gh-pages`** → **`/ (root)`**.
