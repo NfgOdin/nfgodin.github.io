@@ -1,0 +1,264 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Setting Up the Pokemon Yellow Gym Environment — Tutorial | NFG</title><meta name="description" content="Configure PyBoy memory bus hooks and two-tier reward structures for training hierarchical RL agents in Pokemon Yellow."><link rel="canonical" href="https://nfgodin.github.io/tutorials/ai/rl/hrl-environment-setup/"><!-- OpenGraph / Discord / Reddit / Twitter Cards --><meta property="og:type" content="website"><meta property="og:site_name" content="NFG // NfgOdin"><meta property="og:title" content="Setting Up the Pokemon Yellow Gym Environment — Tutorial | NFG"><meta property="og:description" content="Configure PyBoy memory bus hooks and two-tier reward structures for training hierarchical RL agents in Pokemon Yellow."><meta property="og:url" content="https://nfgodin.github.io/tutorials/ai/rl/hrl-environment-setup/"><meta property="og:image" content="https://nfgodin.github.io/images/logo.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Setting Up the Pokemon Yellow Gym Environment — Tutorial | NFG"><meta name="twitter:description" content="Configure PyBoy memory bus hooks and two-tier reward structures for training hierarchical RL agents in Pokemon Yellow."><meta name="twitter:image" content="https://nfgodin.github.io/images/logo.png"><!-- Favicons --><link rel="icon" type="image/png" href="/icon.png?v=3"><link rel="icon" type="image/svg+xml" href="/icon.svg?v=3"><!-- Typography: Space Grotesk + Inter + JetBrains Mono --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet"><!-- Google AdSense --><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1794260070743930" crossorigin="anonymous"></script><!-- Legacy SPA Hash Route Redirector (preserves old /#/... bookmarks) --><script>
+      (() => {
+        const hash = window.location.hash;
+        if (!hash || !hash.startsWith('#/')) return;
+        const clean = hash.replace(/^#\/?/, '').replace(/\/$/, '');
+        if (!clean) return;
+        const [pathPart, queryPart] = clean.split('?');
+        const segs = pathPart.split('/').filter(Boolean);
+        let dest = null;
+        if (segs[0] === 'projects') {
+          if (segs[1] === 'pc-ports') {
+            dest = segs[2] ? `/projects/pc-ports/${segs[2]}/` : '/projects/pc-ports/';
+          } else {
+            const p = new URLSearchParams(queryPart || '');
+            if (segs[1]) p.set('category', segs[1]);
+            if (segs[2]) p.set('sub', segs[2]);
+            const qs = p.toString();
+            dest = `/projects/${qs ? '?' + qs : ''}`;
+          }
+        } else if (segs[0] === 'tutorials') {
+          dest = segs.length > 1 ? `/tutorials/${segs.slice(1).join('/')}/` : '/tutorials/';
+        } else if (segs[0] === 'about') {
+          dest = segs[1] ? `/about/${segs[1]}/` : '/about/';
+        }
+        if (dest) window.location.replace(dest);
+      })();
+    </script><link rel="stylesheet" href="/_astro/index.78ftGDK4.css"></head> <body> <div class="site-backdrop" aria-hidden="true"> <div class="backdrop-glow-cyan"></div> <div class="backdrop-glow-violet"></div> </div> <header class="site-header"> <div class="container header-inner"> <a href="/" class="brand-link"> <img src="/images/logo.png" alt="NFG Crest" class="brand-logo" width="38" height="38"> <span class="brand-text"> <span class="brand-title">NFG</span> <span class="brand-sub">Systems &amp; Game Tech</span> </span> </a> <nav aria-label="Primary"> <ul class="nav-links"> <li><a href="/" class="nav-link ">Home</a></li> <li><a href="/projects/" class="nav-link ">Projects</a></li> <li><a href="/tutorials/" class="nav-link active">Tutorials</a></li> <li><a href="/about/" class="nav-link ">About</a></li> </ul> </nav> <div class="header-actions"> <button type="button" class="cmdk-trigger" id="open-cmdk-btn" aria-label="Open command search (Ctrl+K)"> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg> <span class="cmdk-label-text">Search</span> <kbd class="cmdk-kbd">Ctrl K</kbd> </button> <button type="button" class="donate-pill" id="open-donate-btn" aria-label="Support NFG via PayPal"> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg> <span>Donate</span> </button> <div class="header-social-group" style="display: inline-flex; gap: 0.4rem;"> <a href="https://www.nexusmods.com/profile/NfgOdin" target="_blank" rel="noopener noreferrer" class="icon-btn nexus" title="Nexus Mods Profile" aria-label="Nexus Mods Profile"> <svg width="16" height="17" viewBox="0 0 24 26" fill="none"> <path fill-rule="evenodd" clip-rule="evenodd" d="M6.98826 24.495C6.79343 24.4706 6.59794 24.4233 6.3908 24.3501C6.01427 24.2172 5.70001 24.0384 5.46836 23.8975C4.95807 23.5873 4.43921 23.1981 3.88232 22.7082C3.63916 22.4941 3.40229 22.2694 3.17787 22.0399L2.98506 21.8434C2.85076 21.716 2.73601 21.5732 2.64187 21.4194C2.4658 21.138 2.32507 20.7623 2.30378 20.2704C2.29092 20.1102 2.28356 19.9489 2.28195 19.7882C2.27834 19.4379 2.30083 19.0765 2.3489 18.7137C2.44705 17.9728 2.66397 17.3068 2.84205 16.8094C2.85665 16.7685 2.87151 16.7276 2.88664 16.6866C2.83697 16.5506 2.78983 16.4137 2.74565 16.2765C2.49003 15.4831 2.32239 14.6568 2.24714 13.8205C2.168 12.9397 2.1905 12.0498 2.31409 11.1763C2.34006 10.9925 2.37086 10.8085 2.40594 10.6254C2.08632 10.1296 1.68101 9.4239 1.42928 8.5827L1.42446 8.56706C1.36996 8.38783 1.24222 7.96838 1.31292 7.4192C1.33916 7.21658 1.38496 7.01424 1.45325 6.79971C1.57965 6.40236 1.74555 6.07087 1.87583 5.82649C2.16573 5.28334 2.52645 4.73258 2.9789 4.1428C3.17774 3.88364 3.38542 3.63222 3.59658 3.3953L3.78096 3.18752C3.87697 3.072 3.98275 2.96939 4.09656 2.88085C4.36664 2.66474 4.74102 2.48365 5.2477 2.45853C5.4136 2.44318 5.58352 2.43514 5.75357 2.43471H5.76656C6.10653 2.43471 6.45788 2.46499 6.81098 2.52469C7.34082 2.61437 7.82647 2.77481 8.25669 2.94471C8.5435 2.81298 8.83822 2.69473 9.13467 2.59285C9.87554 2.33785 10.6459 2.17641 11.4245 2.11298C12.2399 2.0464 13.07 2.08758 13.8718 2.23438C14.0583 2.26854 14.2452 2.30872 14.4309 2.35464C15.0615 1.89099 15.6421 1.57227 16.2398 1.36032L16.253 1.35544C16.3931 1.30321 16.6846 1.19458 17.0708 1.19458C17.1543 1.19458 17.2387 1.19975 17.3213 1.21008C17.5163 1.23447 17.7118 1.28183 17.9188 1.35487C18.2956 1.4879 18.6097 1.6667 18.8413 1.80776C19.3518 2.11801 19.8706 2.50718 20.4274 2.99709C20.6704 3.21091 20.9074 3.43577 21.132 3.66537L21.3245 3.86154C21.4205 3.95266 21.5065 4.05153 21.5821 4.15672C21.8249 4.48706 22.0144 4.95645 22.0181 5.61798C22.0307 5.85361 22.0312 6.09412 22.0198 6.33491C21.9951 6.86156 21.9209 7.36338 21.7994 7.82631C21.7101 8.16641 21.6035 8.51153 21.4818 8.85507C21.7187 9.4968 21.8972 10.1619 22.0139 10.8385C22.2584 12.2556 22.2311 13.7213 21.9384 15.1263C22.118 15.4056 22.2704 15.664 22.4028 15.9141C22.633 16.3488 22.8156 16.7967 22.9455 17.2451C22.9937 17.4116 23.121 17.8515 23.0371 18.4149C23.0079 18.6107 22.96 18.8083 22.8907 19.0179C22.6488 19.7506 22.2721 20.3476 21.938 20.8496C21.5703 21.4019 21.1653 21.9265 20.7336 22.4091L20.5775 22.5851C20.4803 22.7026 20.3727 22.8062 20.2572 22.8956C19.9876 23.1097 19.6146 23.2889 19.1111 23.3142C18.9451 23.3297 18.775 23.3374 18.605 23.338H18.5916C18.2341 23.338 17.864 23.3044 17.4919 23.2383C16.8958 23.1324 16.3515 22.9361 15.8781 22.7375C15.6208 22.8471 15.3586 22.9457 15.0954 23.0316C14.3418 23.2773 13.5601 23.4267 12.7718 23.4755C11.9527 23.5266 11.1215 23.4682 10.3187 23.304C10.2214 23.284 10.1241 23.2625 10.027 23.2394C9.33217 23.7661 8.70834 24.1182 8.06963 24.3448L8.05651 24.3495C7.91645 24.4019 7.62495 24.5104 7.23879 24.5104C7.15523 24.5104 7.07088 24.5052 6.98826 24.495Z" stroke="currentColor" stroke-width="1.3"></path> <path fill-rule="evenodd" clip-rule="evenodd" d="M9.22924 9.73278C8.75778 9.50447 8.41727 9.27444 8.06324 9.00351C7.52255 8.60745 7.03007 8.15685 6.6127 7.68976C5.59721 6.57993 5.13359 5.41838 5.28128 4.49194L4.9099 4.86108C4.17144 5.69381 3.19143 7.15005 3.18286 7.78361L3.20094 7.85048C3.33203 8.33508 3.55497 8.82227 3.86307 9.29854L3.86816 9.30629C4.26557 9.99754 5.05933 11.1254 7.87083 12.4477L7.37366 13.4489L11.168 12.3565L9.80112 8.59051L9.22924 9.73278Z" fill="currentColor"></path> <path fill-rule="evenodd" clip-rule="evenodd" d="M15.129 16.0396C15.6006 16.2679 15.941 16.4979 16.295 16.7688C16.8359 17.1649 17.3282 17.6154 17.7456 18.0826C18.7612 19.1923 19.1784 20.2422 19.0307 21.1684L19.4485 20.9113C20.187 20.0785 21.1668 18.6223 21.1755 17.9887L21.1573 17.9219C21.0263 17.4373 20.8034 16.9499 20.4952 16.4737L20.4901 16.4661C20.0928 15.7748 19.2989 14.6469 16.4875 13.3247L16.9846 12.3235L13.1903 13.4158L14.5573 17.1818L15.129 16.0396Z" fill="currentColor"></path> <path fill-rule="evenodd" clip-rule="evenodd" d="M15.218 9.70161C15.4309 9.1962 15.6456 8.83142 15.8984 8.45201C16.2679 7.87255 16.6884 7.34476 17.1242 6.89747C18.1599 5.80902 19.2366 5.30432 20.101 5.4626L19.7636 5.07243C18.9867 4.28102 17.6279 3.23089 17.0368 3.22156L16.9743 3.24107C16.522 3.38156 16.0675 3.62035 15.6231 3.95068L15.6159 3.95614C14.9709 4.38205 13.9185 5.23272 12.6847 8.2458L11.7505 7.71298L12.7697 11.7794L16.2838 10.3144L15.218 9.70161Z" fill="currentColor"></path> <path fill-rule="evenodd" clip-rule="evenodd" d="M9.0914 16.003C8.87836 16.5084 8.66372 16.8732 8.41092 17.2525C8.04136 17.8321 7.62091 18.3599 7.1852 18.8072C6.14949 19.8956 5.07539 20.3561 4.21094 20.1978L4.54577 20.6322C5.32266 21.4235 6.68147 22.4738 7.2725 22.4829L7.33504 22.4636C7.78735 22.3231 8.24181 22.0843 8.68622 21.7538L8.69345 21.7485C9.33844 21.3226 10.3909 20.4719 11.6248 17.4589L12.5589 17.9917L11.5396 13.9253L8.02556 15.3901L9.0914 16.003Z" fill="currentColor"></path> </svg> </a> <a href="https://www.curseforge.com/members/nfgodin/projects" target="_blank" rel="noopener noreferrer" class="icon-btn curse" title="CurseForge Projects" aria-label="CurseForge Projects"> <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M2 5h20c.55 0 1 .45 1 1v2c0 .55-.45 1-1 1h-2.5c-.7 0-1.35.37-1.7 1-.7 1.25-1.8 2-3.8 2h-4c-2 0-3.1-.75-3.8-2-.35-.63-1-1-1.7-1H2c-.55 0-1-.45-1-1V6c0-.55.45-1 1-1zm6 8h8v3h-8v-3zm-3 5h14c.55 0 1 .45 1 1v2H4v-2c0-.55.45-1 1-1z"></path></svg> </a> <a href="https://github.com/NfgOdin" target="_blank" rel="noopener noreferrer" class="icon-btn github" title="GitHub Profile" aria-label="GitHub Profile"> <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"></path></svg> </a> </div> <button type="button" class="icon-btn mobile-menu-btn" id="mobile-menu-toggle" aria-label="Toggle Menu" aria-expanded="false"> <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="7" x2="21" y2="7"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="17" x2="21" y2="17"></line></svg> </button> </div> </div> </header> <div class="mobile-drawer" id="mobile-drawer" aria-hidden="true"> <ul class="mobile-drawer-links"> <li><a href="/" class="nav-link ">Home</a></li> <li><a href="/projects/" class="nav-link ">Projects &amp; PC Ports</a></li> <li><a href="/tutorials/" class="nav-link active">Tutorials</a></li> <li><a href="/about/" class="nav-link ">About NFG</a></li> </ul> <div class="mobile-drawer-socials"> <a href="https://github.com/NfgOdin" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">GitHub</a> <a href="https://www.nexusmods.com/profile/NfgOdin" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">Nexus Mods</a> <a href="https://www.curseforge.com/members/nfgodin/projects" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">CurseForge</a> </div> </div> <script>
+  (() => {
+    const toggle = document.getElementById('mobile-menu-toggle');
+    const drawer = document.getElementById('mobile-drawer');
+    if (toggle && drawer) {
+      toggle.addEventListener('click', () => {
+        const open = drawer.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', String(open));
+        drawer.setAttribute('aria-hidden', String(!open));
+      });
+    }
+  })();
+</script> <main class="site-main">  <div class="container" style="padding-top: 1.75rem;"> <nav class="breadcrumbs" aria-label="Breadcrumb"> <a href="/">Home</a> <span class="sep">/</span> <a href="/tutorials/">Tutorials</a> <span class="sep">/</span> <span>AI</span> <span class="sep">/</span> <span class="current">Setting Up the Pokemon Yellow Gym Environment</span> </nav> <div class="tutorial-layout"> <!-- Left Guide Index Sidebar --> <aside class="explorer-sidebar" aria-label="All Guides"> <a href="/tutorials/" class="sidebar-btn" style="margin-bottom:0.25rem;"> <span>&larr; All Tutorials</span> </a> <div> <div class="sidebar-label">Modding</div> <div class="sidebar-list"> <a href="/tutorials/modding/loaders/ffviise-loader/" class="sidebar-btn sidebar-sub-btn "> <span>Setting Up FFVIISE Mod Loader</span> </a><a href="/tutorials/modding/tools/7thheaven-migration/" class="sidebar-btn sidebar-sub-btn "> <span>Converting IRO Mods with 7thHeavenToFFVIIModLoader</span> </a><a href="/tutorials/modding/tools/phyre-gltf-export/" class="sidebar-btn sidebar-sub-btn "> <span>Exporting 3D Models to glTF with FFX-Phyre-Tool</span> </a><a href="/tutorials/modding/mods/installing-riftlink/" class="sidebar-btn sidebar-sub-btn "> <span>Installing RiftLink on NeoForge</span> </a> </div> </div><div> <div class="sidebar-label">Software</div> <div class="sidebar-list"> <a href="/tutorials/software/desktop/enclosure-tuning/" class="sidebar-btn sidebar-sub-btn "> <span>Simulating Port Velocity &amp; Box Volume in RuneBox</span> </a> </div> </div><div> <div class="sidebar-label">AI</div> <div class="sidebar-list"> <a href="/tutorials/ai/rl/hrl-environment-setup/" class="sidebar-btn sidebar-sub-btn active"> <span>Setting Up the Pokemon Yellow Gym Environment</span> </a> </div> </div> </aside> <!-- Main Article Reader --> <div style="min-width:0;"> <article class="tutorial-article"> <header style="margin-bottom:1.85rem;padding-bottom:1.35rem;border-bottom:1px solid var(--border-hairline);"> <div style="display:flex;align-items:center;gap:0.4rem;flex-wrap:wrap;margin-bottom:0.8rem;"> <span class="chip chip-emerald">AI</span> <span class="chip">Reinforcement Learning</span> <span class="chip chip-cyan">Pokemon Yellow</span> <span class="chip">Intermediate</span> <span class="mono" style="font-size:0.74rem;color:var(--text-muted);margin-left:auto;"> 7 min read </span> </div> <h1 class="page-title" style="font-size:clamp(1.7rem,3vw,2.35rem);">Setting Up the Pokemon Yellow Gym Environment</h1> <p style="color:var(--text-secondary);font-size:0.98rem;margin-top:0.55rem;">Configure PyBoy memory bus hooks and two-tier reward structures for training hierarchical RL agents in Pokemon Yellow.</p> <div style="margin-top:1rem;"> <a href="https://github.com/NfgOdin/PokemonYellow-HRL-AI" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
+View Source Repository &rarr;
+</a> </div> </header> <div class="prose" id="tutorial-prose"> <p>Configure emulator interfaces, memory buses, and hierarchical reward structures for training autonomous reinforcement learning agents in <strong>Pokemon Yellow</strong>.</p>
+<hr>
+<h2 id="1-overview--architecture">1. Overview &#x26; Architecture</h2>
+<p>The <strong>PokemonYellow-HRL-AI</strong> system implements a two-tier Hierarchical Reinforcement Learning (HRL) model:</p>
+<ol>
+<li><strong>High-Level Meta-Controller</strong>: Decides macro objectives (e.g., “Navigate to Viridian Forest”, “Heal at PokeCenter”, “Train Caterpie to level 7”).</li>
+<li><strong>Low-Level Sub-Policy</strong>: Executes frame-by-frame controller inputs (D-Pad movement, A/B button interactions, battle menu selections).</li>
+</ol>
+<hr>
+<h2 id="2-memory-bus-bridge">2. Memory Bus Bridge</h2>
+<p>The agent communicates with the Game Boy emulation runtime via a high-speed memory bus hook. This bypasses slow visual OCR and provides ground-truth environmental state:</p>
+<pre class="astro-code github-dark-default" style="background-color:#0d1117;color:#e6edf3; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#8B949E"># Sample memory bus hook in Python</span></span>
+<span class="line"><span style="color:#FF7B72">from</span><span style="color:#E6EDF3"> pyboy </span><span style="color:#FF7B72">import</span><span style="color:#E6EDF3"> PyBoy</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">pyboy </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> PyBoy(</span><span style="color:#A5D6FF">'PokemonYellow.gb'</span><span style="color:#E6EDF3">, </span><span style="color:#FFA657">window_type</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">'headless'</span><span style="color:#E6EDF3">)</span></span>
+<span class="line"><span style="color:#FF7B72">while</span><span style="color:#FF7B72"> not</span><span style="color:#E6EDF3"> pyboy.tick():</span></span>
+<span class="line"><span style="color:#8B949E">    # Read memory addresses for player coordinates and party health</span></span>
+<span class="line"><span style="color:#E6EDF3">    player_x </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> pyboy.get_memory_value(</span><span style="color:#FF7B72">0x</span><span style="color:#79C0FF">D362</span><span style="color:#E6EDF3">)</span></span>
+<span class="line"><span style="color:#E6EDF3">    player_y </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> pyboy.get_memory_value(</span><span style="color:#FF7B72">0x</span><span style="color:#79C0FF">D361</span><span style="color:#E6EDF3">)</span></span>
+<span class="line"><span style="color:#E6EDF3">    party_count </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> pyboy.get_memory_value(</span><span style="color:#FF7B72">0x</span><span style="color:#79C0FF">D163</span><span style="color:#E6EDF3">)</span></span></code></pre>
+<hr>
+<h2 id="3-training-the-agent">3. Training the Agent</h2>
+<p>Start the training pipeline with your chosen hyperparameters:</p>
+<pre class="astro-code github-dark-default" style="background-color:#0d1117;color:#e6edf3; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFA657">python</span><span style="color:#A5D6FF"> train.py</span><span style="color:#79C0FF"> --env</span><span style="color:#A5D6FF"> PokemonYellow-v0</span><span style="color:#79C0FF"> --algorithm</span><span style="color:#A5D6FF"> PPO</span><span style="color:#79C0FF"> --timesteps</span><span style="color:#79C0FF"> 5000000</span><span style="color:#79C0FF"> --parallel-envs</span><span style="color:#79C0FF"> 8</span></span></code></pre>
+<aside class="callout callout-note" data-callout="note">
+<div class="callout-title">Note</div>
+<p>Training with headless emulation allows up to 2,000 frames per second per core, enabling rapid multi-agent convergence across exploration milestones.</p>
+</aside> </div> <nav aria-label="Tutorial pagination" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0.85rem;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--border-hairline);"> <a href="/tutorials/software/desktop/enclosure-tuning/" class="card" style="padding:0.95rem 1.1rem;text-decoration:none;"> <span class="mono" style="font-size:0.68rem;color:var(--text-muted);">&larr; Previous Guide</span> <span style="font-weight:600;font-size:0.92rem;margin-top:0.2rem;">Simulating Port Velocity &amp; Box Volume in RuneBox</span> </a>  </nav> </article> <section class="section-block" id="giscus"> <div class="section-header" style="margin-bottom: 1.4rem;"> <div> <span class="eyebrow">Guide Q&amp;A</span> <h2 class="section-title">Questions &amp; Troubleshooting</h2> <p class="section-desc">Stuck on a step or have a tip to share? Post directly in GitHub Discussions below.</p> </div> </div> <div class="giscus-shell"> <script src="https://giscus.app/client.js" data-repo="nfgodin/nfgodin.github.io" data-repo-id="R_kgDOUjJs7g" data-category="General" data-category-id="DIC_kwDOUjJs7s4DGspb" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="transparent_dark" data-lang="en" crossorigin="anonymous" async></script> </div> </section> </div> <!-- Sticky Table of Contents --> <aside class="toc-box" aria-label="On this page"> <div class="sidebar-label">On This Page</div> <ul class="toc-list"> <li> <a href="#1-overview--architecture" class="toc-link depth-2">1. Overview &amp; Architecture</a> </li><li> <a href="#2-memory-bus-bridge" class="toc-link depth-2">2. Memory Bus Bridge</a> </li><li> <a href="#3-training-the-agent" class="toc-link depth-2">3. Training the Agent</a> </li> </ul> </aside> </div> </div> <script>
+    (() => {
+      const prose = document.getElementById('tutorial-prose');
+      if (!prose) return;
+      prose.querySelectorAll('pre').forEach((pre) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'code-copy-btn';
+        btn.textContent = 'Copy';
+        btn.addEventListener('click', async () => {
+          const code = pre.querySelector('code')?.textContent || pre.textContent || '';
+          try {
+            await navigator.clipboard.writeText(code.trim());
+            btn.textContent = 'Copied!';
+            setTimeout(() => { btn.textContent = 'Copy'; }, 1600);
+          } catch {}
+        });
+        pre.appendChild(btn);
+      });
+    })();
+  </script>  </main> <footer class="site-footer"> <div class="container footer-inner"> <p class="footer-copy">&copy; 2026 NfgOdin // NFG. Built for speed &amp; open-source precision.</p> <ul class="footer-links"> <li><a href="/projects/pc-ports/">PC Ports</a></li> <li><a href="/projects/">Projects</a></li> <li><a href="/tutorials/">Tutorials</a></li> <li><a href="/about/">About</a></li> <li><a href="https://github.com/NfgOdin" target="_blank" rel="noopener noreferrer">GitHub</a></li> <li><a href="https://www.nexusmods.com/profile/NfgOdin" target="_blank" rel="noopener noreferrer">Nexus Mods</a></li> <li><a href="https://www.curseforge.com/members/nfgodin/projects" target="_blank" rel="noopener noreferrer">CurseForge</a></li> </ul> </div> </footer> <div class="modal-backdrop" id="cmdk-backdrop" aria-hidden="true"> <div class="cmdk-dialog" role="dialog" aria-modal="true" aria-label="Command Search"> <div class="cmdk-input-wrap"> <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2.2"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg> <input type="text" id="cmdk-input" class="cmdk-input" placeholder="Jump to PC Ports, projects, mods, or tutorials..." autocomplete="off"> <kbd class="cmdk-kbd">ESC</kbd> </div> <div class="cmdk-results" id="cmdk-results"></div> <div class="cmdk-footer"> <span>↑↓ navigate &nbsp;•&nbsp; ↵ open &nbsp;•&nbsp; esc close</span> <span id="cmdk-count">53 indexed</span> </div> </div> </div> <script>(function(){const searchIndex = [{"title":"Home","subtitle":"NFG Studio Overview & Spotlight","kind":"Page","href":"/","keywords":"home start landing"},{"title":"PC Ports","subtitle":"Native Windows static-recompilation game ports","kind":"Page","href":"/projects/pc-ports/","keywords":"pc ports ps2 shadow hearts recomp"},{"title":"All Projects & Mods","subtitle":"Filterable explorer across PC Ports, Modding, Software, AI","kind":"Page","href":"/projects/","keywords":"projects catalog explorer"},{"title":"Technical Tutorials","subtitle":"Guides for mod loaders, 3D glTF, Audio CAD, and HRL AI","kind":"Page","href":"/tutorials/","keywords":"tutorials guides docs"},{"title":"About NFG","subtitle":"The NFG Collective, NfgOdin biography & credentials","kind":"Page","href":"/about/","keywords":"about team nfgodin nfganarchy bio"},{"title":"Shadow Hearts: Nocturne","subtitle":"Shadow Hearts: Covenant (PlayStation 2) — PC Port","kind":"PC Port","href":"/projects/pc-ports/shadow-hearts-nocturne/","keywords":"Shadow Hearts: Nocturne Shadow Hearts: Covenant PlayStation 2 C++20 Static Recompilation Direct3D 12 Vulkan Direct2D WGSL SDL2 AOT Static Recomp D3D12 / Vulkan 1×–64× Scaling Seamless 2-Disc 110 Achievements Direct2D Launcher"},{"title":"FFVIISE Mod Loader","subtitle":"Loaders • Final Fantasy VII","kind":"Project","href":"https://github.com/NfgOdin/FFVIISE_Mod_Loader","external":true,"keywords":"FFVIISE Mod Loader Lightweight, portable, high-performance native C++ mod loader for the Final Fantasy VII Steam Edition (2026 re-release), bypassing heavy third-party overhead. Final Fantasy VII Loaders C++ Win32 API Memory Hooks"},{"title":"Spira Mod Manager","subtitle":"Tools • Final Fantasy X / X-2","kind":"Project","href":"https://github.com/NfgOdin/Spira_Mod_Manager","external":true,"keywords":"Spira Mod Manager Standalone mod manager for Final Fantasy X / X-2 HD Remaster featuring profile switching, conflict detection, load-order control, save backups, and VFS loading. Final Fantasy X / X-2 Tools Python Mod Manager VFS FFX / X-2"},{"title":"Spira Text Tool (v2.0)","subtitle":"Tools • Final Fantasy X / X-2","kind":"Project","href":"https://github.com/NfgOdin/Spira_Text_Tool","external":true,"keywords":"Spira Text Tool (v2.0) Dual-engine localization and text modding studio for Final Fantasy X and X-2 HD Remaster with an interactive live dialogue/choice simulator and translation memory. Final Fantasy X / X-2 Tools Python Localization Studio Binary Tables"},{"title":"FFX Phyre Tool","subtitle":"Tools • Final Fantasy X / X-2","kind":"Project","href":"https://github.com/NfgOdin/FFX-Phyre-Tool","external":true,"keywords":"FFX Phyre Tool High-performance extractor and compiler for Sony PhyreEngine binary model archives and textures directly into the open glTF 2.0 standard for Blender workflows. Final Fantasy X / X-2 Tools Python glTF 2.0 PhyreEngine 3D"},{"title":"7th Heaven to FFVIISE Converter","subtitle":"Tools • Final Fantasy VII","kind":"Project","href":"https://github.com/NfgOdin/7thHeavenToFFVIIModLoader","external":true,"keywords":"7th Heaven to FFVIISE Converter Automated archive extraction and conversion utility translating legacy 7th Heaven .iro containers into clean unpacked folder structures for FFVIISE Mod Loader. Final Fantasy VII Tools Python IRO Archives CLI Converter"},{"title":"FFVIISE Modding Tool","subtitle":"Tools • Final Fantasy VII","kind":"Project","href":"https://github.com/NfgOdin/FFVIISE_Modding_Tool","external":true,"keywords":"FFVIISE Modding Tool Dedicated authoring and asset-packing utility for configuring and packaging mods targeting the 2026 Steam re-release of Final Fantasy VII. Final Fantasy VII Tools Python Asset Packing FFVII Steam"},{"title":"FFX Sphere Grid Tool","subtitle":"Tools • Final Fantasy X / X-2","kind":"Project","href":"https://github.com/NfgOdin/FFX_Sphere_Grid_Tool","external":true,"keywords":"FFX Sphere Grid Tool Visual editor and binary parser for the Final Fantasy X Sphere Grid layout, node links, character starting paths, and stat progression. Final Fantasy X / X-2 Tools Python Binary Parser Visual Editor"},{"title":"FFX Audio Tool","subtitle":"Tools • Final Fantasy X / X-2","kind":"Project","href":"https://github.com/NfgOdin/FFX_Audio_Tool","external":true,"keywords":"FFX Audio Tool Stream extraction and conversion utility for proprietary audio banks inside Final Fantasy X / X-2 HD Remaster. Final Fantasy X / X-2 Tools Python Audio Banks Binary Parsing"},{"title":"FFX Shop Tool","subtitle":"Tools • Final Fantasy X / X-2","kind":"Project","href":"https://github.com/NfgOdin/FFX_Shop_Tool","external":true,"keywords":"FFX Shop Tool Binary data parser and inventory editor for merchant shop tables, item lists, and equipment prices in Final Fantasy X. Final Fantasy X / X-2 Tools Python Data Tables FFX"},{"title":"FFX AI Tool","subtitle":"Tools • Final Fantasy X / X-2","kind":"Project","href":"https://github.com/NfgOdin/FFX_AI_Tool","external":true,"keywords":"FFX AI Tool Bytecode decompiler and behavior script inspector for analyzing and editing enemy battle AI routines in Final Fantasy X. Final Fantasy X / X-2 Tools Python Bytecode Decompiler Enemy AI"},{"title":"Ecologies & Echoes","subtitle":"Mods • Minecraft","kind":"Mod","href":"https://github.com/NfgOdin/ecologies_and_echoes","external":true,"keywords":"Ecologies & Echoes Atmospheric world & gameplay mod engineered for Minecraft 1.21.1 on the NeoForge mod loader. Minecraft Mods Java 21 NeoForge Minecraft 1.21.1"},{"title":"RiftLink","subtitle":"Mods • Minecraft","kind":"Mod","href":"https://github.com/NfgOdin/RiftLink","external":true,"keywords":"RiftLink Modern dimensional mechanics, rift traversal, and custom utility systems built for Minecraft 1.21.1 on NeoForge. Minecraft Mods Java NeoForge Minecraft 1.21.1"},{"title":"StickyResources","subtitle":"Mods • Minecraft","kind":"Mod","href":"https://github.com/NfgOdin/StickyResources","external":true,"keywords":"StickyResources Java gameplay enhancement and resource automation mod built for Minecraft 1.20.1 on the Forge mod loader. Minecraft Mods Java Forge Minecraft 1.20.1"},{"title":"Final Fantasy VII Difficulty Mod","subtitle":"Mods • Final Fantasy VII","kind":"Mod","href":"https://www.nexusmods.com/finalfantasy7/mods/159","external":true,"keywords":"Final Fantasy VII Difficulty Mod Custom balance overhaul retuning encounter dynamics, enemy AI behaviors, and combat stats for the 2026 Steam re-release. Final Fantasy VII Mods Game Balance Enemy AI Steam 2026"},{"title":"FFVII Battle Overlay Plugin","subtitle":"Mods • Final Fantasy VII","kind":"Mod","href":"https://www.nexusmods.com/finalfantasy7/mods/158","external":true,"keywords":"FFVII Battle Overlay Plugin Real-time in-game battle telemetry and tactical statistics HUD overlay rendered directly over active FFVII combat scenes. Final Fantasy VII Mods C++ DirectX Hook HUD Overlay"},{"title":"Spiras Trials — Custom Difficulty & Rewards","subtitle":"Mods • Final Fantasy X / X-2","kind":"Mod","href":"https://www.nexusmods.com/finalfantasyxx2hdremaster/mods/321","external":true,"keywords":"Spiras Trials — Custom Difficulty & Rewards Multi-tier difficulty rebalance overhaul re-tuning monster AI scripts, boss stats, ability costs, and encounter rewards across Spira. Final Fantasy X / X-2 Mods Difficulty Overhaul Enemy AI FFX / X-2"},{"title":"Classic Magic & Command Nomenclature","subtitle":"Mods • Final Fantasy X / X-2","kind":"Mod","href":"https://www.nexusmods.com/finalfantasyxx2hdremaster/mods/320","external":true,"keywords":"Classic Magic & Command Nomenclature Localization rework restoring classic vintage FF7-era spell tier naming (Bolt/Bolt2/Bolt3, Fire/Fire2/Fire3) across FFX. Final Fantasy X / X-2 Mods Localization Text Rework FFX / X-2"},{"title":"FFVIII Title Screen Overhaul","subtitle":"Mods • Final Fantasy VIII","kind":"Mod","href":"https://www.nexusmods.com/finalfantasy8remastered/mods/101","external":true,"keywords":"FFVIII Title Screen Overhaul High-definition overhaul and aesthetic revamp for the Final Fantasy VIII Remastered main title screen. Final Fantasy VIII Mods UI Overhaul HD Textures FFVIII"},{"title":"Moomba Enhanced Textures","subtitle":"Mods • Final Fantasy VIII","kind":"Mod","href":"https://www.nexusmods.com/finalfantasy8remastered/mods/100","external":true,"keywords":"Moomba Enhanced Textures Faithfully upscaled and re-authored texture pack enhancing the Moomba creature model in FFVIII Remastered. Final Fantasy VIII Mods Texture Pack Character Art FFVIII"},{"title":"Intro Logos, Cheat Icons & Start Screen Overhaul","subtitle":"Mods • Final Fantasy VIII","kind":"Mod","href":"https://www.nexusmods.com/finalfantasy8remastered/mods/99","external":true,"keywords":"Intro Logos, Cheat Icons & Start Screen Overhaul Clean aesthetic replacement for opening publisher logos, booster UI icons, and the initial start sequence. Final Fantasy VIII Mods UI / HUD Logos FFVIII"},{"title":"Triple Triad Re-texture","subtitle":"Mods • Final Fantasy VIII","kind":"Mod","href":"https://www.nexusmods.com/finalfantasy8remastered/mods/98","external":true,"keywords":"Triple Triad Re-texture Complete visual redesign of the Triple Triad mini-game card faces, borders, and battle mat surfaces. Final Fantasy VIII Mods Mini-Game Overhaul Cards FFVIII"},{"title":"Realistic Character Portrait Textures","subtitle":"Mods • Final Fantasy VIII","kind":"Mod","href":"https://www.nexusmods.com/finalfantasy8remastered/mods/97","external":true,"keywords":"Realistic Character Portrait Textures High-definition realistic texture overhaul for party member menu portraits and dialogue avatars. Final Fantasy VIII Mods Portraits Character Art FFVIII"},{"title":"Realistic GF Portrait Textures","subtitle":"Mods • Final Fantasy VIII","kind":"Mod","href":"https://www.nexusmods.com/finalfantasy8remastered/mods/96","external":true,"keywords":"Realistic GF Portrait Textures Detailed high-resolution portrait textures for Guardian Forces in the junction and battle menus. Final Fantasy VIII Mods GF Art Menu Textures FFVIII"},{"title":"Guardian Force Shiva Retexture","subtitle":"Mods • Final Fantasy VIII","kind":"Mod","href":"https://www.nexusmods.com/finalfantasy8remastered/mods/95","external":true,"keywords":"Guardian Force Shiva Retexture Custom summon texture modification for Guardian Force Shiva in Final Fantasy VIII Remastered. Final Fantasy VIII Mods Summon Model Textures FFVIII"},{"title":"Fenrir Companion Follower","subtitle":"Mods • Skyrim SE","kind":"Mod","href":"https://www.nexusmods.com/skyrimspecialedition/mods/158649","external":true,"keywords":"Fenrir Companion Follower Mythological wolf companion follower inspired by Fenrir, featuring custom combat AI behaviors and follower commands. Skyrim SE Mods Follower Mod Companion AI Skyrim SE"},{"title":"Ichigo's Bankai Tensa Zangetsu","subtitle":"Mods • Final Fantasy VII Remake","kind":"Mod","href":"https://www.nexusmods.com/finalfantasy7remake/mods/1429","external":true,"keywords":"Ichigo's Bankai Tensa Zangetsu Custom 3D weapon replacement bringing Ichigo Kurosaki's Bankai blade into Final Fantasy VII Remake. Final Fantasy VII Remake Mods Weapon Model 3D Asset FFVII Remake"},{"title":"Metal Cactuar Mod","subtitle":"Mods • Final Fantasy VII Remake","kind":"Mod","href":"https://www.nexusmods.com/finalfantasy7remake/mods/1426","external":true,"keywords":"Metal Cactuar Mod Material and shader overhaul giving Cactuar a polished metallic chrome finish. Final Fantasy VII Remake Mods Enemy Retexture Materials FFVII Remake"},{"title":"Ichigo's Shikai Zangetsu","subtitle":"Mods • Final Fantasy VII Remake","kind":"Mod","href":"https://www.nexusmods.com/finalfantasy7remake/mods/1425","external":true,"keywords":"Ichigo's Shikai Zangetsu Custom 3D weapon replacement introducing Ichigo's oversized Shikai cleaver for Cloud Strife. Final Fantasy VII Remake Mods Weapon Model 3D Asset FFVII Remake"},{"title":"Divine Axe Rhitta","subtitle":"Mods • Final Fantasy VII Remake","kind":"Mod","href":"https://www.nexusmods.com/finalfantasy7remake/mods/1424","external":true,"keywords":"Divine Axe Rhitta Custom 3D weapon replacement importing Escanor's sacred treasure, Divine Axe Rhitta. Final Fantasy VII Remake Mods Weapon Model 3D Asset FFVII Remake"},{"title":"Reptilian Leviathan Mod","subtitle":"Mods • Final Fantasy VII Remake","kind":"Mod","href":"https://www.nexusmods.com/finalfantasy7remake/mods/1423","external":true,"keywords":"Reptilian Leviathan Mod Custom texture overhaul transforming the summon Leviathan with distinct reptilian scales and coloration. Final Fantasy VII Remake Mods Summon Retexture Textures FFVII Remake"},{"title":"Kenpachi's Shikai Nozarashi","subtitle":"Mods • Final Fantasy VII Remake","kind":"Mod","href":"https://www.nexusmods.com/finalfantasy7remake/mods/1421","external":true,"keywords":"Kenpachi's Shikai Nozarashi Custom weapon model importing Kenpachi Zaraki's battle cleaver Shikai, Nozarashi. Final Fantasy VII Remake Mods Weapon Model 3D Asset FFVII Remake"},{"title":"Elder Wand Mod","subtitle":"Mods • Final Fantasy VII Remake","kind":"Mod","href":"https://www.nexusmods.com/finalfantasy7remake/mods/1420","external":true,"keywords":"Elder Wand Mod Custom magic weapon model replacement bringing the Elder Wand into Final Fantasy VII Remake. Final Fantasy VII Remake Mods Weapon Model 3D Asset FFVII Remake"},{"title":"Viking Axe Mod","subtitle":"Mods • Final Fantasy VII Remake","kind":"Mod","href":"https://www.nexusmods.com/finalfantasy7remake/mods/1419","external":true,"keywords":"Viking Axe Mod Rugged Norse Viking battle axe replacement model with forged steel and wood textures. Final Fantasy VII Remake Mods Weapon Model Textures FFVII Remake"},{"title":"Bahamut Retexture Mod","subtitle":"Mods • Final Fantasy VII Remake","kind":"Mod","href":"https://www.nexusmods.com/finalfantasy7remake/mods/1417","external":true,"keywords":"Bahamut Retexture Mod High-detail retexture and shading overhaul for the dragon king summon, Bahamut. Final Fantasy VII Remake Mods Summon Retexture Materials FFVII Remake"},{"title":"Chocobo & Moogle Summon Texture","subtitle":"Mods • Final Fantasy VII Remake","kind":"Mod","href":"https://www.nexusmods.com/finalfantasy7remake/mods/1415","external":true,"keywords":"Chocobo & Moogle Summon Texture Vibrant aesthetic texture modification for the Chocobo & Moogle summon pair. Final Fantasy VII Remake Mods Summon Retexture Textures FFVII Remake"},{"title":"RuneBox — Audio CAD & Acoustics Lab","subtitle":"Desktop Applications • Audio CAD","kind":"Project","href":"https://github.com/NfgOdin/RuneBox","external":true,"keywords":"RuneBox — Audio CAD & Acoustics Lab Commercial-grade car audio subwoofer enclosure CAD & acoustics simulation lab featuring pure Python 3D vector visualization, port velocity modeling, and fabrication cut sheets. Audio CAD Desktop Applications Python 3D Vector CAD Acoustics Simulation"},{"title":"CarPi5 Cockpit OS","subtitle":"Raspberry Pi • Raspberry Pi 5","kind":"Project","href":"https://github.com/NfgOdin/CarPi5-Cockpit-OS","external":true,"keywords":"CarPi5 Cockpit OS Custom automotive cockpit operating system and infotainment interface engineered specifically for Raspberry Pi 5 in-vehicle hardware deployments. Raspberry Pi 5 Raspberry Pi Raspberry Pi 5 Embedded Linux Cockpit OS"},{"title":"SBC-Core","subtitle":"Raspberry Pi • Raspberry Pi 5","kind":"Project","href":"https://github.com/NfgOdin/SBC-Core","external":true,"keywords":"SBC-Core Core utility suite, daemon controller, and low-level hardware interface system tailored for Raspberry Pi 5 single-board computer environments. Raspberry Pi 5 Raspberry Pi Python Raspberry Pi 5 Linux Daemons"},{"title":"PokemonYellow-HRL-AI","subtitle":"Reinforcement Learning • Pokemon Yellow","kind":"Project","href":"https://github.com/NfgOdin/PokemonYellow-HRL-AI","external":true,"keywords":"PokemonYellow-HRL-AI Hierarchical Reinforcement Learning (HRL) framework training an autonomous agent to navigate, battle, and complete Pokémon Yellow through direct Game Boy emulation memory hooks. Pokemon Yellow Reinforcement Learning Python Hierarchical RL PyBoy / Gym"},{"title":"Pi5-MAIA","subtitle":"AI Assistants • Raspberry Pi 5","kind":"Project","href":"https://github.com/NfgOdin/Pi5-MAIA","external":true,"keywords":"Pi5-MAIA Local AI assistant platform (Maia) built to run on Raspberry Pi 5 edge hardware for private, always-available voice and system automation. Raspberry Pi 5 AI Assistants Python Raspberry Pi 5 Edge AI"},{"title":"digit.ai","subtitle":"AI Assistants • Desktop","kind":"Project","href":"https://github.com/NfgOdin/digit.ai","external":true,"keywords":"digit.ai Local desktop AI companion application and generative workflow assistant built for everyday desktop productivity. Desktop AI Assistants Python Desktop AI Local Assistant"},{"title":"Simulating Port Velocity & Box Volume in RuneBox","subtitle":"Software • 8 min read","kind":"Tutorial","href":"/tutorials/software/desktop/enclosure-tuning/","keywords":"Simulating Port Velocity & Box Volume in RuneBox Calculate acoustic compliance, tune port resonant frequencies, inspect 3D projections, and export fabrication cut sheets in RuneBox. Software Audio CAD"},{"title":"Installing RiftLink on NeoForge","subtitle":"Modding • 4 min read","kind":"Tutorial","href":"/tutorials/modding/mods/installing-riftlink/","keywords":"Installing RiftLink on NeoForge Quick setup guide for installing and verifying the RiftLink Minecraft 1.21.1 mod on a NeoForge profile. Modding Minecraft"},{"title":"Setting Up FFVIISE Mod Loader","subtitle":"Modding • 5 min read","kind":"Tutorial","href":"/tutorials/modding/loaders/ffviise-loader/","keywords":"Setting Up FFVIISE Mod Loader Install and configure the native C++ FFVIISE Mod Loader directly into your Steam Final Fantasy VII (2026) installation. Modding Final Fantasy VII"},{"title":"Setting Up the Pokemon Yellow Gym Environment","subtitle":"AI • 7 min read","kind":"Tutorial","href":"/tutorials/ai/rl/hrl-environment-setup/","keywords":"Setting Up the Pokemon Yellow Gym Environment Configure PyBoy memory bus hooks and two-tier reward structures for training hierarchical RL agents in Pokemon Yellow. AI Pokemon Yellow"},{"title":"Exporting 3D Models to glTF with FFX-Phyre-Tool","subtitle":"Modding • 7 min read","kind":"Tutorial","href":"/tutorials/modding/tools/phyre-gltf-export/","keywords":"Exporting 3D Models to glTF with FFX-Phyre-Tool Extract 3D meshes, armatures, and textures from Final Fantasy X / X-2 HD Remaster into glTF 2.0 for Blender workflows. Modding Final Fantasy X / X-2"},{"title":"Converting IRO Mods with 7thHeavenToFFVIIModLoader","subtitle":"Modding • 6 min read","kind":"Tutorial","href":"/tutorials/modding/tools/7thheaven-migration/","keywords":"Converting IRO Mods with 7thHeavenToFFVIIModLoader Convert classic 7th Heaven .iro packages into clean unpacked folder structures ready for the native FFVIISE Mod Loader. Modding Final Fantasy VII"}];
+
+  (() => {
+    const backdrop = document.getElementById('cmdk-backdrop');
+    const openBtn = document.getElementById('open-cmdk-btn');
+    const input = document.getElementById('cmdk-input');
+    const resultsEl = document.getElementById('cmdk-results');
+    const countEl = document.getElementById('cmdk-count');
+    if (!backdrop || !input || !resultsEl) return;
+
+    let activeIdx = 0;
+    let currentItems = searchIndex.slice(0, 10);
+
+    const badgeClass = (kind) => {
+      if (kind === 'PC Port') return 'chip chip-crimson';
+      if (kind === 'Tutorial') return 'chip chip-emerald';
+      if (kind === 'Project') return 'chip chip-cyan';
+      if (kind === 'Mod') return 'chip chip-violet';
+      return 'chip';
+    };
+
+    function escapeHtml(str) {
+      return str.replace(/[&<>"']/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
+    }
+
+    function render(query) {
+      const q = (query || '').trim().toLowerCase();
+      if (!q) {
+        currentItems = searchIndex.slice(0, 10);
+      } else {
+        const terms = q.split(/\s+/);
+        currentItems = searchIndex
+          .filter((item) => {
+            const hay = `${item.title} ${item.subtitle} ${item.kind} ${item.keywords}`.toLowerCase();
+            return terms.every((t) => hay.includes(t));
+          })
+          .slice(0, 14);
+      }
+
+      activeIdx = 0;
+      if (countEl) countEl.textContent = `${currentItems.length} result${currentItems.length === 1 ? '' : 's'}`;
+
+      if (currentItems.length === 0) {
+        resultsEl.innerHTML = `<div style="padding:2rem 1rem;text-align:center;color:var(--text-muted);font-size:0.88rem;">No matches found for "${escapeHtml(q)}".</div>`;
+        return;
+      }
+
+      resultsEl.innerHTML = currentItems
+        .map((item, idx) => {
+          const target = item.external ? ' target="_blank" rel="noopener noreferrer"' : '';
+          return `
+            <a href="${escapeHtml(item.href)}"${target} class="cmdk-item ${idx === 0 ? 'active' : ''}" data-idx="${idx}">
+              <div style="min-width:0;">
+                <div class="cmdk-item-title">${escapeHtml(item.title)}</div>
+                <div class="cmdk-item-sub">${escapeHtml(item.subtitle)}</div>
+              </div>
+              <span class="${badgeClass(item.kind)}" style="flex-shrink:0;">${escapeHtml(item.kind)}</span>
+            </a>
+          `;
+        })
+        .join('');
+    }
+
+    function setActive(next) {
+      const links = resultsEl.querySelectorAll('.cmdk-item');
+      if (!links.length) return;
+      activeIdx = (next + links.length) % links.length;
+      links.forEach((el, i) => {
+        el.classList.toggle('active', i === activeIdx);
+        if (i === activeIdx) el.scrollIntoView({ block: 'nearest' });
+      });
+    }
+
+    function open() {
+      backdrop.classList.add('open');
+      backdrop.setAttribute('aria-hidden', 'false');
+      input.value = '';
+      render('');
+      setTimeout(() => input.focus(), 10);
+    }
+
+    function close() {
+      backdrop.classList.remove('open');
+      backdrop.setAttribute('aria-hidden', 'true');
+    }
+
+    if (openBtn) openBtn.addEventListener('click', open);
+    backdrop.addEventListener('click', (e) => {
+      if (e.target === backdrop) close();
+    });
+
+    input.addEventListener('input', () => render(input.value));
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        setActive(activeIdx + 1);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        setActive(activeIdx - 1);
+      } else if (e.key === 'Enter') {
+        const activeLink = resultsEl.querySelector('.cmdk-item.active');
+        if (activeLink) {
+          e.preventDefault();
+          activeLink.click();
+          close();
+        }
+      } else if (e.key === 'Escape') {
+        close();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        if (backdrop.classList.contains('open')) close();
+        else open();
+      } else if (e.key === 'Escape' && backdrop.classList.contains('open')) {
+        close();
+      }
+    });
+  })();
+})();</script> <div class="modal-backdrop centered" id="donate-modal-backdrop" aria-hidden="true"> <div class="donate-dialog" role="dialog" aria-modal="true" aria-labelledby="donate-title"> <button type="button" class="modal-close-btn" id="close-donate-btn" aria-label="Close dialog">&times;</button> <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.85rem;"> <div style="width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:rgba(56,189,248,0.12);border:1px solid rgba(56,189,248,0.3);color:#38bdf8;"> <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg> </div> <div> <h3 id="donate-title" style="font-size:1.25rem;margin:0;">Support NFG</h3> <span class="mono" style="font-size:0.72rem;color:var(--text-muted);">Open-Source Ports, Tools &amp; Mods</span> </div> </div> <p style="color:var(--text-secondary);font-size:0.88rem;line-height:1.6;">
+Enjoying Shadow Hearts: Nocturne, Spira Mod Manager, FFVIISE Mod Loader, or RuneBox? Fuel future updates and reverse-engineering work!
+</p> <div class="donate-presets"> <button type="button" class="donate-preset-btn" data-val="3">$3</button> <button type="button" class="donate-preset-btn selected" data-val="5">$5</button> <button type="button" class="donate-preset-btn" data-val="10">$10</button> </div> <label for="donate-amount-input" class="mono" style="display:block;font-size:0.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;">
+Custom Amount (USD)
+</label> <div class="donate-input-wrap"> <span class="donate-currency">$</span> <input type="number" id="donate-amount-input" class="donate-input" value="5" min="1" step="any" placeholder="5"> </div> <button type="button" id="donate-submit-btn" class="btn btn-primary" style="width:100%;"> <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.067 8.478c.492.88.556 2.014.3 3.327-.74 3.806-3.27 5.12-6.52 5.12h-1.9c-.48 0-.89.35-.97.83l-.72 4.54-.04.22c-.06.39-.4.68-.8.68H5.66c-.45 0-.79-.4-.73-.85l2.43-15.42c.07-.44.45-.77.9-.77h5.81c2.61 0 4.55.57 5.48 2.09.21.35.38.74.51 1.24z"></path></svg> <span>Donate via PayPal</span> </button> </div> </div> <script>
+  (() => {
+    const openBtn = document.getElementById('open-donate-btn');
+    const closeBtn = document.getElementById('close-donate-btn');
+    const backdrop = document.getElementById('donate-modal-backdrop');
+    const input = document.getElementById('donate-amount-input');
+    const presets = document.querySelectorAll('.donate-preset-btn');
+    const submitBtn = document.getElementById('donate-submit-btn');
+
+    if (!backdrop) return;
+
+    const close = () => {
+      backdrop.classList.remove('open');
+      backdrop.setAttribute('aria-hidden', 'true');
+    };
+
+    if (openBtn) {
+      openBtn.addEventListener('click', () => {
+        backdrop.classList.add('open');
+        backdrop.setAttribute('aria-hidden', 'false');
+      });
+    }
+    if (closeBtn) closeBtn.addEventListener('click', close);
+    backdrop.addEventListener('click', (e) => {
+      if (e.target === backdrop) close();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && backdrop.classList.contains('open')) close();
+    });
+
+    presets.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        presets.forEach((b) => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        if (input) input.value = btn.getAttribute('data-val') || '5';
+      });
+    });
+
+    if (input) {
+      input.addEventListener('input', () => {
+        presets.forEach((b) => b.classList.toggle('selected', b.getAttribute('data-val') === input.value));
+      });
+    }
+
+    if (submitBtn && input) {
+      submitBtn.addEventListener('click', () => {
+        const val = Math.max(1, parseFloat(input.value) || 5);
+        window.open(`https://www.paypal.com/paypalme/NFG/${val}`, '_blank', 'noopener,noreferrer');
+      });
+    }
+  })();
+</script> </body></html>

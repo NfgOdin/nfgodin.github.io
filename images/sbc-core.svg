@@ -1,0 +1,69 @@
+<svg width="800" height="450" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d1117" />
+      <stop offset="50%" stop-color="#161b22" />
+      <stop offset="100%" stop-color="#0a0d12" />
+    </linearGradient>
+    <linearGradient id="piGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c51a4a" />
+      <stop offset="100%" stop-color="#70122e" />
+    </linearGradient>
+    <linearGradient id="chipGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#21262d" />
+      <stop offset="100%" stop-color="#11151c" />
+    </linearGradient>
+    <pattern id="gridPattern" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1" />
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="450" fill="url(#bgGrad)" />
+  <rect width="800" height="450" fill="url(#gridPattern)" />
+
+  <!-- Circuit Trace Lines -->
+  <path d="M 120 225 L 300 225 L 340 185 L 460 185" fill="none" stroke="rgba(197, 26, 74, 0.4)" stroke-width="2" stroke-dasharray="6,4" />
+  <path d="M 680 225 L 500 225 L 460 265 L 340 265" fill="none" stroke="rgba(168, 85, 247, 0.4)" stroke-width="2" stroke-dasharray="6,4" />
+  <circle cx="120" cy="225" r="4" fill="#c51a4a" />
+  <circle cx="680" cy="225" r="4" fill="#a855f7" />
+
+  <!-- Central Microchip Board -->
+  <rect x="290" y="95" width="220" height="220" rx="20" fill="url(#chipGrad)" stroke="rgba(197, 26, 74, 0.5)" stroke-width="2.5" />
+  
+  <!-- Microchip Pins -->
+  <g fill="#30363d">
+    <rect x="325" y="83" width="12" height="12" rx="2" />
+    <rect x="355" y="83" width="12" height="12" rx="2" />
+    <rect x="385" y="83" width="12" height="12" rx="2" />
+    <rect x="415" y="83" width="12" height="12" rx="2" />
+    <rect x="445" y="83" width="12" height="12" rx="2" />
+    <rect x="475" y="83" width="12" height="12" rx="2" />
+
+    <rect x="325" y="315" width="12" height="12" rx="2" />
+    <rect x="355" y="315" width="12" height="12" rx="2" />
+    <rect x="385" y="315" width="12" height="12" rx="2" />
+    <rect x="415" y="315" width="12" height="12" rx="2" />
+    <rect x="445" y="315" width="12" height="12" rx="2" />
+    <rect x="475" y="315" width="12" height="12" rx="2" />
+  </g>
+
+  <!-- Raspberry Pi Core Emblem -->
+  <circle cx="400" cy="180" r="50" fill="url(#piGrad)" />
+  <circle cx="390" cy="170" r="14" fill="#ff4d79" />
+  <circle cx="410" cy="170" r="14" fill="#ff4d79" />
+  <circle cx="380" cy="190" r="12" fill="#ff4d79" />
+  <circle cx="420" cy="190" r="12" fill="#ff4d79" />
+  <circle cx="400" cy="205" r="13" fill="#ff4d79" />
+  <!-- Leaves -->
+  <path d="M 400 135 C 385 115 365 130 385 145 Z" fill="#22c55e" />
+  <path d="M 400 135 C 415 115 435 130 415 145 Z" fill="#22c55e" />
+
+  <!-- Chip Core Text -->
+  <text x="400" y="275" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="19" font-weight="800" fill="#ffffff" text-anchor="middle" letter-spacing="3">RPi 5 // BCM2712</text>
+  <text x="400" y="295" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#8b949e" text-anchor="middle" letter-spacing="1.5">ARM CORTEX-A76 @ 2.4GHz</text>
+
+  <!-- Title Badge Underneath -->
+  <text x="400" y="375" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="28" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="-0.5">SBC-Core</text>
+  <text x="400" y="405" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="600" fill="#c51a4a" text-anchor="middle" letter-spacing="2">RASPBERRY PI 5 SYSTEM SUITE &amp; DAEMON</text>
+</svg>
