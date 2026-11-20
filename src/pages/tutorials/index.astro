@@ -1,0 +1,155 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+const tutorials = (await getCollection('tutorials')).sort((a, b) => a.data.order - b.data.order);
+const categories = Array.from(new Set(tutorials.map((t) => t.data.category)));
+---
+
+<BaseLayout
+  title="Tutorials & Guides"
+  description="Technical setup guides, modding walkthroughs, 3D glTF export pipelines, acoustics CAD tutorials, and reinforcement learning environment docs by NfgOdin."
+>
+  <section class="page-hero">
+    <div class="container">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span class="sep">/</span>
+        <span class="current">Tutorials</span>
+      </nav>
+      <span class="eyebrow emerald">Knowledge Base</span>
+      <h1 class="page-title">Technical Tutorials &amp; Guides</h1>
+      <p class="page-lead">
+        Pre-rendered, step-by-step engineering guides for native mod loaders, archive converters, 3D PhyreEngine exports, subwoofer acoustics modeling, and RL agents.
+      </p>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="explorer-shell">
+      <aside class="explorer-sidebar" aria-label="Tutorial Categories">
+        <div>
+          <div class="sidebar-label">Categories</div>
+          <div class="sidebar-list">
+            <button type="button" class="sidebar-btn active" data-tut-cat="All">
+              <span>All Guides</span>
+              <span class="count-pill">{tutorials.length}</span>
+            </button>
+            {categories.map((cat) => (
+              <button type="button" class="sidebar-btn" data-tut-cat={cat}>
+                <span>{cat}</span>
+                <span class="count-pill">{tutorials.filter((t) => t.data.category === cat).length}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      </aside>
+
+      <section>
+        <div class="explorer-toolbar">
+          <div class="toolbar-top">
+            <div class="search-box">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+              <input type="text" id="tutorials-search-input" class="search-input" placeholder="Search tutorials by topic, game, or tool..." autocomplete="off" />
+            </div>
+            <span class="mono" id="tutorials-result-count" style="font-size:0.78rem;color:var(--text-muted);">
+              {tutorials.length} guides
+            </span>
+          </div>
+        </div>
+
+        <div class="cards-grid" id="tutorials-grid">
+          {tutorials.map((guide) => (
+            <article
+              class="card tutorial-card-item"
+              data-category={guide.data.category}
+              data-search={`${guide.data.title} ${guide.data.summary} ${guide.data.category} ${guide.data.subcategory} ${guide.data.platform}`.toLowerCase()}
+            >
+              <div class="card-body">
+                <div class="card-top-row">
+                  <div style="display:flex;gap:0.35rem;flex-wrap:wrap;">
+                    <span class="chip chip-emerald">{guide.data.category}</span>
+                    <span class="chip">{guide.data.platform}</span>
+                  </div>
+                  <span class="mono" style="font-size:0.72rem;color:var(--text-muted);">
+                    {guide.data.readingTime}
+                  </span>
+                </div>
+
+                <h2 class="card-title" style="font-size:1.12rem;">
+                  <a href={`/tutorials/${guide.slug}/`}>{guide.data.title}</a>
+                </h2>
+
+                <p class="card-desc">{guide.data.summary}</p>
+
+                <div class="card-footer">
+                  <span class="chip chip-cyan">{guide.data.difficulty}</span>
+                  <a href={`/tutorials/${guide.slug}/`} class="btn btn-secondary btn-sm">
+                    Read Guide &rarr;
+                  </a>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div class="empty-state" id="tutorials-empty" style="display:none;">
+          <p style="font-weight:600;color:var(--text-primary);margin-bottom:0.35rem;">No tutorials match your filter</p>
+          <button type="button" class="btn btn-secondary btn-sm" id="tutorials-reset">Reset Filter</button>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script is:inline>
+    (() => {
+      let activeCat = 'All';
+      let query = '';
+
+      const catBtns = document.querySelectorAll('[data-tut-cat]');
+      const input = document.getElementById('tutorials-search-input');
+      const cards = document.querySelectorAll('.tutorial-card-item');
+      const countEl = document.getElementById('tutorials-result-count');
+      const emptyEl = document.getElementById('tutorials-empty');
+      const resetBtn = document.getElementById('tutorials-reset');
+
+      function update() {
+        catBtns.forEach((b) => b.classList.toggle('active', b.getAttribute('data-tut-cat') === activeCat));
+        let visible = 0;
+        cards.forEach((card) => {
+          const catOk = activeCat === 'All' || card.getAttribute('data-category') === activeCat;
+          const hay = card.getAttribute('data-search') || '';
+          const qOk = !query || query.split(/\s+/).every((t) => hay.includes(t));
+          const show = catOk && qOk;
+          card.style.display = show ? 'flex' : 'none';
+          if (show) visible++;
+        });
+        if (countEl) countEl.textContent = `${visible} guide${visible === 1 ? '' : 's'}`;
+        if (emptyEl) emptyEl.style.display = visible === 0 ? 'block' : 'none';
+      }
+
+      catBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          activeCat = btn.getAttribute('data-tut-cat') || 'All';
+          update();
+        });
+      });
+
+      if (input) {
+        input.addEventListener('input', () => {
+          query = input.value.trim().toLowerCase();
+          update();
+        });
+      }
+
+      if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+          activeCat = 'All';
+          query = '';
+          if (input) input.value = '';
+          update();
+        });
+      }
+    })();
+  </script>
+</BaseLayout>

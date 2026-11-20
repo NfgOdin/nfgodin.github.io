@@ -1,0 +1,185 @@
+---
+import { getCollection } from 'astro:content';
+import { pcPorts } from '@data/ports';
+import { projects } from '@data/projects';
+
+const tutorials = await getCollection('tutorials');
+
+interface SearchItem {
+  title: string;
+  subtitle: string;
+  kind: 'PC Port' | 'Project' | 'Mod' | 'Tutorial' | 'Page';
+  href: string;
+  external?: boolean;
+  keywords: string;
+}
+
+const searchIndex: SearchItem[] = [
+  { title: 'Home', subtitle: 'NFG Studio Overview & Spotlight', kind: 'Page', href: '/', keywords: 'home start landing' },
+  { title: 'PC Ports', subtitle: 'Native Windows static-recompilation game ports', kind: 'Page', href: '/projects/pc-ports/', keywords: 'pc ports ps2 shadow hearts recomp' },
+  { title: 'All Projects & Mods', subtitle: 'Filterable explorer across PC Ports, Modding, Software, AI', kind: 'Page', href: '/projects/', keywords: 'projects catalog explorer' },
+  { title: 'Technical Tutorials', subtitle: 'Guides for mod loaders, 3D glTF, Audio CAD, and HRL AI', kind: 'Page', href: '/tutorials/', keywords: 'tutorials guides docs' },
+  { title: 'About NFG', subtitle: 'The NFG Collective, NfgOdin biography & credentials', kind: 'Page', href: '/about/', keywords: 'about team nfgodin nfganarchy bio' },
+  ...pcPorts.map((port) => ({
+    title: port.title,
+    subtitle: `${port.originalGame} (${port.originalPlatform}) — PC Port`,
+    kind: 'PC Port' as const,
+    href: `/projects/pc-ports/${port.slug}/`,
+    keywords: `${port.title} ${port.originalGame} ${port.originalPlatform} ${port.tech.join(' ')} ${port.badges.join(' ')}`,
+  })),
+  ...projects
+    .filter((p) => p.category !== 'pc-ports')
+    .map((p) => ({
+      title: p.title,
+      subtitle: `${p.subcategory} • ${p.platform}`,
+      kind: (p.subcategoryId === 'mods' ? 'Mod' : 'Project') as 'Mod' | 'Project',
+      href: p.detailUrl || p.githubUrl || p.nexusUrl || p.curseforgeUrl || '/projects/',
+      external: !p.detailUrl,
+      keywords: `${p.title} ${p.description} ${p.platform} ${p.subcategory} ${p.tech.join(' ')}`,
+    })),
+  ...tutorials.map((t) => ({
+    title: t.data.title,
+    subtitle: `${t.data.category} • ${t.data.readingTime}`,
+    kind: 'Tutorial' as const,
+    href: `/tutorials/${t.slug}/`,
+    keywords: `${t.data.title} ${t.data.summary} ${t.data.category} ${t.data.platform}`,
+  })),
+];
+---
+
+<div class="modal-backdrop" id="cmdk-backdrop" aria-hidden="true">
+  <div class="cmdk-dialog" role="dialog" aria-modal="true" aria-label="Command Search">
+    <div class="cmdk-input-wrap">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="text" id="cmdk-input" class="cmdk-input" placeholder="Jump to PC Ports, projects, mods, or tutorials..." autocomplete="off" />
+      <kbd class="cmdk-kbd">ESC</kbd>
+    </div>
+    <div class="cmdk-results" id="cmdk-results"></div>
+    <div class="cmdk-footer">
+      <span>↑↓ navigate &nbsp;•&nbsp; ↵ open &nbsp;•&nbsp; esc close</span>
+      <span id="cmdk-count">{searchIndex.length} indexed</span>
+    </div>
+  </div>
+</div>
+
+<script is:inline define:vars={{ searchIndex }}>
+  (() => {
+    const backdrop = document.getElementById('cmdk-backdrop');
+    const openBtn = document.getElementById('open-cmdk-btn');
+    const input = document.getElementById('cmdk-input');
+    const resultsEl = document.getElementById('cmdk-results');
+    const countEl = document.getElementById('cmdk-count');
+    if (!backdrop || !input || !resultsEl) return;
+
+    let activeIdx = 0;
+    let currentItems = searchIndex.slice(0, 10);
+
+    const badgeClass = (kind) => {
+      if (kind === 'PC Port') return 'chip chip-crimson';
+      if (kind === 'Tutorial') return 'chip chip-emerald';
+      if (kind === 'Project') return 'chip chip-cyan';
+      if (kind === 'Mod') return 'chip chip-violet';
+      return 'chip';
+    };
+
+    function escapeHtml(str) {
+      return str.replace(/[&<>"']/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
+    }
+
+    function render(query) {
+      const q = (query || '').trim().toLowerCase();
+      if (!q) {
+        currentItems = searchIndex.slice(0, 10);
+      } else {
+        const terms = q.split(/\s+/);
+        currentItems = searchIndex
+          .filter((item) => {
+            const hay = `${item.title} ${item.subtitle} ${item.kind} ${item.keywords}`.toLowerCase();
+            return terms.every((t) => hay.includes(t));
+          })
+          .slice(0, 14);
+      }
+
+      activeIdx = 0;
+      if (countEl) countEl.textContent = `${currentItems.length} result${currentItems.length === 1 ? '' : 's'}`;
+
+      if (currentItems.length === 0) {
+        resultsEl.innerHTML = `<div style="padding:2rem 1rem;text-align:center;color:var(--text-muted);font-size:0.88rem;">No matches found for "${escapeHtml(q)}".</div>`;
+        return;
+      }
+
+      resultsEl.innerHTML = currentItems
+        .map((item, idx) => {
+          const target = item.external ? ' target="_blank" rel="noopener noreferrer"' : '';
+          return `
+            <a href="${escapeHtml(item.href)}"${target} class="cmdk-item ${idx === 0 ? 'active' : ''}" data-idx="${idx}">
+              <div style="min-width:0;">
+                <div class="cmdk-item-title">${escapeHtml(item.title)}</div>
+                <div class="cmdk-item-sub">${escapeHtml(item.subtitle)}</div>
+              </div>
+              <span class="${badgeClass(item.kind)}" style="flex-shrink:0;">${escapeHtml(item.kind)}</span>
+            </a>
+          `;
+        })
+        .join('');
+    }
+
+    function setActive(next) {
+      const links = resultsEl.querySelectorAll('.cmdk-item');
+      if (!links.length) return;
+      activeIdx = (next + links.length) % links.length;
+      links.forEach((el, i) => {
+        el.classList.toggle('active', i === activeIdx);
+        if (i === activeIdx) el.scrollIntoView({ block: 'nearest' });
+      });
+    }
+
+    function open() {
+      backdrop.classList.add('open');
+      backdrop.setAttribute('aria-hidden', 'false');
+      input.value = '';
+      render('');
+      setTimeout(() => input.focus(), 10);
+    }
+
+    function close() {
+      backdrop.classList.remove('open');
+      backdrop.setAttribute('aria-hidden', 'true');
+    }
+
+    if (openBtn) openBtn.addEventListener('click', open);
+    backdrop.addEventListener('click', (e) => {
+      if (e.target === backdrop) close();
+    });
+
+    input.addEventListener('input', () => render(input.value));
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        setActive(activeIdx + 1);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        setActive(activeIdx - 1);
+      } else if (e.key === 'Enter') {
+        const activeLink = resultsEl.querySelector('.cmdk-item.active');
+        if (activeLink) {
+          e.preventDefault();
+          activeLink.click();
+          close();
+        }
+      } else if (e.key === 'Escape') {
+        close();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        if (backdrop.classList.contains('open')) close();
+        else open();
+      } else if (e.key === 'Escape' && backdrop.classList.contains('open')) {
+        close();
+      }
+    });
+  })();
+</script>

@@ -1,0 +1,118 @@
+---
+import type { ProjectItem } from '@data/projects';
+import type { GitHubRepoMeta } from '@data/github';
+
+interface Props {
+  project: ProjectItem;
+  ghMeta?: GitHubRepoMeta | null;
+  featuredSpan?: boolean;
+}
+
+const { project, ghMeta, featuredSpan = false } = Astro.props;
+
+const primaryHref =
+  project.detailUrl || project.githubUrl || project.nexusUrl || project.curseforgeUrl || '#';
+const isExternalPrimary = !project.detailUrl;
+const resolvedDownload = ghMeta?.latestAssetUrl || project.downloadUrl;
+
+const categoryChipClass =
+  project.category === 'pc-ports'
+    ? 'chip-crimson'
+    : project.category === 'modding'
+      ? 'chip-cyan'
+      : project.category === 'software'
+        ? 'chip-violet'
+        : 'chip-emerald';
+---
+
+<article
+  class={`card project-card-item ${featuredSpan ? 'card-featured-span' : ''}`}
+  data-category={project.category}
+  data-subcategory={project.subcategoryId}
+  data-game={project.game || project.platform}
+  data-mc-version={project.mcVersion || ''}
+  data-mc-loader={project.mcLoader || ''}
+  data-has-github={project.githubUrl ? 'true' : 'false'}
+  data-has-nexus={project.nexusUrl ? 'true' : 'false'}
+  data-has-curseforge={project.curseforgeUrl ? 'true' : 'false'}
+  data-search={`${project.title} ${project.description} ${project.platform} ${project.subcategory} ${project.tech.join(' ')}`.toLowerCase()}
+>
+  {project.image && (
+    <a
+      href={primaryHref}
+      target={isExternalPrimary ? '_blank' : undefined}
+      rel={isExternalPrimary ? 'noopener noreferrer' : undefined}
+      class="card-media"
+    >
+      <img src={project.image} alt={`${project.title} preview`} loading="lazy" />
+    </a>
+  )}
+
+  <div class="card-body">
+    <div class="card-top-row">
+      <div style="display:flex;align-items:center;gap:0.35rem;flex-wrap:wrap;">
+        <span class={`chip ${categoryChipClass}`}>{project.subcategory}</span>
+        <span class="chip">{project.platform}</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:0.35rem;">
+        {ghMeta?.latestReleaseTag && (
+          <span class="gh-meta-pill release" title="Latest GitHub Release">{ghMeta.latestReleaseTag}</span>
+        )}
+        {ghMeta && ghMeta.stars > 0 && (
+          <span class="gh-meta-pill" title="GitHub Stars">★ {ghMeta.stars}</span>
+        )}
+      </div>
+    </div>
+
+    <h3 class="card-title">
+      <a
+        href={primaryHref}
+        target={isExternalPrimary ? '_blank' : undefined}
+        rel={isExternalPrimary ? 'noopener noreferrer' : undefined}
+      >
+        {project.title}
+      </a>
+    </h3>
+
+    <p class="card-desc">{project.description}</p>
+
+    <div class="card-tags">
+      {project.tech.map((t) => <span class="chip">{t}</span>)}
+    </div>
+
+    <div class="card-footer">
+      <div class="card-links">
+        {project.detailUrl && (
+          <a href={project.detailUrl} class="btn btn-crimson btn-sm">Details &rarr;</a>
+        )}
+        {project.githubUrl && (
+          <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
+            GitHub
+          </a>
+        )}
+        {project.nexusUrl && (
+          <a href={project.nexusUrl} target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-sm">
+            Nexus
+          </a>
+        )}
+        {project.curseforgeUrl && (
+          <a href={project.curseforgeUrl} target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-sm">
+            CurseForge
+          </a>
+        )}
+        {project.guideUrl && (
+          <a href={project.guideUrl} class="btn btn-ghost btn-sm" style="color:#6ee7b7;border-color:rgba(52,211,153,0.3);">
+            Guide
+          </a>
+        )}
+      </div>
+
+      {resolvedDownload && (
+        <a href={resolvedDownload} target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm" title="Download Latest Release">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span>Download</span>
+        </a>
+      )}
+    </div>
+  </div>
+</article>

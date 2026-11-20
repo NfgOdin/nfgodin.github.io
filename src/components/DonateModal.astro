@@ -1,0 +1,91 @@
+<div class="modal-backdrop centered" id="donate-modal-backdrop" aria-hidden="true">
+  <div class="donate-dialog" role="dialog" aria-modal="true" aria-labelledby="donate-title">
+    <button type="button" class="modal-close-btn" id="close-donate-btn" aria-label="Close dialog">&times;</button>
+
+    <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.85rem;">
+      <div style="width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:rgba(56,189,248,0.12);border:1px solid rgba(56,189,248,0.3);color:#38bdf8;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+      </div>
+      <div>
+        <h3 id="donate-title" style="font-size:1.25rem;margin:0;">Support NFG</h3>
+        <span class="mono" style="font-size:0.72rem;color:var(--text-muted);">Open-Source Ports, Tools &amp; Mods</span>
+      </div>
+    </div>
+
+    <p style="color:var(--text-secondary);font-size:0.88rem;line-height:1.6;">
+      Enjoying Shadow Hearts: Nocturne, Spira Mod Manager, FFVIISE Mod Loader, or RuneBox? Fuel future updates and reverse-engineering work!
+    </p>
+
+    <div class="donate-presets">
+      <button type="button" class="donate-preset-btn" data-val="3">$3</button>
+      <button type="button" class="donate-preset-btn selected" data-val="5">$5</button>
+      <button type="button" class="donate-preset-btn" data-val="10">$10</button>
+    </div>
+
+    <label for="donate-amount-input" class="mono" style="display:block;font-size:0.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;">
+      Custom Amount (USD)
+    </label>
+    <div class="donate-input-wrap">
+      <span class="donate-currency">$</span>
+      <input type="number" id="donate-amount-input" class="donate-input" value="5" min="1" step="any" placeholder="5" />
+    </div>
+
+    <button type="button" id="donate-submit-btn" class="btn btn-primary" style="width:100%;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.067 8.478c.492.88.556 2.014.3 3.327-.74 3.806-3.27 5.12-6.52 5.12h-1.9c-.48 0-.89.35-.97.83l-.72 4.54-.04.22c-.06.39-.4.68-.8.68H5.66c-.45 0-.79-.4-.73-.85l2.43-15.42c.07-.44.45-.77.9-.77h5.81c2.61 0 4.55.57 5.48 2.09.21.35.38.74.51 1.24z"/></svg>
+      <span>Donate via PayPal</span>
+    </button>
+  </div>
+</div>
+
+<script is:inline>
+  (() => {
+    const openBtn = document.getElementById('open-donate-btn');
+    const closeBtn = document.getElementById('close-donate-btn');
+    const backdrop = document.getElementById('donate-modal-backdrop');
+    const input = document.getElementById('donate-amount-input');
+    const presets = document.querySelectorAll('.donate-preset-btn');
+    const submitBtn = document.getElementById('donate-submit-btn');
+
+    if (!backdrop) return;
+
+    const close = () => {
+      backdrop.classList.remove('open');
+      backdrop.setAttribute('aria-hidden', 'true');
+    };
+
+    if (openBtn) {
+      openBtn.addEventListener('click', () => {
+        backdrop.classList.add('open');
+        backdrop.setAttribute('aria-hidden', 'false');
+      });
+    }
+    if (closeBtn) closeBtn.addEventListener('click', close);
+    backdrop.addEventListener('click', (e) => {
+      if (e.target === backdrop) close();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && backdrop.classList.contains('open')) close();
+    });
+
+    presets.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        presets.forEach((b) => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        if (input) input.value = btn.getAttribute('data-val') || '5';
+      });
+    });
+
+    if (input) {
+      input.addEventListener('input', () => {
+        presets.forEach((b) => b.classList.toggle('selected', b.getAttribute('data-val') === input.value));
+      });
+    }
+
+    if (submitBtn && input) {
+      submitBtn.addEventListener('click', () => {
+        const val = Math.max(1, parseFloat(input.value) || 5);
+        window.open(`https://www.paypal.com/paypalme/NFG/${val}`, '_blank', 'noopener,noreferrer');
+      });
+    }
+  })();
+</script>

@@ -1,0 +1,79 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="NfgOdin — Biography"
+  description="Biography, gaming roots, AI engineering philosophy, and technical credentials of Jonathan Roberts (NfgOdin)."
+>
+  <section class="page-hero">
+    <div class="container">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span class="sep">/</span>
+        <a href="/about/">About</a>
+        <span class="sep">/</span>
+        <span class="current">NfgOdin</span>
+      </nav>
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;flex-wrap:wrap;">
+        <div>
+          <span class="eyebrow">Biography &amp; Background</span>
+          <h1 class="page-title">About NfgOdin</h1>
+          <p class="page-lead">
+            Tinkerer, systems engineer, PC port author, mod developer, and lifelong RPG gamer.
+          </p>
+        </div>
+        <a href="/about/" class="btn btn-secondary btn-sm">&larr; Back to Collective</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="container" style="padding-bottom: 4.5rem;">
+    <div class="bio-stack">
+      <article class="bio-card">
+        <span class="eyebrow">Chapter 01 // Origin</span>
+        <h2>The Wilderness Computer Salvage (Age 13)</h2>
+        <p>
+          My lifelong fascination with computers didn't start in a computer science academy or from an off-the-shelf retail purchase. When I was 13 years old, I stumbled across an abandoned, discarded computer tower left out in the desert wilderness.
+        </p>
+        <p>
+          Instead of passing it by, I dragged it home. Without formal training, I opened the case, studied the ribbon cables, cleaned the components, and troubleshot the motherboard and drives until I successfully brought the system to life running Windows 98. Rescuing that machine gave me a deep appreciation for understanding what happens underneath the hood of computing hardware.
+        </p>
+      </article>
+
+      <article class="bio-card">
+        <span class="eyebrow violet">Chapter 02 // Gaming Roots</span>
+        <h2>Final Fantasy VII, Custom Hardware &amp; Classic RPGs</h2>
+        <p>
+          I have always had a deep love for RPGs. The very first RPG I ever completed was Final Fantasy VII on the original PlayStation back in 1998 or 1999. It left an indelible mark on my imagination, storytelling sensibilities, and love for technical gaming mechanics.
+        </p>
+        <p>
+          In 2007, I took my hardware knowledge to the next level by buying individual parts on eBay and assembling my own custom gaming PC from scratch. That machine unlocked a brand new world for me: MMORPGs, online gaming communities, and eventually the drive to reverse-engineer, mod, hook, and statically recompile classic titles like Final Fantasy VII, Final Fantasy X, and Shadow Hearts: Covenant.
+        </p>
+      </article>
+
+      <article class="bio-card">
+        <span class="eyebrow">Chapter 03 // Leverage</span>
+        <h2>AI as a Tool: The Power of Leverage</h2>
+        <p>
+          I love artificial intelligence. My deep dive into AI really kicked into high gear when local Stable Diffusion models became accessible and easy to run on consumer hardware—specifically on the RTX 3060 GPU I had at the time. Setting up local checkpoints, prompting, optimizing inference, and seeing generative models run right on my own machine blew the doors wide open.
+        </p>
+        <p>
+          My philosophy on AI is simple: <em>Why eat cold cereal with your bare hands when you have a tool called a spoon that helps you eat it?</em> The exact same principle applies to technology. Why struggle through every repetitive, manual task by hand when you can leverage intelligent tools to accelerate your workflow, solve hard engineering problems faster, and focus your energy on what truly matters?
+        </p>
+      </article>
+
+      <article class="bio-card">
+        <span class="eyebrow emerald">Chapter 04 // Stack</span>
+        <h2>Technical Skills &amp; Credentials</h2>
+        <p>Over the years I have balanced self-taught low-level engineering with focused coursework:</p>
+        <ul>
+          <li><strong>Programming Courses:</strong> College-level coursework in Java Programming and C# Programming.</li>
+          <li><strong>Networking:</strong> Cisco Networking Certificate earned through college coursework in high school.</li>
+          <li><strong>Cybersecurity:</strong> Google Cybersecurity online coursework and certifications.</li>
+          <li><strong>Languages &amp; Toolchains:</strong> C++20, Python 3, Java, Direct3D 12 / Vulkan / WGSL, Win32 / Direct2D, Static Recompilation, glTF 2.0 3D Pipelines, Embedded Linux / Raspberry Pi 5.</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</BaseLayout>

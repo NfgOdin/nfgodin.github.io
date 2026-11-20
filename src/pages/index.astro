@@ -1,0 +1,178 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PortShowcaseCard from '@components/PortShowcaseCard.astro';
+import ProjectCard from '@components/ProjectCard.astro';
+import Giscus from '@components/Giscus.astro';
+import { pcPorts } from '@data/ports';
+import { projects, getPortfolioStats } from '@data/projects';
+import { extractGitHubSlug, prefetchGitHubMeta } from '@data/github';
+
+const tutorials = (await getCollection('tutorials')).sort((a, b) => a.data.order - b.data.order);
+const featuredProjects = projects.filter((p) => p.featured && p.category !== 'pc-ports');
+const stats = getPortfolioStats(tutorials.length);
+
+const ghMap = await prefetchGitHubMeta([
+  ...pcPorts.map((p) => p.githubUrl),
+  ...featuredProjects.map((p) => p.githubUrl),
+]);
+const getMeta = (url?: string) => {
+  const slug = extractGitHubSlug(url);
+  return slug ? ghMap.get(slug.toLowerCase()) ?? null : null;
+};
+---
+
+<BaseLayout title="NFG">
+  <!-- Studio Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div>
+          <span class="eyebrow">NfgOdin // Systems &amp; Game Engineering</span>
+          <h1 class="hero-title">
+            Native PC Ports, <span class="text-gradient">Reverse Engineering</span> &amp; Precision Tools.
+          </h1>
+          <p class="hero-lead">
+            Static recompilation of classic console games, zero-overhead C++ mod loaders, Sony PhyreEngine 3D pipelines, car audio acoustics CAD, embedded Raspberry Pi 5 systems, and hierarchical reinforcement learning AI.
+          </p>
+          <div class="hero-actions">
+            <a href="/projects/pc-ports/shadow-hearts-nocturne/" class="btn btn-crimson">
+              <span>Shadow Hearts: Nocturne</span>
+              <span aria-hidden="true">&rarr;</span>
+            </a>
+            <a href="/projects/" class="btn btn-primary">Explore All Projects</a>
+            <a href="/tutorials/" class="btn btn-secondary">Read Guides</a>
+          </div>
+        </div>
+
+        <div class="hero-crest-panel">
+          <img src="/images/logo.png" alt="NFG Game Development & Technology Crest" class="hero-crest-img" width="230" height="230" />
+          <div style="display:flex;flex-direction:column;gap:0.25rem;">
+            <span class="hero-crest-caption">NFG Collective // Est. Open Source</span>
+            <span class="mono" style="font-size:0.72rem;color:var(--text-secondary);">
+              C++20 • Python • Java • D3D12 / Vulkan • Linux
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Portfolio Telemetry Bar -->
+      <div class="telemetry-bar" aria-label="Portfolio Metrics">
+        <div class="telemetry-cell">
+          <span class="telemetry-val" style="color:#fda4af;">{stats.ports}</span>
+          <span class="telemetry-label">Native PC Ports</span>
+        </div>
+        <div class="telemetry-cell">
+          <span class="telemetry-val" style="color:#7dd3fc;">{stats.toolsAndApps}</span>
+          <span class="telemetry-label">Tools, Apps &amp; AI</span>
+        </div>
+        <div class="telemetry-cell">
+          <span class="telemetry-val" style="color:#d8b4fe;">{stats.mods}</span>
+          <span class="telemetry-label">Published Game Mods</span>
+        </div>
+        <div class="telemetry-cell">
+          <span class="telemetry-val" style="color:#6ee7b7;">{stats.tutorials}</span>
+          <span class="telemetry-label">Technical Guides</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PC Ports Spotlight -->
+  <section class="section-block">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <span class="eyebrow crimson">Flagship Spotlight // Projects &rarr; PC Ports</span>
+          <h2 class="section-title">PC Ports</h2>
+          <p class="section-desc">
+            Ahead-of-time static recompilations bringing legendary console titles natively to Windows with modern GPU rendering, high-resolution scaling, and custom tooling.
+          </p>
+        </div>
+        <a href="/projects/pc-ports/" class="btn btn-secondary btn-sm">
+          All PC Ports &rarr;
+        </a>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:1.5rem;">
+        {pcPorts.map((port) => (
+          <PortShowcaseCard port={port} ghMeta={getMeta(port.githubUrl)} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Engineering Bento Grid -->
+  <section class="section-block">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <span class="eyebrow">Selected Open Source</span>
+          <h2 class="section-title">Featured Engineering</h2>
+          <p class="section-desc">
+            Active flagship repositories spanning Final Fantasy modding ecosystems, 3D audio CAD, Raspberry Pi 5 automotive systems, and autonomous RL agents.
+          </p>
+        </div>
+        <a href="/projects/" class="btn btn-secondary btn-sm">
+          Browse All {stats.total} Projects &rarr;
+        </a>
+      </div>
+
+      <div class="bento-grid">
+        {featuredProjects.map((project, idx) => (
+          <ProjectCard
+            project={project}
+            ghMeta={getMeta(project.githubUrl)}
+            featuredSpan={idx === 0}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Latest Technical Guides -->
+  <section class="section-block">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <span class="eyebrow emerald">Knowledge Base</span>
+          <h2 class="section-title">Technical Tutorials</h2>
+          <p class="section-desc">
+            Step-by-step setup guides, reverse-engineering workflows, and tooling references written directly alongside the source code.
+          </p>
+        </div>
+        <a href="/tutorials/" class="btn btn-secondary btn-sm">All Tutorials &rarr;</a>
+      </div>
+
+      <div class="cards-grid">
+        {tutorials.slice(0, 3).map((guide) => (
+          <article class="card">
+            <div class="card-body">
+              <div class="card-top-row">
+                <span class="chip chip-emerald">{guide.data.category}</span>
+                <span class="mono" style="font-size:0.72rem;color:var(--text-muted);">
+                  {guide.data.readingTime}
+                </span>
+              </div>
+              <h3 class="card-title">
+                <a href={`/tutorials/${guide.slug}/`}>{guide.data.title}</a>
+              </h3>
+              <p class="card-desc">{guide.data.summary}</p>
+              <div class="card-footer">
+                <span class="chip">{guide.data.difficulty}</span>
+                <a href={`/tutorials/${guide.slug}/`} class="btn btn-secondary btn-sm">
+                  Read Guide &rarr;
+                </a>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Community Guestbook (Giscus) -->
+  <div class="container">
+    <Giscus />
+  </div>
+</BaseLayout>

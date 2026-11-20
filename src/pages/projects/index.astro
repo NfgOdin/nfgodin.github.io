@@ -1,0 +1,381 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PortShowcaseCard from '@components/PortShowcaseCard.astro';
+import ProjectCard from '@components/ProjectCard.astro';
+import { pcPorts } from '@data/ports';
+import { categories, projects } from '@data/projects';
+import { extractGitHubSlug, prefetchGitHubMeta } from '@data/github';
+
+const ghMap = await prefetchGitHubMeta(projects.map((p) => p.githubUrl));
+const getMeta = (url?: string) => {
+  const slug = extractGitHubSlug(url);
+  return slug ? ghMap.get(slug.toLowerCase()) ?? null : null;
+};
+
+const nonPortProjects = projects.filter((p) => p.category !== 'pc-ports');
+
+// Unique games for Modding quick pills
+const moddingGames = Array.from(
+  new Set(
+    projects
+      .filter((p) => p.category === 'modding' && p.game)
+      .map((p) => p.game as string)
+  )
+);
+
+const countByCat = (catId: string) => projects.filter((p) => p.category === catId).length;
+const countBySub = (catId: string, subId: string) =>
+  projects.filter((p) => p.category === catId && p.subcategoryId === subId).length;
+---
+
+<BaseLayout
+  title="Projects & PC Ports"
+  description="Explore NfgOdin's native PC game ports, C++ mod loaders, Final Fantasy & Minecraft mods, 3D audio CAD software, Raspberry Pi 5 systems, and reinforcement learning AI."
+>
+  <section class="page-hero">
+    <div class="container">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span class="sep">/</span>
+        <span class="current">Projects</span>
+      </nav>
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;flex-wrap:wrap;">
+        <div>
+          <span class="eyebrow">Unified Engineering Catalog</span>
+          <h1 class="page-title" id="explorer-heading">Projects, PC Ports &amp; Mods</h1>
+          <p class="page-lead" id="explorer-desc">
+            Filter across native PC ports, reverse-engineering tools, game mods, desktop engineering suites, Raspberry Pi 5 systems, and AI frameworks.
+          </p>
+        </div>
+        <a href="/projects/pc-ports/" class="btn btn-crimson btn-sm">
+          Dedicated PC Ports View &rarr;
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="explorer-shell">
+      <!-- Left Category & Platform Filter Sidebar -->
+      <aside class="explorer-sidebar" aria-label="Project Filters">
+        <div>
+          <div class="sidebar-label">Categories</div>
+          <div class="sidebar-list">
+            <button type="button" class="sidebar-btn active" data-filter-cat="all" data-filter-sub="">
+              <span>All Projects</span>
+              <span class="count-pill">{projects.length}</span>
+            </button>
+
+            {categories.map((cat) => (
+              <div>
+                <button
+                  type="button"
+                  class={`sidebar-btn ${cat.id === 'pc-ports' ? 'crimson' : ''}`}
+                  data-filter-cat={cat.id}
+                  data-filter-sub=""
+                >
+                  <span>{cat.title}</span>
+                  <span class="count-pill">{countByCat(cat.id)}</span>
+                </button>
+                <div class="sidebar-sub-list">
+                  {cat.subcategories.map((sub) => (
+                    <button
+                      type="button"
+                      class="sidebar-btn sidebar-sub-btn"
+                      data-filter-cat={cat.id}
+                      data-filter-sub={sub.id}
+                    >
+                      <span>{sub.title}</span>
+                      <span class="count-pill">{countBySub(cat.id, sub.id)}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <div class="sidebar-label">Platform Filter</div>
+          <div class="platform-filter-grid">
+            <button type="button" class="plat-btn" id="plat-reset" data-plat="reset">
+              <span>All</span>
+              <span class="mono" style="font-size:0.68rem;">RST</span>
+            </button>
+            <button type="button" class="plat-btn" data-plat="github" data-state="neutral">
+              <span>GitHub</span>
+              <span class="plat-mark">•</span>
+            </button>
+            <button type="button" class="plat-btn" data-plat="nexus" data-state="neutral">
+              <span>Nexus</span>
+              <span class="plat-mark">•</span>
+            </button>
+            <button type="button" class="plat-btn" data-plat="curseforge" data-state="neutral">
+              <span>Curse</span>
+              <span class="plat-mark">•</span>
+            </button>
+          </div>
+          <p class="plat-help">Click to cycle: Include (✓) → Exclude (✕) → Off</p>
+        </div>
+      </aside>
+
+      <!-- Main Viewport -->
+      <section>
+        <div class="explorer-toolbar">
+          <div class="toolbar-top">
+            <div class="search-box">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+              <input type="text" id="projects-search-input" class="search-input" placeholder="Filter by title, game, engine, or language..." autocomplete="off" />
+            </div>
+            <span class="mono" id="projects-result-count" style="font-size:0.78rem;color:var(--text-muted);">
+              {projects.length} items
+            </span>
+          </div>
+
+          <!-- Game Pills (shown for All / Modding) -->
+          <div class="pill-row" id="game-pills-row">
+            <span class="mono" style="font-size:0.7rem;color:var(--text-muted);text-transform:uppercase;margin-right:0.2rem;">Game:</span>
+            <button type="button" class="filter-pill active" data-game-pill="All">All</button>
+            {moddingGames.map((g) => (
+              <button type="button" class="filter-pill" data-game-pill={g}>{g}</button>
+            ))}
+          </div>
+
+          <!-- Minecraft Version & Loader Sub-filters -->
+          <div class="mc-subfilters" id="mc-subfilters">
+            <div class="pill-row">
+              <span class="mono" style="font-size:0.7rem;color:var(--text-muted);text-transform:uppercase;">MC Version:</span>
+              <button type="button" class="filter-pill active" data-mc-ver="All">All</button>
+              <button type="button" class="filter-pill" data-mc-ver="1.20.1">1.20.1</button>
+              <button type="button" class="filter-pill" data-mc-ver="1.21.1">1.21.1</button>
+            </div>
+            <div class="pill-row">
+              <span class="mono" style="font-size:0.7rem;color:var(--text-muted);text-transform:uppercase;">Loader:</span>
+              <button type="button" class="filter-pill active" data-mc-loader="All">All</button>
+              <button type="button" class="filter-pill" data-mc-loader="Forge">Forge</button>
+              <button type="button" class="filter-pill" data-mc-loader="NeoForge">NeoForge</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- PC Ports Cinematic Showcase Block (visible under All or PC Ports) -->
+        <div id="ports-explorer-block" style="margin-bottom:1.5rem;display:flex;flex-direction:column;gap:1.15rem;">
+          {pcPorts.map((port) => (
+            <div
+              class="port-filter-item"
+              data-category="pc-ports"
+              data-subcategory="ps2"
+              data-game={port.originalGame}
+              data-has-github="true"
+              data-has-nexus="false"
+              data-has-curseforge="false"
+              data-search={`${port.title} ${port.originalGame} ${port.originalPlatform} ${port.summary} ${port.tech.join(' ')} ${port.badges.join(' ')}`.toLowerCase()}
+            >
+              <PortShowcaseCard port={port} ghMeta={getMeta(port.githubUrl)} />
+            </div>
+          ))}
+        </div>
+
+        <!-- Unified Project Cards Grid -->
+        <div class="cards-grid" id="projects-cards-grid">
+          {nonPortProjects.map((project) => (
+            <ProjectCard project={project} ghMeta={getMeta(project.githubUrl)} />
+          ))}
+        </div>
+
+        <div class="empty-state" id="projects-empty-state" style="display:none;">
+          <p style="font-weight:600;color:var(--text-primary);margin-bottom:0.35rem;">No matching projects found</p>
+          <p style="font-size:0.86rem;margin-bottom:1rem;">Try clearing your search term or resetting category and platform filters.</p>
+          <button type="button" class="btn btn-secondary btn-sm" id="projects-clear-all">Reset All Filters</button>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script is:inline>
+    (() => {
+      const state = {
+        cat: 'all',
+        sub: '',
+        game: 'All',
+        mcVer: 'All',
+        mcLoader: 'All',
+        query: '',
+        platforms: { github: 'neutral', nexus: 'neutral', curseforge: 'neutral' },
+      };
+
+      // Initialize from URL query parameters (?category=modding&sub=tools&game=Minecraft)
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('category')) state.cat = params.get('category');
+      if (params.get('sub')) state.sub = params.get('sub');
+      if (params.get('game')) state.game = params.get('game');
+
+      const catBtns = document.querySelectorAll('[data-filter-cat]');
+      const gamePills = document.querySelectorAll('[data-game-pill]');
+      const gamePillsRow = document.getElementById('game-pills-row');
+      const mcBox = document.getElementById('mc-subfilters');
+      const mcVerBtns = document.querySelectorAll('[data-mc-ver]');
+      const mcLoaderBtns = document.querySelectorAll('[data-mc-loader]');
+      const platBtns = document.querySelectorAll('.plat-btn[data-state]');
+      const platReset = document.getElementById('plat-reset');
+      const searchInput = document.getElementById('projects-search-input');
+      const countEl = document.getElementById('projects-result-count');
+      const emptyEl = document.getElementById('projects-empty-state');
+      const clearBtn = document.getElementById('projects-clear-all');
+      const portsBlock = document.getElementById('ports-explorer-block');
+      const portItems = document.querySelectorAll('.port-filter-item');
+      const projectCards = document.querySelectorAll('.project-card-item');
+
+      function matchesPlatform(el) {
+        for (const key of ['github', 'nexus', 'curseforge']) {
+          const mode = state.platforms[key];
+          const has = el.getAttribute(`data-has-${key}`) === 'true';
+          if (mode === 'include' && !has) return false;
+          if (mode === 'exclude' && has) return false;
+        }
+        return true;
+      }
+
+      function matchesItem(el) {
+        const cat = el.getAttribute('data-category') || '';
+        const sub = el.getAttribute('data-subcategory') || '';
+        const game = el.getAttribute('data-game') || '';
+        const mcVer = el.getAttribute('data-mc-version') || '';
+        const mcLoader = el.getAttribute('data-mc-loader') || '';
+        const hay = el.getAttribute('data-search') || '';
+
+        if (state.cat !== 'all' && cat !== state.cat) return false;
+        if (state.sub && sub !== state.sub) return false;
+        if (state.game !== 'All' && game !== state.game) return false;
+        if (state.game === 'Minecraft') {
+          if (state.mcVer !== 'All' && mcVer !== state.mcVer) return false;
+          if (state.mcLoader !== 'All' && mcLoader !== state.mcLoader) return false;
+        }
+        if (!matchesPlatform(el)) return false;
+        if (state.query) {
+          const terms = state.query.split(/\s+/);
+          if (!terms.every((t) => hay.includes(t))) return false;
+        }
+        return true;
+      }
+
+      function syncUI() {
+        catBtns.forEach((btn) => {
+          const c = btn.getAttribute('data-filter-cat');
+          const s = btn.getAttribute('data-filter-sub') || '';
+          btn.classList.toggle('active', c === state.cat && s === state.sub);
+        });
+
+        const showGamePills = state.cat === 'all' || state.cat === 'modding';
+        if (gamePillsRow) gamePillsRow.style.display = showGamePills ? 'flex' : 'none';
+        gamePills.forEach((p) => p.classList.toggle('active', p.getAttribute('data-game-pill') === state.game));
+
+        if (mcBox) mcBox.classList.toggle('visible', state.game === 'Minecraft');
+        mcVerBtns.forEach((b) => b.classList.toggle('active', b.getAttribute('data-mc-ver') === state.mcVer));
+        mcLoaderBtns.forEach((b) => b.classList.toggle('active', b.getAttribute('data-mc-loader') === state.mcLoader));
+
+        platBtns.forEach((btn) => {
+          const k = btn.getAttribute('data-plat');
+          const st = state.platforms[k];
+          btn.setAttribute('data-state', st);
+          const mark = btn.querySelector('.plat-mark');
+          if (mark) mark.textContent = st === 'include' ? '✓' : st === 'exclude' ? '✕' : '•';
+        });
+
+        let visiblePorts = 0;
+        portItems.forEach((el) => {
+          const ok = matchesItem(el);
+          el.style.display = ok ? 'block' : 'none';
+          if (ok) visiblePorts++;
+        });
+        if (portsBlock) portsBlock.style.display = visiblePorts > 0 ? 'flex' : 'none';
+
+        let visibleCards = 0;
+        projectCards.forEach((el) => {
+          const ok = matchesItem(el);
+          el.style.display = ok ? 'flex' : 'none';
+          if (ok) visibleCards++;
+        });
+
+        const total = visiblePorts + visibleCards;
+        if (countEl) countEl.textContent = `${total} item${total === 1 ? '' : 's'}`;
+        if (emptyEl) emptyEl.style.display = total === 0 ? 'block' : 'none';
+      }
+
+      catBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          state.cat = btn.getAttribute('data-filter-cat') || 'all';
+          state.sub = btn.getAttribute('data-filter-sub') || '';
+          if (state.cat !== 'all' && state.cat !== 'modding') {
+            state.game = 'All';
+          }
+          syncUI();
+        });
+      });
+
+      gamePills.forEach((pill) => {
+        pill.addEventListener('click', () => {
+          state.game = pill.getAttribute('data-game-pill') || 'All';
+          if (state.game !== 'Minecraft') {
+            state.mcVer = 'All';
+            state.mcLoader = 'All';
+          }
+          syncUI();
+        });
+      });
+
+      mcVerBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          state.mcVer = btn.getAttribute('data-mc-ver') || 'All';
+          syncUI();
+        });
+      });
+
+      mcLoaderBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          state.mcLoader = btn.getAttribute('data-mc-loader') || 'All';
+          syncUI();
+        });
+      });
+
+      platBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const k = btn.getAttribute('data-plat');
+          const cur = state.platforms[k];
+          state.platforms[k] = cur === 'neutral' ? 'include' : cur === 'include' ? 'exclude' : 'neutral';
+          syncUI();
+        });
+      });
+
+      if (platReset) {
+        platReset.addEventListener('click', () => {
+          state.platforms = { github: 'neutral', nexus: 'neutral', curseforge: 'neutral' };
+          syncUI();
+        });
+      }
+
+      if (searchInput) {
+        searchInput.addEventListener('input', () => {
+          state.query = searchInput.value.trim().toLowerCase();
+          syncUI();
+        });
+      }
+
+      if (clearBtn) {
+        clearBtn.addEventListener('click', () => {
+          state.cat = 'all';
+          state.sub = '';
+          state.game = 'All';
+          state.mcVer = 'All';
+          state.mcLoader = 'All';
+          state.query = '';
+          state.platforms = { github: 'neutral', nexus: 'neutral', curseforge: 'neutral' };
+          if (searchInput) searchInput.value = '';
+          syncUI();
+        });
+      }
+
+      syncUI();
+    })();
+  </script>
+</BaseLayout>

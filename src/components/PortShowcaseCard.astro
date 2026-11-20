@@ -1,0 +1,66 @@
+---
+import type { PcPort } from '@data/ports';
+import type { GitHubRepoMeta } from '@data/github';
+
+interface Props {
+  port: PcPort;
+  ghMeta?: GitHubRepoMeta | null;
+}
+
+const { port, ghMeta } = Astro.props;
+const detailHref = `/projects/pc-ports/${port.slug}/`;
+---
+
+<article class="port-showcase">
+  <div class="port-showcase-bg" aria-hidden="true">
+    <img src={port.bannerImage} alt={`${port.title} showcase art`} loading="lazy" />
+  </div>
+
+  <div class="port-showcase-content">
+    <div>
+      <div class="port-showcase-meta">
+        <span class="chip chip-crimson">PC PORT</span>
+        <span class="chip">{port.originalPlatform}</span>
+        <span class="chip chip-emerald"><span class="status-dot"></span>{port.status}</span>
+        {ghMeta?.latestReleaseTag && (
+          <span class="gh-meta-pill release">{ghMeta.latestReleaseTag}</span>
+        )}
+        {ghMeta && ghMeta.stars > 0 && (
+          <span class="gh-meta-pill">★ {ghMeta.stars}</span>
+        )}
+      </div>
+
+      <h3 class="port-showcase-title">{port.title}</h3>
+      <p class="port-showcase-subtitle">
+        Native Port of {port.originalGame} &nbsp;•&nbsp; {port.regionSpec}
+      </p>
+      <p class="port-showcase-summary">{port.summary}</p>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:1.1rem;">
+      <div class="port-showcase-badges">
+        {port.badges.map((b) => <span class="chip">{b}</span>)}
+      </div>
+
+      <div class="port-showcase-specs">
+        {port.specs.map((spec) => (
+          <div class="port-spec-item">
+            <span class="port-spec-label">{spec.label}</span>
+            <span class="port-spec-val">{spec.value}</span>
+          </div>
+        ))}
+      </div>
+
+      <div class="port-showcase-actions">
+        <a href={detailHref} class="btn btn-crimson">
+          <span>Explore Full Port Details</span>
+          <span aria-hidden="true">&rarr;</span>
+        </a>
+        <a href={port.githubUrl} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          <span>GitHub Repository</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</article>

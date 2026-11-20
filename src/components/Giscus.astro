@@ -1,0 +1,41 @@
+---
+interface Props {
+  title?: string;
+  subtitle?: string;
+  eyebrow?: string;
+}
+
+const {
+  eyebrow = 'Community Discussions',
+  title = 'Community Guestbook & Feedback',
+  subtitle = 'Leave feedback, report bugs, request features, or say hello — powered directly by GitHub Discussions.',
+} = Astro.props;
+---
+
+<section class="section-block" id="giscus">
+  <div class="section-header" style="margin-bottom: 1.4rem;">
+    <div>
+      <span class="eyebrow">{eyebrow}</span>
+      <h2 class="section-title">{title}</h2>
+      <p class="section-desc">{subtitle}</p>
+    </div>
+  </div>
+  <div class="giscus-shell">
+    <script
+      src="https://giscus.app/client.js"
+      data-repo="nfgodin/nfgodin.github.io"
+      data-repo-id="R_kgDOUjJs7g"
+      data-category="General"
+      data-category-id="DIC_kwDOUjJs7s4DGspb"
+      data-mapping="pathname"
+      data-strict="0"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="top"
+      data-theme="transparent_dark"
+      data-lang="en"
+      crossorigin="anonymous"
+      async
+    ></script>
+  </div>
+</section>

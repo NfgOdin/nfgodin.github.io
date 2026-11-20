@@ -1,42 +1,36 @@
-# Jonathan Roberts (NfgOdin) // NFG Main Ecosystem
+# NFG // NfgOdin Website (`nfgodin.github.io`)
 
-Personal portfolio, open-source project showcase, and technical tutorial hub for **Jonathan Roberts** (`NfgOdin` / `NFG`), deployed to GitHub Pages at [https://odinj2010.github.io](https://odinj2010.github.io).
-
----
-
-## 🎮 About Jonathan Roberts
-- **Alias / Handle**: NfgOdin (NFG)
-- **Background**: Lifelong technologist who brought his first computer to life at age 13 after salvaging an abandoned desktop from the desert wilderness and getting it running on Windows 98.
-- **Interests**: RPGs (beat Final Fantasy VII on PS1 in 1998/1999), MMORPGs, hardware customization, game modding, acoustics/subwoofer CAD modeling, and machine learning.
-- **Education & Credentials**:
-  - College coursework in Java and C# programming
-  - Cisco Networking Certification (College coursework in high school)
-  - Google Cybersecurity certifications
+Official portfolio, **PC Ports** showcase, open-source project catalog, and technical tutorial hub for **Jonathan Roberts (`NfgOdin` / `NFG`)**, built with **Astro** and auto-deployed to [https://nfgodin.github.io](https://nfgodin.github.io) via GitHub Actions.
 
 ---
 
-## 🛠️ Authentic Featured Projects
-All featured projects directly map to active public repositories on GitHub:
+## Local Development
 
-- **[FFVIISE_Mod_Loader](https://github.com/odinj2010/FFVIISE_Mod_Loader)**: Lightweight, high-performance C++ mod loader for the Final Fantasy VII Steam Edition.
-- **[7thHeavenToFFVIIModLoader](https://github.com/odinj2010/7thHeavenToFFVIIModLoader)**: Python tool converting legacy 7th Heaven `.iro` mod archives into native unpacked directory structures.
-- **[FFX-Mod-Manager](https://github.com/odinj2010/FFX-Mod-Manager)**: Standalone mod manager for Final Fantasy X / X-2 HD Remaster on Steam.
-- **[FFX-Phyre-Tool](https://github.com/odinj2010/FFX-Phyre-Tool)**: Extracting and repacking 3D models and textures for FFX/X-2 HD using the glTF 2.0 open standard.
-- **[RuneBox](https://github.com/odinj2010/RuneBox)**: Commercial-grade car audio subwoofer enclosure CAD and acoustics simulation laboratory with 3D vector visualization.
-- **[RiftLink](https://github.com/odinj2010/RiftLink)**: Minecraft 1.21.1 mod built on the NeoForge mod loader.
-- **[PokemonYellow-HRL-AI](https://github.com/odinj2010/PokemonYellow-HRL-AI)**: Hierarchical Reinforcement Learning framework training an AI agent to beat Pokémon Yellow.
-- **[SBC-Core](https://github.com/odinj2010/SBC-Core)**: Raspberry Pi 5 core utility and hardware control system.
-
----
-
-## 🚀 Adding New Projects or Guides
-
-To add or modify projects and guides, edit [js/tutorials-data.js](file:///c:/Users/jonat/Documents/Antigravity%20Projects/Nfg_Website/js/tutorials-data.js).
-
-### Deployment
-To push updates live to your GitHub Pages site:
 ```bash
-git add .
-git commit -m "feat: content updates"
-git push origin main
+npm install
+npm run dev      # Start local dev server (http://localhost:4321)
+npm run check    # Run Astro + TypeScript checks
+npm run build    # Build production static site into dist/
+npm run preview  # Preview production dist/ locally
 ```
+
+---
+
+## Adding Content
+
+- **Add a new PC Port**: Add an entry to `pcPorts` in [src/data/ports.ts](file:///c:/Users/jonat/Documents/Antigravity%20Projects/Nfg_Website/src/data/ports.ts). It automatically appears in `/projects/pc-ports/`, `/projects/`, the Home spotlight, the `Ctrl+K` command palette, `sitemap-index.xml`, and gets its own SEO detail page at `/projects/pc-ports/<slug>/`.
+- **Add PC Port screenshots**: Drop images into `public/images/ports/<slug>/` and list them in the port's `screenshots` array in `src/data/ports.ts`.
+- **Add a Project or Mod**: Add an entry to `projects` in [src/data/projects.ts](file:///c:/Users/jonat/Documents/Antigravity%20Projects/Nfg_Website/src/data/projects.ts).
+- **Add a Tutorial**: Create a Markdown file with frontmatter inside `src/content/tutorials/<category>/<subcategory>/<slug>.md`. GitHub callouts (`> [!NOTE]`, `> [!TIP]`, `> [!WARNING]`) and syntax-highlighted copyable code blocks work automatically.
+
+---
+
+## Deployment (GitHub Pages)
+
+1. Push changes to `main`:
+   ```bash
+   git add .
+   git commit -m "feat: site update"
+   git push origin main
+   ```
+2. In your GitHub repository settings (**Settings → Pages → Build and deployment → Source**), ensure **GitHub Actions** is selected. The workflow at [.github/workflows/deploy.yml](file:///c:/Users/jonat/Documents/Antigravity%20Projects/Nfg_Website/.github/workflows/deploy.yml) automatically builds and publishes the site on every push.

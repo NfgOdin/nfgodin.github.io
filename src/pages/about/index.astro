@@ -1,0 +1,84 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="About NFG"
+  description="Meet the NFG Collective — developers, reverse engineers, modders, and hardware builders behind Shadow Hearts: Nocturne, Spira Mod Manager, RuneBox, and more."
+>
+  <section class="page-hero">
+    <div class="container">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span class="sep">/</span>
+        <span class="current">About</span>
+      </nav>
+      <span class="eyebrow">Collective &amp; Team</span>
+      <h1 class="page-title">About NFG</h1>
+      <p class="page-lead">
+        Modding creators, reverse engineers, and software developers building native PC ports, open-source tools, audio CAD, embedded Pi 5 systems, and AI.
+      </p>
+    </div>
+  </section>
+
+  <div class="container" style="padding-bottom: 4.5rem;">
+    <div class="bio-stack">
+      <article class="bio-card">
+        <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1rem;">
+          <img src="/images/logo.png" alt="NFG Crest" width="52" height="52" style="border-radius:10px;border:1px solid rgba(56,189,248,0.32);" />
+          <div>
+            <h2 style="margin:0;">The NFG Collective</h2>
+            <span class="mono" style="font-size:0.75rem;color:var(--text-muted);">PC Ports • Modding • Systems Engineering</span>
+          </div>
+        </div>
+        <p>
+          NFG is a family-rooted collective of developers, modders, and creators passionate about low-level gaming architecture, static recompilation, reverse engineering, audio engineering, and artificial intelligence. What started as individual tinkering has evolved into a collaborative engineering hub dedicated to preserving and modernizing legendary games, building standalone desktop utilities, and pushing open-source technology forward.
+        </p>
+        <p>
+          From native Windows PS2 recompilations like <strong>Shadow Hearts: Nocturne</strong> to Final Fantasy mod loaders and binary asset tools, Minecraft NeoForge mods, subwoofer acoustics CAD, Raspberry Pi 5 cockpit software, and hierarchical reinforcement learning agents, NFG builds with precision and an open-source ethos.
+        </p>
+      </article>
+
+      <div>
+        <span class="eyebrow violet" style="margin-bottom:0.4rem;">Team &amp; Creators</span>
+        <h2 style="font-size:1.5rem;margin-bottom:1rem;">Members</h2>
+
+        <div class="cards-grid" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr));">
+          <article class="card">
+            <div class="card-body">
+              <div class="card-top-row">
+                <span class="chip chip-cyan">Founder &amp; Core Dev</span>
+                <span class="chip chip-emerald"><span class="status-dot"></span>Active</span>
+              </div>
+              <h3 class="card-title"><a href="/about/nfgodin/">NfgOdin</a></h3>
+              <p class="card-desc">
+                Core developer, reverse engineer, PC port author, mod creator, and lifelong hardware tinkerer. Read the full origin story, philosophy, and technical credentials.
+              </p>
+              <div class="card-footer">
+                <span class="mono" style="font-size:0.72rem;color:var(--text-muted);">Jonathan Roberts</span>
+                <a href="/about/nfgodin/" class="btn btn-primary btn-sm">Read Biography &rarr;</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-body">
+              <div class="card-top-row">
+                <span class="chip chip-violet">Creator</span>
+                <span class="chip chip-amber">WIP</span>
+              </div>
+              <h3 class="card-title"><a href="/about/nfganarchy/">NfgAnarchy</a></h3>
+              <p class="card-desc">
+                NFG collective developer &amp; creator profile — currently under construction. Check back soon for full bio and projects.
+              </p>
+              <div class="card-footer">
+                <span class="mono" style="font-size:0.72rem;color:var(--text-muted);">Profile Incoming</span>
+                <a href="/about/nfganarchy/" class="btn btn-secondary btn-sm">View Profile &rarr;</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

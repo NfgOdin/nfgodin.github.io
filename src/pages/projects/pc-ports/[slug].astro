@@ -1,0 +1,297 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Giscus from '@components/Giscus.astro';
+import { pcPorts, type PcPort } from '@data/ports';
+import { getGitHubRepoMeta } from '@data/github';
+
+export function getStaticPaths() {
+  return pcPorts.map((port) => ({
+    params: { slug: port.slug },
+    props: { port },
+  }));
+}
+
+interface Props {
+  port: PcPort;
+}
+
+const { port } = Astro.props;
+const ghMeta = await getGitHubRepoMeta(port.githubUrl);
+---
+
+<BaseLayout
+  title={`${port.title} — ${port.originalGame} PC Port`}
+  description={port.summary}
+  ogImage={port.bannerImage}
+>
+  <div class="container" style="padding-top: 1.75rem; padding-bottom: 4rem;">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="sep">/</span>
+      <a href="/projects/">Projects</a>
+      <span class="sep">/</span>
+      <a href="/projects/pc-ports/">PC Ports</a>
+      <span class="sep">/</span>
+      <span class="current">{port.title}</span>
+    </nav>
+
+    <!-- Full-Bleed Cinematic Hero -->
+    <section class="port-detail-hero">
+      <div class="port-detail-hero-bg" aria-hidden="true">
+        <img src={port.bannerImage} alt={`${port.title} key art`} />
+      </div>
+
+      <div class="port-detail-hero-inner">
+        <div class="port-showcase-meta" style="margin-bottom:0.85rem;">
+          <span class="chip chip-crimson">NATIVE PC PORT</span>
+          <span class="chip">{port.originalPlatform}</span>
+          <span class="chip chip-emerald"><span class="status-dot"></span>{port.status}</span>
+          {ghMeta?.latestReleaseTag && (
+            <span class="gh-meta-pill release">{ghMeta.latestReleaseTag}</span>
+          )}
+          {ghMeta && ghMeta.stars > 0 && (
+            <span class="gh-meta-pill">★ {ghMeta.stars}</span>
+          )}
+        </div>
+
+        <h1 class="page-title" style="color:#fff;font-size:clamp(2.1rem,4.5vw,3.3rem);">{port.title}</h1>
+        <p class="port-showcase-subtitle" style="font-size:0.88rem;margin-top:0.45rem;">
+          {port.originalGame} &nbsp;•&nbsp; {port.regionSpec}
+        </p>
+        <p style="color:#cbd5e1;font-size:1rem;line-height:1.72;margin-top:1rem;max-width:62ch;">
+          {port.summary}
+        </p>
+
+        <div class="port-showcase-actions" style="margin-top:1.5rem;">
+          <a href={port.githubUrl} target="_blank" rel="noopener noreferrer" class="btn btn-crimson">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+            <span>View on GitHub</span>
+          </a>
+          {ghMeta?.latestReleaseUrl && (
+            <a href={ghMeta.latestReleaseUrl} target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+              Latest Release ({ghMeta.latestReleaseTag})
+            </a>
+          )}
+          {port.docsUrl && (
+            <a href={port.docsUrl} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+              Engine Technical Docs &rarr;
+            </a>
+          )}
+        </div>
+      </div>
+    </section>
+
+    <!-- Hardware & Engine Spec Telemetry Bar -->
+    <div class="telemetry-bar" style="margin-top:0;margin-bottom:1.75rem;">
+      {port.specs.map((spec) => (
+        <div class="telemetry-cell">
+          <span class="telemetry-val" style="font-size:1.15rem;">{spec.value}</span>
+          <span class="telemetry-label">{spec.label}</span>
+        </div>
+      ))}
+    </div>
+
+    <!-- Legal Bring-Your-Own-Disc Notice -->
+    <aside class="legal-callout" role="note" aria-label="Legal Bring Your Own Disc Notice">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+      <div>
+        <strong>Legal &amp; Asset Policy:</strong> {port.legalNotice}
+      </div>
+    </aside>
+
+    <!-- Tech Stack Strip -->
+    <div style="display:flex;align-items:center;flex-wrap:wrap;gap:0.45rem;margin-bottom:2.5rem;">
+      <span class="mono" style="font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;margin-right:0.3rem;">Stack:</span>
+      {port.tech.map((t) => <span class="chip chip-cyan">{t}</span>)}
+      <span class="chip">{port.license}</span>
+      <span class="chip">{port.engineBase}</span>
+    </div>
+
+    <!-- Tabbed Technical Highlights -->
+    <section class="section-block" style="padding-top:2.25rem;">
+      <div class="section-header" style="margin-bottom:1.25rem;">
+        <div>
+          <span class="eyebrow crimson">Architecture &amp; Capabilities</span>
+          <h2 class="section-title">Engineering Highlights</h2>
+        </div>
+      </div>
+
+      <div class="feature-tabs" role="tablist">
+        {port.featureGroups.map((group, idx) => (
+          <button
+            type="button"
+            role="tab"
+            class={`feature-tab-btn ${idx === 0 ? 'active' : ''}`}
+            aria-selected={idx === 0 ? 'true' : 'false'}
+            data-tab-target={group.id}
+          >
+            {group.label}
+          </button>
+        ))}
+      </div>
+
+      {port.featureGroups.map((group, idx) => (
+        <div
+          class={`feature-panel ${idx === 0 ? 'active' : ''}`}
+          role="tabpanel"
+          data-tab-panel={group.id}
+        >
+          {group.items.map((item) => (
+            <article class="feature-card">
+              <h3>{item.title}</h3>
+              <p>{item.detail}</p>
+            </article>
+          ))}
+        </div>
+      ))}
+    </section>
+
+    <!-- One-Click Build Quick Start -->
+    <section class="section-block">
+      <div class="section-header" style="margin-bottom:1.4rem;">
+        <div>
+          <span class="eyebrow">Getting Started on Windows</span>
+          <h2 class="section-title">One-Click Local Build</h2>
+          <p class="section-desc">
+            No Visual Studio or manual toolchain setup required. Build cleanly from your legally dumped NTSC-U Disc 1 &amp; Disc 2 images.
+          </p>
+        </div>
+      </div>
+
+      <div class="steps-grid">
+        {port.quickStart.map((step) => (
+          <article class="step-card">
+            <span class="step-num">STEP {step.step}</span>
+            <h3 style="font-size:1.05rem;">{step.title}</h3>
+            <p style="font-size:0.87rem;color:var(--text-secondary);line-height:1.62;">{step.detail}</p>
+            {step.command && (
+              <div class="step-cmd">
+                <code>{step.command}</code>
+                <button type="button" class="btn btn-ghost btn-sm copy-inline-btn" data-copy={step.command} style="padding:0.18rem 0.5rem;font-size:0.68rem;">
+                  Copy
+                </button>
+              </div>
+            )}
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <!-- Controls & Shortcuts -->
+    <section class="section-block">
+      <div class="section-header" style="margin-bottom:1.25rem;">
+        <div>
+          <span class="eyebrow">Runtime Controls</span>
+          <h2 class="section-title">Hotkeys &amp; Quick Menu</h2>
+          <p class="section-desc">
+            Custom bindings and live graphics/audio tuning are persisted automatically to <code>games\sh2-covenant\keys.ini</code>.
+          </p>
+        </div>
+      </div>
+
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width:280px;">Shortcut</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {port.controls.map((row) => (
+              <tr>
+                <td><span class="kbd-badge">{row.shortcut}</span></td>
+                <td style="color:var(--text-secondary);">{row.action}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Drop-In Screenshot Gallery -->
+    <section class="section-block">
+      <div class="section-header" style="margin-bottom:1.25rem;">
+        <div>
+          <span class="eyebrow">Visual Captures</span>
+          <h2 class="section-title">Screenshots &amp; Media Gallery</h2>
+        </div>
+      </div>
+
+      {port.screenshots.length > 0 ? (
+        <div class="gallery-grid">
+          {port.screenshots.map((shot) => (
+            <figure class="gallery-figure">
+              <img src={shot.src} alt={shot.alt} loading="lazy" />
+              <figcaption>{shot.caption}</figcaption>
+            </figure>
+          ))}
+        </div>
+      ) : (
+        <div class="gallery-placeholder">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent-crimson)" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          <p style="font-weight:600;color:var(--text-primary);">In-Game Screenshot Gallery Ready</p>
+          <p style="font-size:0.85rem;max-width:56ch;">
+            Drop clean F12 captures into <code>public/images/ports/{port.slug}/</code> and add them to <code>screenshots[]</code> in <code>src/data/ports.ts</code> to showcase live 4×/8× gameplay and Direct2D launcher previews here.
+          </p>
+        </div>
+      )}
+    </section>
+
+    <!-- Credits & Licensing -->
+    <section class="section-block">
+      <div class="section-header" style="margin-bottom:1rem;">
+        <div>
+          <span class="eyebrow">Attribution</span>
+          <h2 class="section-title">Credits &amp; License</h2>
+        </div>
+      </div>
+      <div class="bio-card" style="max-width:none;">
+        <ul style="margin-top:0;">
+          {port.credits.map((line) => <li>{line}</li>)}
+        </ul>
+      </div>
+    </section>
+
+    <!-- Per-Port Discussions -->
+    <Giscus
+      eyebrow="Port Feedback"
+      title={`${port.title} — Discussion & Support`}
+      subtitle="Share benchmarks, post questions, report bugs, or leave feedback directly via GitHub Discussions."
+    />
+  </div>
+
+  <script is:inline>
+    (() => {
+      // Feature tabs
+      const tabBtns = document.querySelectorAll('.feature-tab-btn');
+      const panels = document.querySelectorAll('.feature-panel');
+      tabBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const target = btn.getAttribute('data-tab-target');
+          tabBtns.forEach((b) => {
+            const active = b === btn;
+            b.classList.toggle('active', active);
+            b.setAttribute('aria-selected', String(active));
+          });
+          panels.forEach((p) => {
+            p.classList.toggle('active', p.getAttribute('data-tab-panel') === target);
+          });
+        });
+      });
+
+      // Inline command copy buttons
+      document.querySelectorAll('.copy-inline-btn').forEach((btn) => {
+        btn.addEventListener('click', async () => {
+          const text = btn.getAttribute('data-copy') || '';
+          try {
+            await navigator.clipboard.writeText(text);
+            const prev = btn.textContent;
+            btn.textContent = 'Copied!';
+            setTimeout(() => { btn.textContent = prev; }, 1600);
+          } catch {}
+        });
+      });
+    })();
+  </script>
+</BaseLayout>

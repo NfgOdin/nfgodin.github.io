@@ -1,0 +1,110 @@
+---
+import '@styles/global.css';
+import Header from '@components/Header.astro';
+import Footer from '@components/Footer.astro';
+import CommandPalette from '@components/CommandPalette.astro';
+import DonateModal from '@components/DonateModal.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+}
+
+const {
+  title,
+  description = 'NFG (NfgOdin) — Native PC game ports, reverse-engineering tools, game mod loaders, acoustics CAD, Raspberry Pi systems, and reinforcement learning AI.',
+  ogImage = '/images/logo.png',
+} = Astro.props;
+
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site).toString();
+const absoluteOgImage = new URL(ogImage, Astro.site).toString();
+const fullTitle = title === 'NFG' ? 'NFG — PC Ports, Game Modding & Systems Engineering' : `${title} | NFG`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- OpenGraph / Discord / Reddit / Twitter Cards -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="NFG // NfgOdin" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={absoluteOgImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={absoluteOgImage} />
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" href="/icon.png?v=3" />
+    <link rel="icon" type="image/svg+xml" href="/icon.svg?v=3" />
+
+    <!-- Typography: Space Grotesk + Inter + JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Google AdSense -->
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1794260070743930"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Legacy SPA Hash Route Redirector (preserves old /#/... bookmarks) -->
+    <script is:inline>
+      (() => {
+        const hash = window.location.hash;
+        if (!hash || !hash.startsWith('#/')) return;
+        const clean = hash.replace(/^#\/?/, '').replace(/\/$/, '');
+        if (!clean) return;
+        const [pathPart, queryPart] = clean.split('?');
+        const segs = pathPart.split('/').filter(Boolean);
+        let dest = null;
+        if (segs[0] === 'projects') {
+          if (segs[1] === 'pc-ports') {
+            dest = segs[2] ? `/projects/pc-ports/${segs[2]}/` : '/projects/pc-ports/';
+          } else {
+            const p = new URLSearchParams(queryPart || '');
+            if (segs[1]) p.set('category', segs[1]);
+            if (segs[2]) p.set('sub', segs[2]);
+            const qs = p.toString();
+            dest = `/projects/${qs ? '?' + qs : ''}`;
+          }
+        } else if (segs[0] === 'tutorials') {
+          dest = segs.length > 1 ? `/tutorials/${segs.slice(1).join('/')}/` : '/tutorials/';
+        } else if (segs[0] === 'about') {
+          dest = segs[1] ? `/about/${segs[1]}/` : '/about/';
+        }
+        if (dest) window.location.replace(dest);
+      })();
+    </script>
+  </head>
+  <body>
+    <div class="site-backdrop" aria-hidden="true">
+      <div class="backdrop-glow-cyan"></div>
+      <div class="backdrop-glow-violet"></div>
+    </div>
+
+    <Header currentPath={Astro.url.pathname} />
+
+    <main class="site-main">
+      <slot />
+    </main>
+
+    <Footer />
+    <CommandPalette />
+    <DonateModal />
+  </body>
+</html>

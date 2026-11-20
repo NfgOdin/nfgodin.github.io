@@ -1,0 +1,20 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="404 — Page Not Found" description="The requested NFG page could not be found.">
+  <div class="container" style="padding: 5.5rem 1.5rem; text-align: center;">
+    <article class="bio-card" style="max-width: 600px; margin: 0 auto; padding: 3rem 2rem;">
+      <span class="eyebrow crimson" style="margin-bottom: 0.75rem;">HTTP 404 // Route Missing</span>
+      <h1 class="page-title" style="margin-bottom: 0.75rem;">Page Not Found</h1>
+      <p style="margin-bottom: 1.75rem;">
+        That route doesn't exist — or try pressing <kbd class="kbd-badge">Ctrl K</kbd> to jump straight to any PC Port, project, mod, or tutorial.
+      </p>
+      <div style="display:flex;justify-content:center;gap:0.65rem;flex-wrap:wrap;">
+        <a href="/" class="btn btn-primary">Return Home</a>
+        <a href="/projects/pc-ports/" class="btn btn-crimson">PC Ports</a>
+        <a href="/projects/" class="btn btn-secondary">All Projects</a>
+      </div>
+    </article>
+  </div>
+</BaseLayout>

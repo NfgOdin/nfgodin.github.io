@@ -1,0 +1,66 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PortShowcaseCard from '@components/PortShowcaseCard.astro';
+import { pcPorts } from '@data/ports';
+import { extractGitHubSlug, prefetchGitHubMeta } from '@data/github';
+
+const ghMap = await prefetchGitHubMeta(pcPorts.map((p) => p.githubUrl));
+const getMeta = (url?: string) => {
+  const slug = extractGitHubSlug(url);
+  return slug ? ghMap.get(slug.toLowerCase()) ?? null : null;
+};
+---
+
+<BaseLayout
+  title="PC Ports"
+  description="Native Windows static-recompilation PC ports of classic console games engineered by NfgOdin, starting with Shadow Hearts: Nocturne (Shadow Hearts: Covenant)."
+  ogImage="/images/ports/nocturne-banner.jpg"
+>
+  <section class="page-hero">
+    <div class="container">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span class="sep">/</span>
+        <a href="/projects/">Projects</a>
+        <span class="sep">/</span>
+        <span class="current">PC Ports</span>
+      </nav>
+
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;flex-wrap:wrap;">
+        <div>
+          <span class="eyebrow crimson">Projects // Static Recompilation</span>
+          <h1 class="page-title">PC Ports</h1>
+          <p class="page-lead">
+            Classic console games brought natively to modern Windows hardware through ahead-of-time static recompilation, high-resolution Direct3D 12 / Vulkan rendering, and custom engineering suites. Bring your own legally dumped game discs—zero copyrighted assets hosted.
+          </p>
+        </div>
+        <a href="/projects/" class="btn btn-secondary btn-sm">&larr; Back to All Projects</a>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-bottom: 4.5rem;">
+    <div class="container" style="display:flex;flex-direction:column;gap:1.75rem;">
+      {pcPorts.map((port) => (
+        <PortShowcaseCard port={port} ghMeta={getMeta(port.githubUrl)} />
+      ))}
+
+      <!-- Future Ports Roadmap Card -->
+      <div class="bio-card" style="display:flex;align-items:center;justify-content:space-between;gap:1.25rem;flex-wrap:wrap;border-style:dashed;">
+        <div>
+          <span class="eyebrow">Pipeline</span>
+          <h2 style="margin-top:0.35rem;margin-bottom:0.35rem;">More Console-to-PC Ports Ahead</h2>
+          <p style="margin:0;max-width:64ch;">
+            Have a favorite classic RPG or console title you'd love to see statically recompiled for modern PCs? Drop suggestions in the Community Guestbook or follow GitHub for active commits.
+          </p>
+        </div>
+        <div style="display:flex;gap:0.6rem;flex-wrap:wrap;">
+          <a href="https://github.com/NfgOdin" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
+            Follow on GitHub
+          </a>
+          <a href="/#giscus" class="btn btn-ghost btn-sm">Suggest a Port</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
